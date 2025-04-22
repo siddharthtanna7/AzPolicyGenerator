@@ -1,0 +1,1282 @@
+{
+  "templates": [
+    {
+      "name": "Allowed Resource Types",
+      "description": "This policy enables you to specify the resource types that your organization can deploy.",
+      "category": "General",
+      "effect": "Deny",
+      "parameters": [
+        {
+          "name": "allowedResourceTypes",
+          "displayName": "Allowed resource types",
+          "description": "The list of resource types that can be deployed.",
+          "type": "Array",
+          "defaultValue": ["Microsoft.Compute/virtualMachines", "Microsoft.Network/virtualNetworks", "Microsoft.Storage/storageAccounts"],
+          "allowedValues": []
+        },
+        {
+          "name": "effect",
+          "displayName": "Effect",
+          "description": "The effect determines what happens when the policy rule is evaluated to match",
+          "type": "String",
+          "defaultValue": "Deny",
+          "allowedValues": ["Audit", "Deny", "Disabled"]
+        }
+      ],
+      "policyRule": {
+        "if": {
+          "not": {
+            "field": "type",
+            "in": "[parameters('allowedResourceTypes')]"
+          }
+        },
+        "then": {
+          "effect": "[parameters('effect')]"
+        }
+      }
+    },
+    {
+      "name": "Allowed Locations",
+      "description": "This policy enables you to restrict the locations your organization can deploy resources to.",
+      "category": "Location",
+      "effect": "Deny",
+      "parameters": [
+        {
+          "name": "allowedLocations",
+          "displayName": "Allowed locations",
+          "description": "The list of locations that can be specified when deploying resources.",
+          "type": "Array",
+          "defaultValue": ["eastus", "westus", "northeurope", "westeurope"],
+          "allowedValues": []
+        },
+        {
+          "name": "effect",
+          "displayName": "Effect",
+          "description": "The effect determines what happens when the policy rule is evaluated to match",
+          "type": "String",
+          "defaultValue": "Deny",
+          "allowedValues": ["Audit", "Deny", "Disabled"]
+        }
+      ],
+      "policyRule": {
+        "if": {
+          "not": {
+            "field": "location",
+            "in": "[parameters('allowedLocations')]"
+          }
+        },
+        "then": {
+          "effect": "[parameters('effect')]"
+        }
+      }
+    },
+    {
+      "name": "Require Resource Tags",
+      "description": "This policy ensures that all resources have specific tags.",
+      "category": "Tags",
+      "effect": "Deny",
+      "parameters": [
+        {
+          "name": "requiredTags",
+          "displayName": "Required tags",
+          "description": "The list of tags that must be present on resources.",
+          "type": "Array",
+          "defaultValue": ["environment", "owner", "costCenter"],
+          "allowedValues": []
+        },
+        {
+          "name": "effect",
+          "displayName": "Effect",
+          "description": "The effect determines what happens when the policy rule is evaluated to match",
+          "type": "String",
+          "defaultValue": "Deny",
+          "allowedValues": ["Audit", "Deny", "Disabled"]
+        }
+      ],
+      "policyRule": {
+        "if": {
+          "anyOf": [
+            {
+              "allOf": [
+                {
+                  "field": "tags",
+                  "exists": "true"
+                },
+                {
+                  "count": {
+                    "field": "tags",
+                    "where": {
+                      "field": "[concat('tags[', parameters('requiredTags')[*], ']')]",
+                      "exists": "false"
+                    }
+                  },
+                  "greater": 0
+                }
+              ]
+            },
+            {
+              "field": "tags",
+              "exists": "false"
+            }
+          ]
+        },
+        "then": {
+          "effect": "[parameters('effect')]"
+        }
+      }
+    },
+    {
+      "name": "Inherit Resource Group Tags",
+      "description": "This policy adds the specified tag and value from the parent resource group when any resource is created or updated.",
+      "category": "Tags",
+      "effect": "Modify",
+      "parameters": [
+        {
+          "name": "tagName",
+          "displayName": "Tag Name",
+          "description": "Name of the tag to inherit from the resource group",
+          "type": "String",
+          "defaultValue": "environment",
+          "allowedValues": []
+        },
+        {
+          "name": "effect",
+          "displayName": "Effect",
+          "description": "The effect determines what happens when the policy rule is evaluated to match",
+          "type": "String",
+          "defaultValue": "Modify",
+          "allowedValues": ["Modify", "Disabled"]
+        }
+      ],
+      "policyRule": {
+        "if": {
+          "allOf": [
+            {
+              "field": "[concat('tags[', parameters('tagName'), ']')]",
+              "exists": "false"
+            },
+            {
+              "value": "[resourceGroup().tags[parameters('tagName')]]",
+              "exists": "true"
+            }
+          ]
+        },
+        "then": {
+          "effect": "[parameters('effect')]",
+          "details": {
+            "operations": [
+              {
+                "operation": "add",
+                "field": "[concat('tags[', parameters('tagName'), ']')]",
+                "value": "[resourceGroup().tags[parameters('tagName')]]"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "Allowed VM SKUs",
+      "description": "This policy enables you to specify a set of VM SKUs that your organization can deploy.",
+      "category": "Compute",
+      "effect": "Deny",
+      "parameters": [
+        {
+          "name": "allowedVMSKUs",
+          "displayName": "Allowed VM SKUs",
+          "description": "The list of VM SKUs that can be deployed.",
+          "type": "Array",
+          "defaultValue": ["Standard_D2s_v3", "Standard_D4s_v3", "Standard_F2s_v2", "Standard_F4s_v2"],
+          "allowedValues": []
+        },
+        {
+          "name": "effect",
+          "displayName": "Effect",
+          "description": "The effect determines what happens when the policy rule is evaluated to match",
+          "type": "String",
+          "defaultValue": "Deny",
+          "allowedValues": ["Audit", "Deny", "Disabled"]
+        }
+      ],
+      "policyRule": {
+        "if": {
+          "allOf": [
+            {
+              "field": "type",
+              "equals": "Microsoft.Compute/virtualMachines"
+            },
+            {
+              "not": {
+                "field": "Microsoft.Compute/virtualMachines/sku.name",
+                "in": "[parameters('allowedVMSKUs')]"
+              }
+            }
+          ]
+        },
+        "then": {
+          "effect": "[parameters('effect')]"
+        }
+      }
+    },
+    {
+      "name": "Require Trusted Launch for VMs",
+      "description": "This policy requires that all virtual machines use trusted launch security features.",
+      "category": "Compute",
+      "effect": "Deny",
+      "parameters": [
+        {
+          "name": "effect",
+          "displayName": "Effect",
+          "description": "The effect determines what happens when the policy rule is evaluated to match",
+          "type": "String",
+          "defaultValue": "Deny",
+          "allowedValues": ["Audit", "Deny", "Disabled"]
+        }
+      ],
+      "policyRule": {
+        "if": {
+          "allOf": [
+            {
+              "field": "type",
+              "equals": "Microsoft.Compute/virtualMachines"
+            },
+            {
+              "anyOf": [
+                {
+                  "field": "Microsoft.Compute/virtualMachines/securityProfile.securityType",
+                  "exists": "false"
+                },
+                {
+                  "field": "Microsoft.Compute/virtualMachines/securityProfile.securityType",
+                  "notEquals": "TrustedLaunch"
+                }
+              ]
+            }
+          ]
+        },
+        "then": {
+          "effect": "[parameters('effect')]"
+        }
+      }
+    },
+    {
+      "name": "Allowed Storage Account SKUs",
+      "description": "This policy enables you to specify a set of storage account SKUs that your organization can deploy.",
+      "category": "Storage",
+      "effect": "Deny",
+      "parameters": [
+        {
+          "name": "allowedSKUs",
+          "displayName": "Allowed Storage SKUs",
+          "description": "The list of storage account SKUs that can be deployed.",
+          "type": "Array",
+          "defaultValue": ["Standard_LRS", "Standard_GRS", "Standard_RAGRS", "Standard_ZRS", "Premium_LRS", "Premium_ZRS"],
+          "allowedValues": []
+        },
+        {
+          "name": "effect",
+          "displayName": "Effect",
+          "description": "The effect determines what happens when the policy rule is evaluated to match",
+          "type": "String",
+          "defaultValue": "Deny",
+          "allowedValues": ["Audit", "Deny", "Disabled"]
+        }
+      ],
+      "policyRule": {
+        "if": {
+          "allOf": [
+            {
+              "field": "type",
+              "equals": "Microsoft.Storage/storageAccounts"
+            },
+            {
+              "not": {
+                "field": "Microsoft.Storage/storageAccounts/sku.name",
+                "in": "[parameters('allowedSKUs')]"
+              }
+            }
+          ]
+        },
+        "then": {
+          "effect": "[parameters('effect')]"
+        }
+      }
+    },
+    {
+      "name": "Enforce HTTPS for Storage Accounts",
+      "description": "This policy ensures that secure transfer is enabled for storage accounts.",
+      "category": "Storage",
+      "effect": "Deny",
+      "parameters": [
+        {
+          "name": "effect",
+          "displayName": "Effect",
+          "description": "The effect determines what happens when the policy rule is evaluated to match",
+          "type": "String",
+          "defaultValue": "Deny",
+          "allowedValues": ["Audit", "Deny", "Disabled"]
+        }
+      ],
+      "policyRule": {
+        "if": {
+          "allOf": [
+            {
+              "field": "type",
+              "equals": "Microsoft.Storage/storageAccounts"
+            },
+            {
+              "field": "Microsoft.Storage/storageAccounts/supportsHttpsTrafficOnly",
+              "equals": "false"
+            }
+          ]
+        },
+        "then": {
+          "effect": "[parameters('effect')]"
+        }
+      }
+    },
+    {
+      "name": "Storage Accounts Should Restrict Network Access",
+      "description": "This policy ensures that storage accounts restrict network access by having their default network action set to Deny.",
+      "category": "Storage",
+      "effect": "Deny",
+      "parameters": [
+        {
+          "name": "effect",
+          "displayName": "Effect",
+          "description": "The effect determines what happens when the policy rule is evaluated to match",
+          "type": "String",
+          "defaultValue": "Deny",
+          "allowedValues": ["Audit", "Deny", "Disabled"]
+        }
+      ],
+      "policyRule": {
+        "if": {
+          "allOf": [
+            {
+              "field": "type",
+              "equals": "Microsoft.Storage/storageAccounts"
+            },
+            {
+              "anyOf": [
+                {
+                  "field": "Microsoft.Storage/storageAccounts/networkAcls.defaultAction",
+                  "exists": "false"
+                },
+                {
+                  "field": "Microsoft.Storage/storageAccounts/networkAcls.defaultAction",
+                  "notEquals": "Deny"
+                }
+              ]
+            }
+          ]
+        },
+        "then": {
+          "effect": "[parameters('effect')]"
+        }
+      }
+    },
+    {
+      "name": "Enforce SSL/TLS Version for SQL Servers",
+      "description": "This policy ensures that a minimum TLS version is used for SQL server connections.",
+      "category": "SQL",
+      "effect": "Deny",
+      "parameters": [
+        {
+          "name": "minimalTlsVersion",
+          "displayName": "Minimal TLS Version",
+          "description": "The minimal TLS version for SQL Servers",
+          "type": "String",
+          "defaultValue": "1.2",
+          "allowedValues": ["1.0", "1.1", "1.2"]
+        },
+        {
+          "name": "effect",
+          "displayName": "Effect",
+          "description": "The effect determines what happens when the policy rule is evaluated to match",
+          "type": "String",
+          "defaultValue": "Deny",
+          "allowedValues": ["Audit", "Deny", "Disabled"]
+        }
+      ],
+      "policyRule": {
+        "if": {
+          "allOf": [
+            {
+              "field": "type",
+              "equals": "Microsoft.Sql/servers"
+            },
+            {
+              "anyOf": [
+                {
+                  "field": "Microsoft.Sql/servers/minimalTlsVersion",
+                  "exists": "false"
+                },
+                {
+                  "field": "Microsoft.Sql/servers/minimalTlsVersion",
+                  "notEquals": "[parameters('minimalTlsVersion')]"
+                }
+              ]
+            }
+          ]
+        },
+        "then": {
+          "effect": "[parameters('effect')]"
+        }
+      }
+    },
+    {
+      "name": "SQL Server Advanced Data Security Should Be Enabled",
+      "description": "This policy ensures that SQL servers have Advanced Data Security enabled.",
+      "category": "SQL",
+      "effect": "AuditIfNotExists",
+      "parameters": [
+        {
+          "name": "effect",
+          "displayName": "Effect",
+          "description": "The effect determines what happens when the policy rule is evaluated to match",
+          "type": "String",
+          "defaultValue": "AuditIfNotExists",
+          "allowedValues": ["AuditIfNotExists", "Disabled"]
+        }
+      ],
+      "policyRule": {
+        "if": {
+          "field": "type",
+          "equals": "Microsoft.Sql/servers"
+        },
+        "then": {
+          "effect": "[parameters('effect')]",
+          "details": {
+            "type": "Microsoft.Sql/servers/securityAlertPolicies",
+            "name": "Default",
+            "existenceCondition": {
+              "field": "Microsoft.Sql/servers/securityAlertPolicies/state",
+              "equals": "Enabled"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Require Network Security Groups on Subnets",
+      "description": "This policy ensures that all subnets have a network security group associated.",
+      "category": "Networking",
+      "effect": "Deny",
+      "parameters": [
+        {
+          "name": "effect",
+          "displayName": "Effect",
+          "description": "The effect determines what happens when the policy rule is evaluated to match",
+          "type": "String",
+          "defaultValue": "Deny",
+          "allowedValues": ["Audit", "Deny", "Disabled"]
+        }
+      ],
+      "policyRule": {
+        "if": {
+          "allOf": [
+            {
+              "field": "type",
+              "equals": "Microsoft.Network/virtualNetworks/subnets"
+            },
+            {
+              "field": "Microsoft.Network/virtualNetworks/subnets/networkSecurityGroup.id",
+              "exists": "false"
+            }
+          ]
+        },
+        "then": {
+          "effect": "[parameters('effect')]"
+        }
+      }
+    },
+    {
+      "name": "Restrict Internet-Facing Endpoints",
+      "description": "This policy ensures that internet-facing endpoints are restricted by network security groups.",
+      "category": "Networking",
+      "effect": "Deny",
+      "parameters": [
+        {
+          "name": "effect",
+          "displayName": "Effect",
+          "description": "The effect determines what happens when the policy rule is evaluated to match",
+          "type": "String",
+          "defaultValue": "Deny",
+          "allowedValues": ["Audit", "Deny", "Disabled"]
+        }
+      ],
+      "policyRule": {
+        "if": {
+          "allOf": [
+            {
+              "field": "type",
+              "equals": "Microsoft.Network/networkSecurityGroups/securityRules"
+            },
+            {
+              "allOf": [
+                {
+                  "field": "Microsoft.Network/networkSecurityGroups/securityRules/access",
+                  "equals": "Allow"
+                },
+                {
+                  "field": "Microsoft.Network/networkSecurityGroups/securityRules/direction",
+                  "equals": "Inbound"
+                },
+                {
+                  "anyOf": [
+                    {
+                      "field": "Microsoft.Network/networkSecurityGroups/securityRules/sourceAddressPrefix",
+                      "equals": "*"
+                    },
+                    {
+                      "field": "Microsoft.Network/networkSecurityGroups/securityRules/sourceAddressPrefix",
+                      "equals": "Internet"
+                    }
+                  ]
+                },
+                {
+                  "anyOf": [
+                    {
+                      "field": "Microsoft.Network/networkSecurityGroups/securityRules/destinationPortRange",
+                      "equals": "*"
+                    },
+                    {
+                      "field": "Microsoft.Network/networkSecurityGroups/securityRules/destinationPortRange",
+                      "equals": "3389"
+                    },
+                    {
+                      "field": "Microsoft.Network/networkSecurityGroups/securityRules/destinationPortRange",
+                      "equals": "22"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "then": {
+          "effect": "[parameters('effect')]"
+        }
+      }
+    },
+    {
+      "name": "Audit VM Vulnerability Assessment",
+      "description": "This policy audits VMs that do not have vulnerability assessment installed.",
+      "category": "Security",
+      "effect": "AuditIfNotExists",
+      "parameters": [
+        {
+          "name": "effect",
+          "displayName": "Effect",
+          "description": "The effect determines what happens when the policy rule is evaluated to match",
+          "type": "String",
+          "defaultValue": "AuditIfNotExists",
+          "allowedValues": ["AuditIfNotExists", "Disabled"]
+        }
+      ],
+      "policyRule": {
+        "if": {
+          "field": "type",
+          "equals": "Microsoft.Compute/virtualMachines"
+        },
+        "then": {
+          "effect": "[parameters('effect')]",
+          "details": {
+            "type": "Microsoft.Security/assessments",
+            "existenceCondition": {
+              "field": "Microsoft.Security/assessments/status.code",
+              "equals": "Healthy"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Key Vault Should Have Soft Delete Enabled",
+      "description": "This policy ensures that Key Vaults have soft delete enabled to protect against accidental deletion.",
+      "category": "Security",
+      "effect": "Deny",
+      "parameters": [
+        {
+          "name": "effect",
+          "displayName": "Effect",
+          "description": "The effect determines what happens when the policy rule is evaluated to match",
+          "type": "String",
+          "defaultValue": "Deny",
+          "allowedValues": ["Audit", "Deny", "Disabled"]
+        }
+      ],
+      "policyRule": {
+        "if": {
+          "allOf": [
+            {
+              "field": "type",
+              "equals": "Microsoft.KeyVault/vaults"
+            },
+            {
+              "anyOf": [
+                {
+                  "field": "Microsoft.KeyVault/vaults/enableSoftDelete",
+                  "exists": "false"
+                },
+                {
+                  "field": "Microsoft.KeyVault/vaults/enableSoftDelete",
+                  "equals": "false"
+                }
+              ]
+            }
+          ]
+        },
+        "then": {
+          "effect": "[parameters('effect')]"
+        }
+      }
+    },
+    {
+      "name": "App Service Web Apps Should Use HTTPS Only",
+      "description": "This policy ensures that web apps only allow HTTPS traffic.",
+      "category": "App Service",
+      "effect": "Deny",
+      "parameters": [
+        {
+          "name": "effect",
+          "displayName": "Effect",
+          "description": "The effect determines what happens when the policy rule is evaluated to match",
+          "type": "String",
+          "defaultValue": "Deny",
+          "allowedValues": ["Audit", "Deny", "Disabled"]
+        }
+      ],
+      "policyRule": {
+        "if": {
+          "allOf": [
+            {
+              "field": "type",
+              "equals": "Microsoft.Web/sites"
+            },
+            {
+              "field": "Microsoft.Web/sites/httpsOnly",
+              "equals": "false"
+            }
+          ]
+        },
+        "then": {
+          "effect": "[parameters('effect')]"
+        }
+      }
+    },
+    {
+      "name": "App Service Apps Should Use Latest TLS Version",
+      "description": "This policy ensures that App Service apps use the latest TLS version.",
+      "category": "App Service",
+      "effect": "Deny",
+      "parameters": [
+        {
+          "name": "minTLSVersion",
+          "displayName": "Minimum TLS Version",
+          "description": "The minimum TLS version that should be enabled",
+          "type": "String",
+          "defaultValue": "1.2",
+          "allowedValues": ["1.0", "1.1", "1.2"]
+        },
+        {
+          "name": "effect",
+          "displayName": "Effect",
+          "description": "The effect determines what happens when the policy rule is evaluated to match",
+          "type": "String",
+          "defaultValue": "Deny",
+          "allowedValues": ["Audit", "Deny", "Disabled"]
+        }
+      ],
+      "policyRule": {
+        "if": {
+          "allOf": [
+            {
+              "field": "type",
+              "equals": "Microsoft.Web/sites"
+            },
+            {
+              "anyOf": [
+                {
+                  "field": "Microsoft.Web/sites/siteConfig.minTlsVersion",
+                  "exists": "false"
+                },
+                {
+                  "field": "Microsoft.Web/sites/siteConfig.minTlsVersion",
+                  "less": "[parameters('minTLSVersion')]"
+                }
+              ]
+            }
+          ]
+        },
+        "then": {
+          "effect": "[parameters('effect')]"
+        }
+      }
+    },
+    {
+      "name": "Deploy Diagnostic Settings for Key Vault",
+      "description": "This policy deploys diagnostic settings for Key Vaults to a Log Analytics workspace.",
+      "category": "Monitoring",
+      "effect": "DeployIfNotExists",
+      "parameters": [
+        {
+          "name": "logAnalytics",
+          "displayName": "Log Analytics workspace",
+          "description": "The Log Analytics workspace for diagnostic logs",
+          "type": "String",
+          "defaultValue": "",
+          "allowedValues": []
+        },
+        {
+          "name": "effect",
+          "displayName": "Effect",
+          "description": "The effect determines what happens when the policy rule is evaluated to match",
+          "type": "String",
+          "defaultValue": "DeployIfNotExists",
+          "allowedValues": ["DeployIfNotExists", "Disabled"]
+        }
+      ],
+      "policyRule": {
+        "if": {
+          "field": "type",
+          "equals": "Microsoft.KeyVault/vaults"
+        },
+        "then": {
+          "effect": "[parameters('effect')]",
+          "details": {
+            "type": "Microsoft.Insights/diagnosticSettings",
+            "existenceCondition": {
+              "field": "Microsoft.Insights/diagnosticSettings/workspaceId",
+              "equals": "[parameters('logAnalytics')]"
+            },
+            "roleDefinitionIds": [
+              "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+            ],
+            "deployment": {
+              "properties": {
+                "mode": "incremental",
+                "template": {
+                  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+                  "contentVersion": "1.0.0.0",
+                  "parameters": {
+                    "resourceName": {
+                      "type": "string"
+                    },
+                    "logAnalytics": {
+                      "type": "string"
+                    },
+                    "location": {
+                      "type": "string"
+                    }
+                  },
+                  "resources": [
+                    {
+                      "type": "Microsoft.KeyVault/vaults/providers/diagnosticSettings",
+                      "apiVersion": "2017-05-01-preview",
+                      "name": "[concat(parameters('resourceName'), '/Microsoft.Insights/default')]",
+                      "properties": {
+                        "workspaceId": "[parameters('logAnalytics')]",
+                        "logs": [
+                          {
+                            "category": "AuditEvent",
+                            "enabled": true
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                "parameters": {
+                  "resourceName": {
+                    "value": "[field('name')]"
+                  },
+                  "logAnalytics": {
+                    "value": "[parameters('logAnalytics')]"
+                  },
+                  "location": {
+                    "value": "[field('location')]"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Deploy Activity Log to Log Analytics Workspace",
+      "description": "This policy deploys a diagnostic setting for Activity Log to the specified Log Analytics workspace.",
+      "category": "Monitoring",
+      "effect": "DeployIfNotExists",
+      "parameters": [
+        {
+          "name": "logAnalytics",
+          "displayName": "Log Analytics workspace",
+          "description": "The Log Analytics workspace for activity logs",
+          "type": "String",
+          "defaultValue": "",
+          "allowedValues": []
+        },
+        {
+          "name": "effect",
+          "displayName": "Effect",
+          "description": "The effect determines what happens when the policy rule is evaluated to match",
+          "type": "String",
+          "defaultValue": "DeployIfNotExists",
+          "allowedValues": ["DeployIfNotExists", "Disabled"]
+        }
+      ],
+      "policyRule": {
+        "if": {
+          "field": "type",
+          "equals": "Microsoft.Resources/subscriptions"
+        },
+        "then": {
+          "effect": "[parameters('effect')]",
+          "details": {
+            "type": "Microsoft.Insights/diagnosticSettings",
+            "deploymentScope": "subscription",
+            "existenceScope": "subscription",
+            "existenceCondition": {
+              "allOf": [
+                {
+                  "field": "Microsoft.Insights/diagnosticSettings/logs.enabled",
+                  "equals": "true"
+                },
+                {
+                  "field": "Microsoft.Insights/diagnosticSettings/workspaceId",
+                  "equals": "[parameters('logAnalytics')]"
+                }
+              ]
+            },
+            "roleDefinitionIds": [
+              "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+            ],
+            "deployment": {
+              "location": "westus2",
+              "properties": {
+                "mode": "incremental",
+                "template": {
+                  "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+                  "contentVersion": "1.0.0.0",
+                  "parameters": {
+                    "logAnalytics": {
+                      "type": "string"
+                    }
+                  },
+                  "resources": [
+                    {
+                      "type": "Microsoft.Insights/diagnosticSettings",
+                      "apiVersion": "2017-05-01-preview",
+                      "name": "send-activity-log-to-log-analytics",
+                      "properties": {
+                        "workspaceId": "[parameters('logAnalytics')]",
+                        "logs": [
+                          {
+                            "category": "Administrative",
+                            "enabled": true
+                          },
+                          {
+                            "category": "Security",
+                            "enabled": true
+                          },
+                          {
+                            "category": "ServiceHealth",
+                            "enabled": true
+                          },
+                          {
+                            "category": "Alert",
+                            "enabled": true
+                          },
+                          {
+                            "category": "Recommendation",
+                            "enabled": true
+                          },
+                          {
+                            "category": "Policy",
+                            "enabled": true
+                          },
+                          {
+                            "category": "Autoscale",
+                            "enabled": true
+                          },
+                          {
+                            "category": "ResourceHealth",
+                            "enabled": true
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                "parameters": {
+                  "logAnalytics": {
+                    "value": "[parameters('logAnalytics')]"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Azure Backup Should Be Enabled For VMs",
+      "description": "This policy audits VMs that do not have Azure Backup enabled.",
+      "category": "Backup",
+      "effect": "AuditIfNotExists",
+      "parameters": [
+        {
+          "name": "effect",
+          "displayName": "Effect",
+          "description": "The effect determines what happens when the policy rule is evaluated to match",
+          "type": "String",
+          "defaultValue": "AuditIfNotExists",
+          "allowedValues": ["AuditIfNotExists", "Disabled"]
+        }
+      ],
+      "policyRule": {
+        "if": {
+          "field": "type",
+          "equals": "Microsoft.Compute/virtualMachines"
+        },
+        "then": {
+          "effect": "[parameters('effect')]",
+          "details": {
+            "type": "Microsoft.RecoveryServices/backupprotecteditems",
+            "existenceScope": "subscription"
+          }
+        }
+      }
+    },
+    {
+      "name": "Ensure Geo-Redundant Backup for Azure Database for MySQL",
+      "description": "This policy ensures geo-redundant backup is enabled for Azure Database for MySQL servers.",
+      "category": "Backup",
+      "effect": "Deny",
+      "parameters": [
+        {
+          "name": "effect",
+          "displayName": "Effect",
+          "description": "The effect determines what happens when the policy rule is evaluated to match",
+          "type": "String",
+          "defaultValue": "Deny",
+          "allowedValues": ["Audit", "Deny", "Disabled"]
+        }
+      ],
+      "policyRule": {
+        "if": {
+          "allOf": [
+            {
+              "field": "type",
+              "equals": "Microsoft.DBforMySQL/servers"
+            },
+            {
+              "field": "Microsoft.DBforMySQL/servers/storageProfile.geoRedundantBackup",
+              "notEquals": "Enabled"
+            }
+          ]
+        },
+        "then": {
+          "effect": "[parameters('effect')]"
+        }
+      }
+    },
+    {
+      "name": "API Management Services Should Use Virtual Networks",
+      "description": "This policy ensures that API Management services are configured to use virtual networks for enhanced security.",
+      "category": "API Management",
+      "effect": "Deny",
+      "parameters": [
+        {
+          "name": "effect",
+          "displayName": "Effect",
+          "description": "The effect determines what happens when the policy rule is evaluated to match",
+          "type": "String",
+          "defaultValue": "Deny",
+          "allowedValues": ["Audit", "Deny", "Disabled"]
+        }
+      ],
+      "policyRule": {
+        "if": {
+          "allOf": [
+            {
+              "field": "type",
+              "equals": "Microsoft.ApiManagement/service"
+            },
+            {
+              "field": "Microsoft.ApiManagement/service/virtualNetworkType",
+              "notEquals": "External"
+            }
+          ]
+        },
+        "then": {
+          "effect": "[parameters('effect')]"
+        }
+      }
+    },
+    {
+      "name": "Allowed Container Registry SKUs",
+      "description": "This policy restricts which SKUs can be used for Container Registries.",
+      "category": "Container",
+      "effect": "Deny",
+      "parameters": [
+        {
+          "name": "allowedSKUs",
+          "displayName": "Allowed SKUs",
+          "description": "The list of SKUs that can be specified for Container Registries.",
+          "type": "Array",
+          "defaultValue": ["Premium", "Standard"],
+          "allowedValues": ["Basic", "Standard", "Premium"]
+        },
+        {
+          "name": "effect",
+          "displayName": "Effect",
+          "description": "The effect determines what happens when the policy rule is evaluated to match",
+          "type": "String",
+          "defaultValue": "Deny",
+          "allowedValues": ["Audit", "Deny", "Disabled"]
+        }
+      ],
+      "policyRule": {
+        "if": {
+          "allOf": [
+            {
+              "field": "type",
+              "equals": "Microsoft.ContainerRegistry/registries"
+            },
+            {
+              "not": {
+                "field": "Microsoft.ContainerRegistry/registries/sku.name",
+                "in": "[parameters('allowedSKUs')]"
+              }
+            }
+          ]
+        },
+        "then": {
+          "effect": "[parameters('effect')]"
+        }
+      }
+    },
+    {
+      "name": "Container Registry Should Use Private Link",
+      "description": "This policy ensures Azure Container Registry uses private link for enhanced security.",
+      "category": "Container",
+      "effect": "Audit",
+      "parameters": [
+        {
+          "name": "effect",
+          "displayName": "Effect",
+          "description": "The effect determines what happens when the policy rule is evaluated to match",
+          "type": "String",
+          "defaultValue": "Audit",
+          "allowedValues": ["Audit", "Disabled"]
+        }
+      ],
+      "policyRule": {
+        "if": {
+          "allOf": [
+            {
+              "field": "type",
+              "equals": "Microsoft.ContainerRegistry/registries"
+            },
+            {
+              "field": "Microsoft.ContainerRegistry/registries/privateEndpointConnections[*].privateLinkServiceConnectionState.status",
+              "notEquals": "Approved"
+            }
+          ]
+        },
+        "then": {
+          "effect": "[parameters('effect')]"
+        }
+      }
+    },
+    {
+      "name": "Resource Lock Should Exist",
+      "description": "This policy audits whether resource locks exist on specific resource types to prevent accidental deletion.",
+      "category": "General",
+      "effect": "AuditIfNotExists",
+      "parameters": [
+        {
+          "name": "resourceTypes",
+          "displayName": "Resource Types",
+          "description": "Array of resource types that should have resource locks.",
+          "type": "Array",
+          "defaultValue": [
+            "Microsoft.KeyVault/vaults",
+            "Microsoft.Network/virtualNetworks",
+            "Microsoft.Storage/storageAccounts"
+          ],
+          "allowedValues": []
+        },
+        {
+          "name": "effect",
+          "displayName": "Effect",
+          "description": "The effect determines what happens when the policy rule is evaluated to match",
+          "type": "String",
+          "defaultValue": "AuditIfNotExists",
+          "allowedValues": ["AuditIfNotExists", "Disabled"]
+        }
+      ],
+      "policyRule": {
+        "if": {
+          "field": "type",
+          "in": "[parameters('resourceTypes')]"
+        },
+        "then": {
+          "effect": "[parameters('effect')]",
+          "details": {
+            "type": "Microsoft.Authorization/locks",
+            "existenceCondition": {
+              "field": "Microsoft.Authorization/locks/level",
+              "equals": "CanNotDelete"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Enforce Resource Naming Convention",
+      "description": "This policy enforces a naming convention for resources based on type prefixes and standardized naming patterns.",
+      "category": "General",
+      "effect": "Deny",
+      "parameters": [
+        {
+          "name": "resourceTypePrefixes",
+          "displayName": "Resource Type Prefixes",
+          "description": "The mapping of resource types to required prefixes, e.g., {\"Microsoft.Compute/virtualMachines\":\"vm\"}",
+          "type": "Object",
+          "defaultValue": {
+            "Microsoft.Compute/virtualMachines": "vm",
+            "Microsoft.Storage/storageAccounts": "st",
+            "Microsoft.Network/virtualNetworks": "vnet",
+            "Microsoft.KeyVault/vaults": "kv"
+          },
+          "allowedValues": []
+        },
+        {
+          "name": "effect",
+          "displayName": "Effect",
+          "description": "The effect determines what happens when the policy rule is evaluated to match",
+          "type": "String",
+          "defaultValue": "Deny",
+          "allowedValues": ["Audit", "Deny", "Disabled"]
+        }
+      ],
+      "policyRule": {
+        "if": {
+          "allOf": [
+            {
+              "field": "type",
+              "in": "[parameters('resourceTypePrefixes')[*]]"
+            },
+            {
+              "value": "[startsWith(field('name'), concat(parameters('resourceTypePrefixes')[field('type')], '-'))]",
+              "equals": false
+            }
+          ]
+        },
+        "then": {
+          "effect": "[parameters('effect')]"
+        }
+      }
+    },
+    {
+      "name": "Cosmos DB Accounts Should Have Local Authentication Disabled",
+      "description": "This policy ensures that Cosmos DB accounts have local authentication disabled to enforce Azure AD authentication.",
+      "category": "CosmosDB",
+      "effect": "Deny",
+      "parameters": [
+        {
+          "name": "effect",
+          "displayName": "Effect",
+          "description": "The effect determines what happens when the policy rule is evaluated to match",
+          "type": "String",
+          "defaultValue": "Deny",
+          "allowedValues": ["Audit", "Deny", "Disabled"]
+        }
+      ],
+      "policyRule": {
+        "if": {
+          "allOf": [
+            {
+              "field": "type",
+              "equals": "Microsoft.DocumentDB/databaseAccounts"
+            },
+            {
+              "field": "Microsoft.DocumentDB/databaseAccounts/disableLocalAuth",
+              "notEquals": true
+            }
+          ]
+        },
+        "then": {
+          "effect": "[parameters('effect')]"
+        }
+      }
+    }
+  ],
+  "categories": [
+    {
+      "name": "General",
+      "description": "General-purpose policies that apply to all resource types"
+    },
+    {
+      "name": "Compute",
+      "description": "Policies related to virtual machines, virtual machine scale sets, and other compute resources"
+    },
+    {
+      "name": "Storage",
+      "description": "Policies related to storage accounts, blobs, and other storage resources"
+    },
+    {
+      "name": "Networking",
+      "description": "Policies related to virtual networks, network security groups, and other networking resources"
+    },
+    {
+      "name": "Security",
+      "description": "Policies focused on security controls and configurations"
+    },
+    {
+      "name": "Identity",
+      "description": "Policies related to Azure AD, managed identities, and authentication"
+    },
+    {
+      "name": "Monitoring",
+      "description": "Policies related to diagnostics settings, logs, and monitoring configurations"
+    },
+    {
+      "name": "Backup",
+      "description": "Policies related to backup and disaster recovery"
+    },
+    {
+      "name": "SQL",
+      "description": "Policies specific to SQL databases and servers"
+    },
+    {
+      "name": "Tags",
+      "description": "Policies related to resource tagging and organization"
+    },
+    {
+      "name": "Location",
+      "description": "Policies that control where resources can be deployed"
+    },
+    {
+      "name": "Container",
+      "description": "Policies related to container registries, AKS, and other container services"
+    },
+    {
+      "name": "App Service",
+      "description": "Policies related to App Service, Functions, and web applications"
+    },
+    {
+      "name": "API Management",
+      "description": "Policies specific to API Management services"
+    },
+    {
+      "name": "CosmosDB",
+      "description": "Policies specific to Cosmos DB resources"
+    }
+  ]
+}

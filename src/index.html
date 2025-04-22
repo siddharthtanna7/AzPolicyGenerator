@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azure Policy Generator</title>
+    <meta name="description" content="Generate Azure Policies with an intuitive UI. Create, validate, and export Azure Policies for governance and compliance.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%230078d4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='9 11 12 14 22 4'%3E%3C/polyline%3E%3Cpath d='M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11'%3E%3C/path%3E%3C/svg%3E" type="image/svg+xml">
+</head>
+<body>
+    <div class="scroll-shadow"></div>
+    <header>
+        <h1>Azure Policy Generator</h1>
+    </header>
+    
+    <main>
+        <div class="container" id="policy-mode-container">
+            <div class="policy-builder">
+                <h2>Policy Builder</h2>
+                
+                <!-- Tabs Navigation -->
+                <div class="tabs">
+                    <button class="tab-button active" data-tab="basic-info">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg>
+                        Basic Info
+                    </button>
+                    <button class="tab-button" data-tab="parameters">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path>
+                        </svg>
+                        Parameters
+                    </button>
+                    <button class="tab-button" data-tab="conditions">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                        </svg>
+                        Conditions
+                    </button>
+                    <button class="tab-button" data-tab="templates">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                            <polyline points="10 9 9 9 8 9"></polyline>
+                        </svg>
+                        Templates
+                    </button>
+                </div>
+                
+                <!-- Basic Information Tab -->
+                <div class="tab-content active" id="basic-info-tab">
+                    <section class="builder-section">
+                        <h3>Basic Information</h3>
+                        <div class="form-group">
+                            <label for="policy-name">Policy Name:</label>
+                            <input type="text" id="policy-name" placeholder="Enter policy name">
+                        </div>
+                        <div class="form-group">
+                            <label for="policy-description">Description:</label>
+                            <textarea id="policy-description" placeholder="Enter policy description"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="policy-mode">Mode:</label>
+                            <select id="policy-mode">
+                                <option value="Indexed">Indexed</option>
+                                <option value="All">All</option>
+                            </select>
+                            <small class="help-text">Indexed mode applies to most resource types. All mode includes resources that aren't indexed.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="policy-effect">Effect:</label>
+                            <select id="policy-effect">
+                                <!-- Will be populated from policyEffects.json -->
+                            </select>
+                            <small id="effect-description" class="help-text"></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="metadata-category">Metadata Category:</label>
+                            <input type="text" id="metadata-category" placeholder="e.g. Security, Compute, Storage">
+                            <small class="help-text">Category for organizing policies in the Azure portal</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="policy-version">Version:</label>
+                            <input type="text" id="policy-version" placeholder="e.g. 1.0.0" value="1.0.0">
+                            <small class="help-text">Semantic version of this policy definition</small>
+                        </div>
+                    </section>
+                </div>
+                
+                <!-- Parameters Tab -->
+                <div class="tab-content" id="parameters-tab">
+                    <section class="builder-section">
+                        <h3>Parameters</h3>
+                        <div class="info-box">
+                            <p>Parameters allow policies to be reused with different values at assignment time.</p>
+                        </div>
+                        <button id="add-parameter" class="primary-button">Add Parameter</button>
+                        <div id="parameters-container"></div>
+                    </section>
+                </div>
+                
+                <!-- Conditions Tab -->
+                <div class="tab-content" id="conditions-tab">
+                    <section class="builder-section">
+                        <h3>Condition Builder</h3>
+                        <div class="info-box">
+                            <p>Define conditions for when this policy should apply.</p>
+                            <ol>
+                                <li>Select a resource type (or global properties)</li>
+                                <li>Choose a specific property</li>
+                                <li>Select an operator</li>
+                                <li>Set a value (dropdown options will appear where available)</li>
+                                <li>Use groups to create complex nested conditions</li>
+                            </ol>
+                        </div>
+                        
+                        <div class="logic-operators">
+                            <label>Logical Operator:</label>
+                            <div class="radio-group">
+                                <label class="radio-label">
+                                    <input type="radio" name="logic-operator" value="allOf" checked>
+                                    <span>All of (AND)</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="logic-operator" value="anyOf">
+                                    <span>Any of (OR)</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div id="condition-builder">
+                            <!-- Will be populated dynamically by JavaScript -->
+                        </div>
+                        
+                        <div class="condition-controls">
+                            <button id="add-condition">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                                </svg>
+                                Add Condition
+                            </button>
+                            <button id="add-condition-group">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                                </svg>
+                                Add Group
+                            </button>
+                            <button id="visualize-conditions">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                                </svg>
+                                Visualize
+                            </button>
+                        </div>
+                        
+                        <div id="condition-visualizer" class="policy-visualizer hidden">
+                            <h4>Condition Visualization</h4>
+                            <div class="visualizer-content">
+                                <!-- Will be populated by the visualization logic -->
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                
+                <!-- Templates Tab -->
+                <div class="tab-content" id="templates-tab">
+                    <section class="builder-section">
+                        <h3>Policy Templates</h3>
+                        <div class="info-box">
+                            <p>Choose a policy template to get started quickly. Templates provide common policy configurations for different scenarios.</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="template-category">Filter by Category:</label>
+                            <select id="template-category">
+                                <option value="">All Categories</option>
+                                <!-- Will be populated from policyTemplates.json -->
+                            </select>
+                        </div>
+                        <div id="templates-container">
+                            <!-- Will be populated dynamically by JavaScript -->
+                        </div>
+                    </section>
+                </div>
+                
+            </div>
+            
+            <div class="policy-preview">
+                <h2>Policy Preview</h2>
+                <div class="buttons-row">
+                    <button id="generate-policy" class="primary-button button-with-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="22 12 18 8 14 12"></polyline>
+                            <path d="M18 8v6.4a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V8"></path>
+                            <path d="M12 17v5"></path>
+                            <path d="M5 10H2a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h20a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1h-3"></path>
+                        </svg>
+                        Generate Policy
+                    </button>
+                    <button id="copy-policy" class="button-with-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                        Copy
+                    </button>
+                    <button id="download-policy" class="button-with-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        Download
+                    </button>
+                </div>
+                <div class="sample-policy">
+                    <a href="../public/sample-policy.json" id="load-sample">Load Sample Policy</a>
+                </div>
+                <div class="code-container">
+                    <div class="code-actions">
+                        <button class="code-action-button" id="format-json" title="Format JSON">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 10H3"></path>
+                                <path d="M21 6H3"></path>
+                                <path d="M21 14H3"></path>
+                                <path d="M21 18H3"></path>
+                            </svg>
+                        </button>
+                        <button class="code-action-button" id="fullscreen-preview" title="Fullscreen">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <pre id="policy-json" class="code-preview active">{
+    // Policy JSON will appear here
+}</pre>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Modal for adding existing policies to an initiative -->
+    <div id="policy-search-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add Existing Policy</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="search-box">
+                    <input type="text" id="policy-search" placeholder="Search for policies...">
+                    <button id="search-policies" class="secondary-button">Search</button>
+                </div>
+                <div id="policy-search-results">
+                    <!-- Will be populated dynamically -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="add-selected-policies" class="primary-button">Add Selected</button>
+                <button class="close-modal secondary-button">Cancel</button>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>Azure Policy Generator | <a href="https://github.com/siddharthtanna7/AzPolicyGenerator" target="_blank">GitHub</a> | Created by <a href="https://github.com/siddharthtanna7" target="_blank">Siddharth Tanna</a> and <a href="https://github.com/AnwarAyoob" target="_blank">Anwar Ayoob</a></p>
+    </footer>
+    
+    <!-- Toast Container -->
+    <div class="toast-container"></div>
+
+    <!-- Primary script files -->
+    <script src="utils/policyGenerator.js"></script>
+    <script src="utils/policyImporter.js"></script>
+    <script src="utils/policyValidator.js"></script>
+    <script src="utils/initiativeGenerator.js"></script>
+    <script src="utils/initiativeImporter.js"></script>
+    <script src="utils/formatConverter.js"></script>
+    
+    <!-- Component script files -->
+    <script src="components/parameterBuilder.js"></script>
+    <script src="components/conditionBuilder.js"></script>
+    <script src="components/templateSelector.js"></script>
+    <script src="components/initiativeBuilder.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

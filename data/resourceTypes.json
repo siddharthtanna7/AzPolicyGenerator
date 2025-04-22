@@ -1,0 +1,1278 @@
+{
+  "resourceTypes": [
+    {
+      "name": "Microsoft.OperationalInsights/workspaces",
+      "description": "Log Analytics Workspaces",
+      "properties": [
+        { "field": "Microsoft.OperationalInsights/workspaces/sku.name", "displayName": "SKU Name", "values": ["PerGB2018", "Standard", "Premium", "LACluster", "CapacityReservation", "Free", "Standalone", "PerNode"] },
+        { "field": "Microsoft.OperationalInsights/workspaces/retentionInDays", "displayName": "Retention In Days" },
+        { "field": "Microsoft.OperationalInsights/workspaces/publicNetworkAccessForIngestion", "displayName": "Public Network Access For Ingestion", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.OperationalInsights/workspaces/publicNetworkAccessForQuery", "displayName": "Public Network Access For Query", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.OperationalInsights/workspaces/features.searchVersion", "displayName": "Search Version", "values": ["1", "2"] },
+        { "field": "Microsoft.OperationalInsights/workspaces/features.enableLogAccessUsingOnlyResourcePermissions", "displayName": "Enable Resource-Specific Permissions", "values": ["true", "false"] },
+        { "field": "Microsoft.OperationalInsights/workspaces/features.clusterResourceId", "displayName": "Cluster Resource ID" },
+        { "field": "Microsoft.OperationalInsights/workspaces/workspaceCapping.dailyQuotaGb", "displayName": "Daily Quota GB" },
+        { "field": "Microsoft.OperationalInsights/workspaces/forceCmkForQuery", "displayName": "Force CMK For Query", "values": ["true", "false"] },
+        { "field": "Microsoft.OperationalInsights/workspaces/defaultDataCollectionRuleResourceId", "displayName": "Default Data Collection Rule ID" }
+      ]
+    },
+    {
+      "name": "Microsoft.Logic/workflows",
+      "description": "Logic Apps",
+      "properties": [
+        { "field": "Microsoft.Logic/workflows/state", "displayName": "State", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.Logic/workflows/accessControl.triggers.allowedCallerIpAddresses[*].addressRange", "displayName": "Allowed Caller IP Address" },
+        { "field": "Microsoft.Logic/workflows/accessControl.contents.allowedCallerIpAddresses[*].addressRange", "displayName": "Content Allowed Caller IP Address" },
+        { "field": "Microsoft.Logic/workflows/endpointsConfiguration.connector.outgoingIpAddresses[*].address", "displayName": "Connector Outgoing IP Address" },
+        { "field": "Microsoft.Logic/workflows/integrationAccount.id", "displayName": "Integration Account ID" },
+        { "field": "Microsoft.Logic/workflows/definition.triggers[*].type", "displayName": "Trigger Type" },
+        { "field": "Microsoft.Logic/workflows/definition.actions[*].type", "displayName": "Action Type" },
+        { "field": "Microsoft.Logic/workflows/sku.name", "displayName": "SKU Name", "values": ["Standard", "Free", "Premium", "Consumption"] }
+      ]
+    },
+    {
+      "name": "Microsoft.Authorization/policyDefinitions",
+      "description": "Policy Definitions",
+      "properties": [
+        { "field": "Microsoft.Authorization/policyDefinitions/mode", "displayName": "Mode", "values": ["All", "Indexed", "Microsoft.KeyVault.Data", "Microsoft.Kubernetes.Data", "Microsoft.ContainerService.Data"] },
+        { "field": "Microsoft.Authorization/policyDefinitions/policyType", "displayName": "Policy Type", "values": ["BuiltIn", "Custom", "NotSpecified"] },
+        { "field": "Microsoft.Authorization/policyDefinitions/metadata.category", "displayName": "Metadata Category" },
+        { "field": "Microsoft.Authorization/policyDefinitions/metadata.version", "displayName": "Metadata Version" },
+        { "field": "Microsoft.Authorization/policyDefinitions/policyRule.if", "displayName": "Policy Rule Condition" },
+        { "field": "Microsoft.Authorization/policyDefinitions/policyRule.then.effect", "displayName": "Policy Effect", "values": ["Audit", "AuditIfNotExists", "Deny", "DeployIfNotExists", "Disabled", "Modify", "Append"] }
+      ]
+    },
+    {
+      "name": "Microsoft.Authorization/policySetDefinitions",
+      "description": "Policy Initiatives",
+      "properties": [
+        { "field": "Microsoft.Authorization/policySetDefinitions/policyType", "displayName": "Policy Type", "values": ["BuiltIn", "Custom", "NotSpecified"] },
+        { "field": "Microsoft.Authorization/policySetDefinitions/metadata.category", "displayName": "Metadata Category" },
+        { "field": "Microsoft.Authorization/policySetDefinitions/metadata.version", "displayName": "Metadata Version" },
+        { "field": "Microsoft.Authorization/policySetDefinitions/policyDefinitions[*].policyDefinitionId", "displayName": "Policy Definition ID" },
+        { "field": "Microsoft.Authorization/policySetDefinitions/policyDefinitions[*].policyDefinitionReferenceId", "displayName": "Policy Definition Reference ID" }
+      ]
+    },
+    {
+      "name": "Microsoft.ApiManagement/service",
+      "description": "API Management",
+      "properties": [
+        { "field": "Microsoft.ApiManagement/service/sku.name", "displayName": "SKU Name", "values": ["Developer", "Basic", "Standard", "Premium", "Consumption"] },
+        { "field": "Microsoft.ApiManagement/service/publisherEmail", "displayName": "Publisher Email" },
+        { "field": "Microsoft.ApiManagement/service/publisherName", "displayName": "Publisher Name" },
+        { "field": "Microsoft.ApiManagement/service/virtualNetworkType", "displayName": "Virtual Network Type", "values": ["None", "External", "Internal"] },
+        { "field": "Microsoft.ApiManagement/service/disableGateway", "displayName": "Disable Gateway", "values": ["true", "false"] },
+        { "field": "Microsoft.ApiManagement/service/enableClientCertificate", "displayName": "Enable Client Certificate", "values": ["true", "false"] },
+        { "field": "Microsoft.ApiManagement/service/customProperties.Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Ciphers.TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA", "displayName": "TLS ECDHE RSA With AES 256 CBC SHA", "values": ["true", "false"] },
+        { "field": "Microsoft.ApiManagement/service/customProperties.Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Protocols.Tls11", "displayName": "TLS 1.1", "values": ["true", "false"] },
+        { "field": "Microsoft.ApiManagement/service/customProperties.Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Protocols.Tls10", "displayName": "TLS 1.0", "values": ["true", "false"] },
+        { "field": "Microsoft.ApiManagement/service/customProperties.Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Backend.Protocols.Tls11", "displayName": "Backend TLS 1.1", "values": ["true", "false"] },
+        { "field": "Microsoft.ApiManagement/service/customProperties.Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Backend.Protocols.Tls10", "displayName": "Backend TLS 1.0", "values": ["true", "false"] },
+        { "field": "Microsoft.ApiManagement/service/customProperties.Microsoft.WindowsAzure.ApiManagement.Gateway.Protocols.Server.Http2", "displayName": "HTTP/2", "values": ["true", "false"] }
+      ]
+    },
+    {
+      "name": "Microsoft.Batch/batchAccounts",
+      "description": "Batch Accounts",
+      "properties": [
+        { "field": "Microsoft.Batch/batchAccounts/poolAllocationMode", "displayName": "Pool Allocation Mode", "values": ["BatchService", "UserSubscription"] },
+        { "field": "Microsoft.Batch/batchAccounts/publicNetworkAccess", "displayName": "Public Network Access", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.Batch/batchAccounts/networkProfile.accountAccess.defaultAction", "displayName": "Network Profile Account Access Default Action", "values": ["Allow", "Deny"] },
+        { "field": "Microsoft.Batch/batchAccounts/networkProfile.nodeManagementAccess.defaultAction", "displayName": "Network Profile Node Management Access Default Action", "values": ["Allow", "Deny"] },
+        { "field": "Microsoft.Batch/batchAccounts/encryption.keySource", "displayName": "Encryption Key Source", "values": ["Microsoft.Batch", "Microsoft.KeyVault"] },
+        { "field": "Microsoft.Batch/batchAccounts/autoStorage.authenticationMode", "displayName": "Auto Storage Authentication Mode", "values": ["BatchAccountKey", "StorageKeys", "StorageKeysV2"] }
+      ]
+    },
+    {
+      "name": "Microsoft.Compute/virtualMachines",
+      "description": "Virtual Machines",
+      "properties": [
+        { "field": "Microsoft.Compute/virtualMachines/sku.name", "displayName": "VM Size", "values": ["Standard_D2s_v3", "Standard_D4s_v3", "Standard_D8s_v3", "Standard_F2s_v2", "Standard_F4s_v2", "Standard_B1s", "Standard_B2s", "Standard_E2s_v3", "Standard_E4s_v3"] },
+        { "field": "Microsoft.Compute/virtualMachines/storageProfile.osDisk.managedDisk.storageAccountType", "displayName": "OS Disk Type", "values": ["Standard_LRS", "StandardSSD_LRS", "Premium_LRS", "UltraSSD_LRS"] },
+        { "field": "Microsoft.Compute/virtualMachines/storageProfile.osDisk.osType", "displayName": "OS Type", "values": ["Windows", "Linux"] },
+        { "field": "Microsoft.Compute/virtualMachines/storageProfile.osDisk.createOption", "displayName": "Create Option", "values": ["FromImage", "Empty", "Attach"] },
+        { "field": "Microsoft.Compute/virtualMachines/storageProfile.imageReference.publisher", "displayName": "Image Publisher", "values": ["MicrosoftWindowsServer", "Canonical", "RedHat", "OpenLogic", "SUSE", "MicrosoftSQLServer", "microsoft-dsvm", "MicrosoftWindowsDesktop"] },
+        { "field": "Microsoft.Compute/virtualMachines/securityProfile.securityType", "displayName": "Security Type", "values": ["TrustedLaunch", "ConfidentialVM", "Standard"] },
+        { "field": "Microsoft.Compute/virtualMachines/securityProfile.uefiSettings.secureBootEnabled", "displayName": "Secure Boot Enabled", "values": ["true", "false"] },
+        { "field": "Microsoft.Compute/virtualMachines/securityProfile.uefiSettings.vTpmEnabled", "displayName": "vTPM Enabled", "values": ["true", "false"] },
+        { "field": "Microsoft.Compute/virtualMachines/licenseType", "displayName": "License Type", "values": ["Windows_Server", "Windows_Client", "RHEL_BYOS", "SLES_BYOS"] },
+        { "field": "Microsoft.Compute/virtualMachines/diagnosticsProfile.bootDiagnostics.enabled", "displayName": "Boot Diagnostics Enabled", "values": ["true", "false"] },
+        { "field": "Microsoft.Compute/virtualMachines/priority", "displayName": "VM Priority", "values": ["Regular", "Spot", "Low"] },
+        { "field": "Microsoft.Compute/virtualMachines/evictionPolicy", "displayName": "Eviction Policy", "values": ["Deallocate", "Delete"] },
+        { "field": "Microsoft.Compute/virtualMachines/hardwareProfile.vmSize", "displayName": "VM Size", "values": ["Standard_D2s_v3", "Standard_D4s_v3", "Standard_D8s_v3", "Standard_F2s_v2", "Standard_F4s_v2"] },
+        { "field": "Microsoft.Compute/virtualMachines/userData", "displayName": "User Data", "values": [] },
+        { "field": "Microsoft.Compute/virtualMachines/networkProfile.networkInterfaces[*].properties.primary", "displayName": "Primary Network Interface", "values": ["true", "false"] },
+        { "field": "Microsoft.Compute/virtualMachines/storageProfile.dataDisks[*].diskSizeGB", "displayName": "Data Disk Size GB", "values": [] }
+      ]
+    },
+    {
+      "name": "Microsoft.Compute/virtualMachineScaleSets",
+      "description": "Virtual Machine Scale Sets",
+      "properties": [
+        { "field": "Microsoft.Compute/virtualMachineScaleSets/sku.name", "displayName": "VM Size", "values": ["Standard_D2s_v3", "Standard_D4s_v3", "Standard_D8s_v3", "Standard_F2s_v2", "Standard_F4s_v2"] },
+        { "field": "Microsoft.Compute/virtualMachineScaleSets/virtualMachineProfile.storageProfile.osDisk.managedDisk.storageAccountType", "displayName": "OS Disk Type", "values": ["Standard_LRS", "StandardSSD_LRS", "Premium_LRS"] },
+        { "field": "Microsoft.Compute/virtualMachineScaleSets/virtualMachineProfile.storageProfile.osDisk.osType", "displayName": "OS Type", "values": ["Windows", "Linux"] },
+        { "field": "Microsoft.Compute/virtualMachineScaleSets/upgradePolicy.mode", "displayName": "Upgrade Mode", "values": ["Automatic", "Manual", "Rolling"] },
+        { "field": "Microsoft.Compute/virtualMachineScaleSets/singlePlacementGroup", "displayName": "Single Placement Group", "values": ["true", "false"] },
+        { "field": "Microsoft.Compute/virtualMachineScaleSets/platformFaultDomainCount", "displayName": "Platform Fault Domain Count", "values": ["1", "2", "3", "5"] },
+        { "field": "Microsoft.Compute/virtualMachineScaleSets/virtualMachineProfile.priority", "displayName": "VM Priority", "values": ["Regular", "Spot", "Low"] },
+        { "field": "Microsoft.Compute/virtualMachineScaleSets/orchestrationMode", "displayName": "Orchestration Mode", "values": ["Uniform", "Flexible"] },
+        { "field": "Microsoft.Compute/virtualMachineScaleSets/virtualMachineProfile.securityProfile.securityType", "displayName": "Security Type", "values": ["TrustedLaunch", "ConfidentialVM", "Standard"] },
+        { "field": "Microsoft.Compute/virtualMachineScaleSets/scaleInPolicy.rules[*]", "displayName": "Scale-In Rules", "values": ["Default", "NewestVM", "OldestVM"] },
+        { "field": "Microsoft.Compute/virtualMachineScaleSets/spotRestorePolicy.enabled", "displayName": "Spot Restore Enabled", "values": ["true", "false"] },
+        { "field": "Microsoft.Compute/virtualMachineScaleSets/automaticRepairsPolicy.enabled", "displayName": "Automatic Repairs Enabled", "values": ["true", "false"] }
+      ]
+    },
+    {
+      "name": "Microsoft.Compute/disks",
+      "description": "Managed Disks",
+      "properties": [
+        { "field": "Microsoft.Compute/disks/sku.name", "displayName": "Disk SKU", "values": ["Standard_LRS", "StandardSSD_LRS", "Premium_LRS", "UltraSSD_LRS", "Premium_ZRS", "StandardSSD_ZRS"] },
+        { "field": "Microsoft.Compute/disks/osType", "displayName": "OS Type", "values": ["Windows", "Linux"] },
+        { "field": "Microsoft.Compute/disks/diskSizeGB", "displayName": "Disk Size (GB)" },
+        { "field": "Microsoft.Compute/disks/encryption.type", "displayName": "Encryption Type", "values": ["EncryptionAtRestWithPlatformKey", "EncryptionAtRestWithCustomerKey", "EncryptionAtRestWithPlatformAndCustomerKeys"] },
+        { "field": "Microsoft.Compute/disks/networkAccessPolicy", "displayName": "Network Access Policy", "values": ["AllowAll", "AllowPrivate", "DenyAll"] },
+        { "field": "Microsoft.Compute/disks/publicNetworkAccess", "displayName": "Public Network Access", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.Compute/disks/diskState", "displayName": "Disk State", "values": ["Unattached", "Attached", "Reserved", "ActiveSAS", "ReadyToUpload", "ActiveUpload"] },
+        { "field": "Microsoft.Compute/disks/burstingEnabled", "displayName": "Bursting Enabled", "values": ["true", "false"] },
+        { "field": "Microsoft.Compute/disks/securityProfile.securityType", "displayName": "Security Type", "values": ["ConfidentialVM_VMGuestStateOnlyEncryptedWithPlatformKey", "ConfidentialVM_DiskWithVMGuestState"] },
+        { "field": "Microsoft.Compute/disks/supportedCapabilities.diskEncryptionSet", "displayName": "Supports Disk Encryption Set", "values": ["true", "false"] },
+        { "field": "Microsoft.Compute/disks/tier", "displayName": "Disk Performance Tier", "values": ["P1", "P2", "P3", "P4", "P5", "P6", "P10", "P15", "P20", "P30", "P40", "P50", "P60", "P70", "P80"] }
+      ]
+    },
+    {
+      "name": "Microsoft.Storage/storageAccounts",
+      "description": "Storage Accounts",
+      "properties": [
+        { "field": "Microsoft.Storage/storageAccounts/sku.name", "displayName": "SKU", "values": ["Standard_LRS", "Standard_ZRS", "Standard_GRS", "Standard_RAGRS", "Premium_LRS", "Premium_ZRS", "Standard_GZRS", "Standard_RAGZRS"] },
+        { "field": "Microsoft.Storage/storageAccounts/kind", "displayName": "Kind", "values": ["StorageV2", "Storage", "BlobStorage", "FileStorage", "BlockBlobStorage"] },
+        { "field": "Microsoft.Storage/storageAccounts/accessTier", "displayName": "Access Tier", "values": ["Hot", "Cool"] },
+        { "field": "Microsoft.Storage/storageAccounts/networkAcls.defaultAction", "displayName": "Network Access", "values": ["Allow", "Deny"] },
+        { "field": "Microsoft.Storage/storageAccounts/enableHttpsTrafficOnly", "displayName": "HTTPS Only", "values": ["true", "false"] },
+        { "field": "Microsoft.Storage/storageAccounts/supportsHttpsTrafficOnly", "displayName": "HTTPS Traffic Only", "values": ["true", "false"] },
+        { "field": "Microsoft.Storage/storageAccounts/minimumTlsVersion", "displayName": "Minimum TLS Version", "values": ["TLS1_0", "TLS1_1", "TLS1_2"] },
+        { "field": "Microsoft.Storage/storageAccounts/allowBlobPublicAccess", "displayName": "Allow Blob Public Access", "values": ["true", "false"] },
+        { "field": "Microsoft.Storage/storageAccounts/allowSharedKeyAccess", "displayName": "Allow Shared Key Access", "values": ["true", "false"] },
+        { "field": "Microsoft.Storage/storageAccounts/allowCrossTenantReplication", "displayName": "Allow Cross-Tenant Replication", "values": ["true", "false"] },
+        { "field": "Microsoft.Storage/storageAccounts/encryption.services.blob.enabled", "displayName": "Blob Encryption", "values": ["true", "false"] },
+        { "field": "Microsoft.Storage/storageAccounts/encryption.services.file.enabled", "displayName": "File Encryption", "values": ["true", "false"] },
+        { "field": "Microsoft.Storage/storageAccounts/encryption.services.table.enabled", "displayName": "Table Encryption", "values": ["true", "false"] },
+        { "field": "Microsoft.Storage/storageAccounts/encryption.services.queue.enabled", "displayName": "Queue Encryption", "values": ["true", "false"] },
+        { "field": "Microsoft.Storage/storageAccounts/encryption.keySource", "displayName": "Encryption Key Source", "values": ["Microsoft.Storage", "Microsoft.Keyvault"] },
+        { "field": "Microsoft.Storage/storageAccounts/isHnsEnabled", "displayName": "Hierarchical Namespace Enabled", "values": ["true", "false"] },
+        { "field": "Microsoft.Storage/storageAccounts/isNfsV3Enabled", "displayName": "NFS v3 Enabled", "values": ["true", "false"] },
+        { "field": "Microsoft.Storage/storageAccounts/routingPreference.routingChoice", "displayName": "Routing Choice", "values": ["MicrosoftRouting", "InternetRouting"] },
+        { "field": "Microsoft.Storage/storageAccounts/largeFileSharesState", "displayName": "Large File Shares State", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.Storage/storageAccounts/isLocalUserEnabled", "displayName": "Local User Enabled", "values": ["true", "false"] },
+        { "field": "Microsoft.Storage/storageAccounts/isSftpEnabled", "displayName": "SFTP Enabled", "values": ["true", "false"] },
+        { "field": "Microsoft.Storage/storageAccounts/dnsEndpointType", "displayName": "DNS Endpoint Type", "values": ["Standard", "AzureDnsZone"] }
+      ]
+    },
+    {
+      "name": "Microsoft.Network/virtualNetworks",
+      "description": "Virtual Networks",
+      "properties": [
+        { "field": "Microsoft.Network/virtualNetworks/addressSpace.addressPrefixes[*]", "displayName": "Address Prefixes" },
+        { "field": "Microsoft.Network/virtualNetworks/subnets[*].addressPrefix", "displayName": "Subnet Address Prefix" },
+        { "field": "Microsoft.Network/virtualNetworks/enableDdosProtection", "displayName": "DDoS Protection", "values": ["true", "false"] },
+        { "field": "Microsoft.Network/virtualNetworks/enableVmProtection", "displayName": "VM Protection", "values": ["true", "false"] },
+        { "field": "Microsoft.Network/virtualNetworks/subnets[*].privateEndpointNetworkPolicies", "displayName": "Private Endpoint Network Policies", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.Network/virtualNetworks/subnets[*].privateLinkServiceNetworkPolicies", "displayName": "Private Link Service Network Policies", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.Network/virtualNetworks/subnets[*].serviceEndpoints[*].service", "displayName": "Service Endpoint", "values": ["Microsoft.Storage", "Microsoft.Sql", "Microsoft.KeyVault", "Microsoft.Web", "Microsoft.AzureCosmosDB", "Microsoft.ServiceBus", "Microsoft.EventHub", "Microsoft.ContainerRegistry"] },
+        { "field": "Microsoft.Network/virtualNetworks/subnets[*].delegations[*].serviceName", "displayName": "Delegation Service Name", "values": ["Microsoft.Web/serverFarms", "Microsoft.ContainerInstance/containerGroups", "Microsoft.Netapp/volumes", "Microsoft.DBforPostgreSQL/serversv2"] },
+        { "field": "Microsoft.Network/virtualNetworks/encryption.enabled", "displayName": "Encryption Enabled", "values": ["true", "false"] },
+        { "field": "Microsoft.Network/virtualNetworks/flowTimeoutInMinutes", "displayName": "Flow Timeout In Minutes" },
+        { "field": "Microsoft.Network/virtualNetworks/ipAllocations[*].prefix", "displayName": "IP Allocation Prefix" }
+      ]
+    },
+    {
+      "name": "Microsoft.Network/virtualNetworkGateways",
+      "description": "VPN Gateways",
+      "properties": [
+        { "field": "Microsoft.Network/virtualNetworkGateways/gatewayType", "displayName": "Gateway Type", "values": ["Vpn", "ExpressRoute"] },
+        { "field": "Microsoft.Network/virtualNetworkGateways/vpnType", "displayName": "VPN Type", "values": ["PolicyBased", "RouteBased"] },
+        { "field": "Microsoft.Network/virtualNetworkGateways/sku.name", "displayName": "SKU Name", "values": ["Basic", "VpnGw1", "VpnGw2", "VpnGw3", "VpnGw4", "VpnGw5", "Standard", "HighPerformance", "UltraPerformance", "ErGw1AZ", "ErGw2AZ", "ErGw3AZ"] },
+        { "field": "Microsoft.Network/virtualNetworkGateways/enableBgp", "displayName": "Enable BGP", "values": ["true", "false"] },
+        { "field": "Microsoft.Network/virtualNetworkGateways/activeActive", "displayName": "Active-Active", "values": ["true", "false"] },
+        { "field": "Microsoft.Network/virtualNetworkGateways/enablePrivateIpAddress", "displayName": "Enable Private IP Address", "values": ["true", "false"] },
+        { "field": "Microsoft.Network/virtualNetworkGateways/enableBgpRouteTranslationForNat", "displayName": "Enable BGP Route Translation For NAT", "values": ["true", "false"] },
+        { "field": "Microsoft.Network/virtualNetworkGateways/vpnGatewayGeneration", "displayName": "VPN Gateway Generation", "values": ["Generation1", "Generation2"] },
+        { "field": "Microsoft.Network/virtualNetworkGateways/natRules[*].type", "displayName": "NAT Rule Type", "values": ["Static", "Dynamic"] },
+        { "field": "Microsoft.Network/virtualNetworkGateways/enableDnsForwarding", "displayName": "Enable DNS Forwarding", "values": ["true", "false"] },
+        { "field": "Microsoft.Network/virtualNetworkGateways/vpnClientConfiguration.vpnClientProtocols[*]", "displayName": "VPN Client Protocol", "values": ["IkeV2", "SSTP", "OpenVPN"] }
+      ]
+    },
+    {
+      "name": "Microsoft.Network/networkSecurityGroups",
+      "description": "Network Security Groups",
+      "properties": [
+        { "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].access", "displayName": "Rule Access", "values": ["Allow", "Deny"] },
+        { "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].direction", "displayName": "Rule Direction", "values": ["Inbound", "Outbound"] },
+        { "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].protocol", "displayName": "Protocol", "values": ["TCP", "UDP", "*", "ICMP"] },
+        { "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].sourcePortRange", "displayName": "Source Port Range" },
+        { "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].destinationPortRange", "displayName": "Destination Port Range" },
+        { "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].sourceAddressPrefix", "displayName": "Source Address Prefix" },
+        { "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].destinationAddressPrefix", "displayName": "Destination Address Prefix" },
+        { "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].priority", "displayName": "Priority" },
+        { "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].sourceAddressPrefixes[*]", "displayName": "Source Address Prefixes" },
+        { "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].destinationAddressPrefixes[*]", "displayName": "Destination Address Prefixes" },
+        { "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].sourcePortRanges[*]", "displayName": "Source Port Ranges" },
+        { "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].destinationPortRanges[*]", "displayName": "Destination Port Ranges" }
+      ]
+    },
+    {
+      "name": "Microsoft.Network/publicIPAddresses",
+      "description": "Public IP Addresses",
+      "properties": [
+        { "field": "Microsoft.Network/publicIPAddresses/publicIPAllocationMethod", "displayName": "Allocation Method", "values": ["Dynamic", "Static"] },
+        { "field": "Microsoft.Network/publicIPAddresses/sku.name", "displayName": "SKU Name", "values": ["Basic", "Standard"] },
+        { "field": "Microsoft.Network/publicIPAddresses/publicIPAddressVersion", "displayName": "IP Version", "values": ["IPv4", "IPv6"] },
+        { "field": "Microsoft.Network/publicIPAddresses/ddosSettings.protectionMode", "displayName": "DDoS Protection Mode", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.Network/publicIPAddresses/idleTimeoutInMinutes", "displayName": "Idle Timeout (Minutes)" },
+        { "field": "Microsoft.Network/publicIPAddresses/ipTags[*].ipTagType", "displayName": "IP Tag Type", "values": ["FirstPartyUsage", "RoutingPreference"] },
+        { "field": "Microsoft.Network/publicIPAddresses/dnsSettings.domainNameLabel", "displayName": "Domain Name Label" },
+        { "field": "Microsoft.Network/publicIPAddresses/publicIPPrefix.id", "displayName": "Public IP Prefix ID" },
+        { "field": "Microsoft.Network/publicIPAddresses/deleteOption", "displayName": "Delete Option", "values": ["Detach", "Delete"] }
+      ]
+    },
+    {
+      "name": "Microsoft.Network/loadBalancers",
+      "description": "Load Balancers",
+      "properties": [
+        { "field": "Microsoft.Network/loadBalancers/sku.name", "displayName": "SKU Name", "values": ["Basic", "Standard"] },
+        { "field": "Microsoft.Network/loadBalancers/frontendIPConfigurations[*].publicIPAddress.id", "displayName": "Public IP Address ID" },
+        { "field": "Microsoft.Network/loadBalancers/frontendIPConfigurations[*].privateIPAllocationMethod", "displayName": "Private IP Allocation Method", "values": ["Dynamic", "Static"] },
+        { "field": "Microsoft.Network/loadBalancers/loadBalancingRules[*].protocol", "displayName": "Protocol", "values": ["TCP", "UDP", "All"] },
+        { "field": "Microsoft.Network/loadBalancers/loadBalancingRules[*].loadDistribution", "displayName": "Load Distribution", "values": ["Default", "SourceIP", "SourceIPProtocol"] },
+        { "field": "Microsoft.Network/loadBalancers/loadBalancingRules[*].idleTimeoutInMinutes", "displayName": "Idle Timeout In Minutes" },
+        { "field": "Microsoft.Network/loadBalancers/loadBalancingRules[*].enableFloatingIP", "displayName": "Enable Floating IP", "values": ["true", "false"] },
+        { "field": "Microsoft.Network/loadBalancers/loadBalancingRules[*].disableOutboundSnat", "displayName": "Disable Outbound SNAT", "values": ["true", "false"] },
+        { "field": "Microsoft.Network/loadBalancers/outboundRules[*].protocol", "displayName": "Outbound Protocol", "values": ["TCP", "UDP", "All"] },
+        { "field": "Microsoft.Network/loadBalancers/inboundNatRules[*].protocol", "displayName": "NAT Rule Protocol", "values": ["TCP", "UDP", "All"] }
+      ]
+    },
+    {
+      "name": "Microsoft.Network/applicationGateways",
+      "description": "Application Gateways",
+      "properties": [
+        { "field": "Microsoft.Network/applicationGateways/sku.name", "displayName": "SKU Name", "values": ["Standard_Small", "Standard_Medium", "Standard_Large", "WAF_Medium", "WAF_Large", "Standard_v2", "WAF_v2"] },
+        { "field": "Microsoft.Network/applicationGateways/sslPolicy.policyType", "displayName": "SSL Policy Type", "values": ["Predefined", "Custom"] },
+        { "field": "Microsoft.Network/applicationGateways/sslPolicy.minProtocolVersion", "displayName": "Min SSL Protocol Version", "values": ["TLSv1_0", "TLSv1_1", "TLSv1_2"] },
+        { "field": "Microsoft.Network/applicationGateways/webApplicationFirewallConfiguration.enabled", "displayName": "WAF Enabled", "values": ["true", "false"] },
+        { "field": "Microsoft.Network/applicationGateways/webApplicationFirewallConfiguration.firewallMode", "displayName": "WAF Mode", "values": ["Detection", "Prevention"] },
+        { "field": "Microsoft.Network/applicationGateways/webApplicationFirewallConfiguration.ruleSetType", "displayName": "WAF Rule Set Type", "values": ["OWASP", "Microsoft_BotManagerRuleSet"] },
+        { "field": "Microsoft.Network/applicationGateways/webApplicationFirewallConfiguration.ruleSetVersion", "displayName": "WAF Rule Set Version", "values": ["2.2.9", "3.0", "3.1", "3.2"] },
+        { "field": "Microsoft.Network/applicationGateways/enableHttp2", "displayName": "Enable HTTP/2", "values": ["true", "false"] },
+        { "field": "Microsoft.Network/applicationGateways/autoscaleConfiguration.minCapacity", "displayName": "Autoscale Min Capacity" },
+        { "field": "Microsoft.Network/applicationGateways/autoscaleConfiguration.maxCapacity", "displayName": "Autoscale Max Capacity" },
+        { "field": "Microsoft.Network/applicationGateways/sslCertificates[*].keyVaultSecretId", "displayName": "Key Vault Secret ID" },
+        { "field": "Microsoft.Network/applicationGateways/privateLinkConfigurations[*].ipConfigurations[*].subnet.id", "displayName": "Private Link Subnet ID" },
+        { "field": "Microsoft.Network/applicationGateways/sslPolicy.cipherSuites[*]", "displayName": "SSL Cipher Suite", "values": ["TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384", "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256", "TLS_RSA_WITH_AES_256_GCM_SHA384"] }
+      ]
+    },
+    {
+      "name": "Microsoft.Web/sites",
+      "description": "App Services",
+      "properties": [
+        { "field": "Microsoft.Web/sites/clientCertEnabled", "displayName": "Client Certificate Enabled", "values": ["true", "false"] },
+        { "field": "Microsoft.Web/sites/httpsOnly", "displayName": "HTTPS Only", "values": ["true", "false"] },
+        { "field": "Microsoft.Web/sites/siteConfig.minTlsVersion", "displayName": "Min TLS Version", "values": ["1.0", "1.1", "1.2"] },
+        { "field": "Microsoft.Web/sites/siteConfig.ftpsState", "displayName": "FTPS State", "values": ["AllAllowed", "FtpsOnly", "Disabled"] },
+        { "field": "Microsoft.Web/sites/siteConfig.http20Enabled", "displayName": "HTTP 2.0 Enabled", "values": ["true", "false"] },
+        { "field": "Microsoft.Web/sites/siteConfig.webSocketsEnabled", "displayName": "WebSockets Enabled", "values": ["true", "false"] },
+        { "field": "Microsoft.Web/sites/siteConfig.alwaysOn", "displayName": "Always On", "values": ["true", "false"] },
+        { "field": "Microsoft.Web/sites/siteConfig.remoteDebuggingEnabled", "displayName": "Remote Debugging Enabled", "values": ["true", "false"] },
+        { "field": "Microsoft.Web/sites/siteConfig.use32BitWorkerProcess", "displayName": "Use 32-bit Worker Process", "values": ["true", "false"] },
+        { "field": "Microsoft.Web/sites/siteConfig.phpVersion", "displayName": "PHP Version", "values": ["5.6", "7.0", "7.1", "7.2", "7.3", "7.4", "8.0", "8.1", "8.2", "Off"] },
+        { "field": "Microsoft.Web/sites/siteConfig.pythonVersion", "displayName": "Python Version", "values": ["2.7", "3.4", "3.6", "3.7", "3.8", "3.9", "3.10", "Off"] },
+        { "field": "Microsoft.Web/sites/siteConfig.netFrameworkVersion", "displayName": ".NET Framework Version", "values": ["v2.0", "v4.0", "v4.5", "v4.6", "v4.7", "v4.8", "v6.0", "v7.0", "v8.0"] },
+        { "field": "Microsoft.Web/sites/siteConfig.javaVersion", "displayName": "Java Version", "values": ["1.8", "11", "17", "Off"] },
+        { "field": "Microsoft.Web/sites/siteConfig.nodeVersion", "displayName": "Node Version", "values": ["10.6.0", "10.14.1", "12.13.0", "14.16.0", "16.13.0", "18.12.0", "20.10.0", "~10", "~12", "~14", "~16", "~18", "~20"] },
+        { "field": "Microsoft.Web/sites/kind", "displayName": "Kind", "values": ["app", "functionapp", "api", "app,linux", "functionapp,linux"] },
+        { "field": "Microsoft.Web/sites/publicNetworkAccess", "displayName": "Public Network Access", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.Web/sites/virtualNetworkSubnetId", "displayName": "Virtual Network Subnet ID" },
+        { "field": "Microsoft.Web/sites/clientCertMode", "displayName": "Client Certificate Mode", "values": ["Required", "Optional", "OptionalInteractiveUser"] },
+        { "field": "Microsoft.Web/sites/clientCertExclusionPaths", "displayName": "Client Certificate Exclusion Paths" },
+        { "field": "Microsoft.Web/sites/siteConfig.cors.allowedOrigins[*]", "displayName": "CORS Allowed Origins" },
+        { "field": "Microsoft.Web/sites/siteConfig.ipSecurityRestrictions[*].action", "displayName": "IP Security Action", "values": ["Allow", "Deny"] },
+        { "field": "Microsoft.Web/sites/siteConfig.ipSecurityRestrictions[*].ipAddress", "displayName": "IP Security IP Address" },
+        { "field": "Microsoft.Web/sites/siteConfig.healthCheckPath", "displayName": "Health Check Path" }
+      ]
+    },
+    {
+      "name": "Microsoft.Web/serverFarms",
+      "description": "App Service Plans",
+      "properties": [
+        { "field": "Microsoft.Web/serverFarms/sku.name", "displayName": "SKU Name", "values": ["F1", "D1", "B1", "B2", "B3", "S1", "S2", "S3", "P1v2", "P2v2", "P3v2", "P1v3", "P2v3", "P3v3", "I1", "I2", "I3"] },
+        { "field": "Microsoft.Web/serverFarms/sku.tier", "displayName": "SKU Tier", "values": ["Free", "Shared", "Basic", "Standard", "Premium", "PremiumV2", "PremiumV3", "Isolated", "IsolatedV2"] },
+        { "field": "Microsoft.Web/serverFarms/kind", "displayName": "Kind", "values": ["app", "linux", "functionapp", "elastic"] },
+        { "field": "Microsoft.Web/serverFarms/isSpot", "displayName": "Is Spot", "values": ["true", "false"] },
+        { "field": "Microsoft.Web/serverFarms/isXenon", "displayName": "Is Xenon", "values": ["true", "false"] },
+        { "field": "Microsoft.Web/serverFarms/reserved", "displayName": "Reserved (Linux)", "values": ["true", "false"] },
+        { "field": "Microsoft.Web/serverFarms/perSiteScaling", "displayName": "Per Site Scaling", "values": ["true", "false"] },
+        { "field": "Microsoft.Web/serverFarms/maximumElasticWorkerCount", "displayName": "Maximum Elastic Worker Count" },
+        { "field": "Microsoft.Web/serverFarms/elasticScaleEnabled", "displayName": "Elastic Scale Enabled", "values": ["true", "false"] },
+        { "field": "Microsoft.Web/serverFarms/zoneRedundant", "displayName": "Zone Redundant", "values": ["true", "false"] },
+        { "field": "Microsoft.Web/serverFarms/numberOfWorkers", "displayName": "Number Of Workers" },
+        { "field": "Microsoft.Web/serverFarms/hyperV", "displayName": "Hyper-V", "values": ["true", "false"] }
+      ]
+    },
+    {
+      "name": "Microsoft.Sql/servers",
+      "description": "SQL Servers",
+      "properties": [
+        { "field": "Microsoft.Sql/servers/version", "displayName": "SQL Version", "values": ["12.0", "2.0"] },
+        { "field": "Microsoft.Sql/servers/publicNetworkAccess", "displayName": "Public Network Access", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.Sql/servers/minimalTlsVersion", "displayName": "Minimal TLS Version", "values": ["1.0", "1.1", "1.2"] },
+        { "field": "Microsoft.Sql/servers/administrators.administratorType", "displayName": "Administrator Type", "values": ["ActiveDirectory"] },
+        { "field": "Microsoft.Sql/servers/administrators.azureADOnlyAuthentication", "displayName": "Azure AD Only Authentication", "values": ["true", "false"] },
+        { "field": "Microsoft.Sql/servers/restrictOutboundNetworkAccess", "displayName": "Restrict Outbound Network Access", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.Sql/servers/administrators.principalType", "displayName": "Principal Type", "values": ["User", "Group", "Application"] },
+        { "field": "Microsoft.Sql/servers/advancedThreatProtectionSettings.state", "displayName": "Advanced Threat Protection State", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.Sql/servers/sqlVulnerabilityAssessments.state", "displayName": "SQL Vulnerability Assessment State", "values": ["Enabled", "Disabled"] }
+      ]
+    },
+    {
+      "name": "Microsoft.Sql/servers/databases",
+      "description": "SQL Databases",
+      "properties": [
+        { "field": "Microsoft.Sql/servers/databases/sku.name", "displayName": "SKU Name", "values": ["Basic", "S0", "S1", "S2", "S3", "S4", "S6", "S7", "S9", "S12", "P1", "P2", "P4", "P6", "P11", "P15", "GP_S_Gen5_1", "GP_S_Gen5_2", "GP_Gen5_2", "GP_Gen5_4", "BC_Gen5_2", "BC_Gen5_4"] },
+        { "field": "Microsoft.Sql/servers/databases/sku.tier", "displayName": "SKU Tier", "values": ["Basic", "Standard", "Premium", "GeneralPurpose", "BusinessCritical", "Hyperscale"] },
+        { "field": "Microsoft.Sql/servers/databases/requestedServiceObjectiveName", "displayName": "Requested Service Objective", "values": ["Basic", "S0", "S1", "S2", "S3", "S4", "S6", "S7", "S9", "S12", "P1", "P2", "P4", "P6", "P11", "P15", "System", "System2", "ElasticPool"] },
+        { "field": "Microsoft.Sql/servers/databases/maxSizeBytes", "displayName": "Max Size Bytes" },
+        { "field": "Microsoft.Sql/servers/databases/zoneRedundant", "displayName": "Zone Redundant", "values": ["true", "false"] },
+        { "field": "Microsoft.Sql/servers/databases/isLedgerOn", "displayName": "Ledger Enabled", "values": ["true", "false"] },
+        { "field": "Microsoft.Sql/servers/databases/autoPauseDelay", "displayName": "Auto Pause Delay" },
+        { "field": "Microsoft.Sql/servers/databases/minCapacity", "displayName": "Min Capacity" },
+        { "field": "Microsoft.Sql/servers/databases/maintenanceConfigurationId", "displayName": "Maintenance Configuration ID" },
+        { "field": "Microsoft.Sql/servers/databases/readScale", "displayName": "Read Scale", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.Sql/servers/databases/highAvailabilityReplicaCount", "displayName": "HA Replica Count" },
+        { "field": "Microsoft.Sql/servers/databases/licenseType", "displayName": "License Type", "values": ["LicenseIncluded", "BasePrice"] },
+        { "field": "Microsoft.Sql/servers/databases/collation", "displayName": "Collation" },
+        { "field": "Microsoft.Sql/servers/databases/currentSku.name", "displayName": "Current SKU Name" },
+        { "field": "Microsoft.Sql/servers/databases/elasticPoolId", "displayName": "Elastic Pool ID" },
+        { "field": "Microsoft.Sql/servers/databases/catalogCollation", "displayName": "Catalog Collation", "values": ["DATABASE_DEFAULT", "SQL_Latin1_General_CP1_CI_AS"] },
+        { "field": "Microsoft.Sql/servers/databases/createMode", "displayName": "Create Mode", "values": ["Default", "Copy", "Secondary", "PointInTimeRestore", "Restore", "Recovery", "RestoreExternalBackup", "RestoreLongTermRetentionBackup"] },
+        { "field": "Microsoft.Sql/servers/databases/encryptionProtector.serverKeyType", "displayName": "Server Key Type", "values": ["ServiceManaged", "AzureKeyVault"] },
+        { "field": "Microsoft.Sql/servers/databases/longTermRetentionBackupResourceId", "displayName": "Long Term Retention Backup Resource ID" }
+      ]
+    },
+    {
+      "name": "Microsoft.KeyVault/vaults",
+      "description": "Key Vaults",
+      "properties": [
+        { "field": "Microsoft.KeyVault/vaults/sku.name", "displayName": "SKU Name", "values": ["standard", "premium"] },
+        { "field": "Microsoft.KeyVault/vaults/enabledForDeployment", "displayName": "Enabled For Deployment", "values": ["true", "false"] },
+        { "field": "Microsoft.KeyVault/vaults/enabledForDiskEncryption", "displayName": "Enabled For Disk Encryption", "values": ["true", "false"] },
+        { "field": "Microsoft.KeyVault/vaults/enabledForTemplateDeployment", "displayName": "Enabled For Template Deployment", "values": ["true", "false"] },
+        { "field": "Microsoft.KeyVault/vaults/enableRbacAuthorization", "displayName": "Enable RBAC Authorization", "values": ["true", "false"] },
+        { "field": "Microsoft.KeyVault/vaults/enableSoftDelete", "displayName": "Enable Soft Delete", "values": ["true", "false"] },
+        { "field": "Microsoft.KeyVault/vaults/softDeleteRetentionInDays", "displayName": "Soft Delete Retention (Days)" },
+        { "field": "Microsoft.KeyVault/vaults/networkAcls.defaultAction", "displayName": "Network Default Action", "values": ["Allow", "Deny"] },
+        { "field": "Microsoft.KeyVault/vaults/createMode", "displayName": "Create Mode", "values": ["default", "recover"] },
+        { "field": "Microsoft.KeyVault/vaults/publicNetworkAccess", "displayName": "Public Network Access", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.KeyVault/vaults/enablePurgeProtection", "displayName": "Enable Purge Protection", "values": ["true", "false"] },
+        { "field": "Microsoft.KeyVault/vaults/networkAcls.bypass", "displayName": "Network ACLs Bypass", "values": ["AzureServices", "None"] },
+        { "field": "Microsoft.KeyVault/vaults/networkAcls.ipRules[*].value", "displayName": "Network ACLs IP Rule" },
+        { "field": "Microsoft.KeyVault/vaults/networkAcls.virtualNetworkRules[*].id", "displayName": "Network ACLs VNet Rule ID" },
+        { "field": "Microsoft.KeyVault/vaults/privateEndpointConnections[*].properties.privateLinkServiceConnectionState.status", "displayName": "Private Endpoint Connection Status", "values": ["Pending", "Approved", "Rejected"] }
+      ]
+    },
+    {
+      "name": "Microsoft.ContainerService/managedClusters",
+      "description": "AKS Clusters",
+      "properties": [
+        { "field": "Microsoft.ContainerService/managedClusters/kubernetesVersion", "displayName": "Kubernetes Version" },
+        { "field": "Microsoft.ContainerService/managedClusters/dnsPrefix", "displayName": "DNS Prefix" },
+        { "field": "Microsoft.ContainerService/managedClusters/enableRBAC", "displayName": "Enable RBAC", "values": ["true", "false"] },
+        { "field": "Microsoft.ContainerService/managedClusters/networkProfile.networkPlugin", "displayName": "Network Plugin", "values": ["azure", "kubenet", "none"] },
+        { "field": "Microsoft.ContainerService/managedClusters/networkProfile.networkPolicy", "displayName": "Network Policy", "values": ["azure", "calico", "cilium"] },
+        { "field": "Microsoft.ContainerService/managedClusters/networkProfile.loadBalancerSku", "displayName": "Load Balancer SKU", "values": ["standard", "basic"] },
+        { "field": "Microsoft.ContainerService/managedClusters/aadProfile.managed", "displayName": "AAD Managed", "values": ["true", "false"] },
+        { "field": "Microsoft.ContainerService/managedClusters/aadProfile.enableAzureRBAC", "displayName": "Enable Azure RBAC", "values": ["true", "false"] },
+        { "field": "Microsoft.ContainerService/managedClusters/apiServerAccessProfile.enablePrivateCluster", "displayName": "Enable Private Cluster", "values": ["true", "false"] },
+        { "field": "Microsoft.ContainerService/managedClusters/autoScalerProfile.scaleDownDelayAfterAdd", "displayName": "Scale Down Delay After Add" },
+        { "field": "Microsoft.ContainerService/managedClusters/sku.name", "displayName": "SKU Name", "values": ["Basic", "Standard"] },
+        { "field": "Microsoft.ContainerService/managedClusters/sku.tier", "displayName": "SKU Tier", "values": ["Free", "Paid", "Standard"] },
+        { "field": "Microsoft.ContainerService/managedClusters/securityProfile.defender.enabled", "displayName": "Defender Enabled", "values": ["true", "false"] },
+        { "field": "Microsoft.ContainerService/managedClusters/storageProfile.diskCSIDriver.enabled", "displayName": "Disk CSI Driver Enabled", "values": ["true", "false"] },
+        { "field": "Microsoft.ContainerService/managedClusters/storageProfile.fileCSIDriver.enabled", "displayName": "File CSI Driver Enabled", "values": ["true", "false"] },
+        { "field": "Microsoft.ContainerService/managedClusters/storageProfile.snapshotController.enabled", "displayName": "Snapshot Controller Enabled", "values": ["true", "false"] },
+        { "field": "Microsoft.ContainerService/managedClusters/securityProfile.workloadIdentity.enabled", "displayName": "Workload Identity Enabled", "values": ["true", "false"] },
+        { "field": "Microsoft.ContainerService/managedClusters/securityProfile.azureDefender.enabled", "displayName": "Azure Defender Enabled", "values": ["true", "false"] },
+        { "field": "Microsoft.ContainerService/managedClusters/securityProfile.azureDefender.logAnalyticsWorkspaceResourceId", "displayName": "Log Analytics Workspace Resource ID" },
+        { "field": "Microsoft.ContainerService/managedClusters/apiServerAccessProfile.privateDNSZone", "displayName": "Private DNS Zone", "values": ["System", "None"] },
+        { "field": "Microsoft.ContainerService/managedClusters/agentPoolProfiles[*].mode", "displayName": "Agent Pool Mode", "values": ["System", "User"] },
+        { "field": "Microsoft.ContainerService/managedClusters/agentPoolProfiles[*].type", "displayName": "Agent Pool Type", "values": ["VirtualMachineScaleSets", "AvailabilitySet"] },
+        { "field": "Microsoft.ContainerService/managedClusters/agentPoolProfiles[*].vmSize", "displayName": "Agent Pool VM Size" },
+        { "field": "Microsoft.ContainerService/managedClusters/agentPoolProfiles[*].maxPods", "displayName": "Agent Pool Max Pods" },
+        { "field": "Microsoft.ContainerService/managedClusters/disableLocalAccounts", "displayName": "Disable Local Accounts", "values": ["true", "false"] }
+      ]
+    },
+    {
+      "name": "Microsoft.Cache/Redis",
+      "description": "Redis Cache",
+      "properties": [
+        { "field": "Microsoft.Cache/Redis/sku.name", "displayName": "SKU Name", "values": ["Basic", "Standard", "Premium"] },
+        { "field": "Microsoft.Cache/Redis/sku.capacity", "displayName": "Capacity", "values": ["0", "1", "2", "3", "4", "5", "6"] },
+        { "field": "Microsoft.Cache/Redis/enableNonSslPort", "displayName": "Enable Non-SSL Port", "values": ["true", "false"] },
+        { "field": "Microsoft.Cache/Redis/redisConfiguration.maxmemory-policy", "displayName": "Max Memory Policy", "values": ["volatile-lru", "allkeys-lru", "volatile-random", "allkeys-random", "volatile-ttl", "noeviction"] },
+        { "field": "Microsoft.Cache/Redis/redisConfiguration.maxfragmentationmemory-reserved", "displayName": "Max Fragmentation Memory Reserved" },
+        { "field": "Microsoft.Cache/Redis/redisConfiguration.maxmemory-reserved", "displayName": "Max Memory Reserved" },
+        { "field": "Microsoft.Cache/Redis/minimumTlsVersion", "displayName": "Minimum TLS Version", "values": ["1.0", "1.1", "1.2"] },
+        { "field": "Microsoft.Cache/Redis/publicNetworkAccess", "displayName": "Public Network Access", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.Cache/Redis/redisConfiguration.aof-backup-enabled", "displayName": "AOF Backup Enabled", "values": ["true", "false"] },
+        { "field": "Microsoft.Cache/Redis/redisConfiguration.rdb-backup-enabled", "displayName": "RDB Backup Enabled", "values": ["true", "false"] },
+        { "field": "Microsoft.Cache/Redis/redisConfiguration.rdb-backup-frequency", "displayName": "RDB Backup Frequency", "values": ["15", "30", "60", "360", "720", "1440"] },
+        { "field": "Microsoft.Cache/Redis/redisConfiguration.maxmemory-delta", "displayName": "Max Memory Delta" },
+        { "field": "Microsoft.Cache/Redis/shardCount", "displayName": "Shard Count" },
+        { "field": "Microsoft.Cache/Redis/subnetId", "displayName": "Subnet ID" },
+        { "field": "Microsoft.Cache/Redis/staticIP", "displayName": "Static IP" },
+        { "field": "Microsoft.Cache/Redis/replicasPerMaster", "displayName": "Replicas Per Master" },
+        { "field": "Microsoft.Cache/Redis/replicasPerPrimary", "displayName": "Replicas Per Primary" }
+      ]
+    },
+    {
+      "name": "Microsoft.DocumentDB/databaseAccounts",
+      "description": "Cosmos DB Accounts",
+      "properties": [
+        { "field": "Microsoft.DocumentDB/databaseAccounts/databaseAccountOfferType", "displayName": "Account Offer Type", "values": ["Standard"] },
+        { "field": "Microsoft.DocumentDB/databaseAccounts/enableAutomaticFailover", "displayName": "Enable Automatic Failover", "values": ["true", "false"] },
+        { "field": "Microsoft.DocumentDB/databaseAccounts/enableMultipleWriteLocations", "displayName": "Enable Multiple Write Locations", "values": ["true", "false"] },
+        { "field": "Microsoft.DocumentDB/databaseAccounts/enableFreeTier", "displayName": "Enable Free Tier", "values": ["true", "false"] },
+        { "field": "Microsoft.DocumentDB/databaseAccounts/enableAnalyticalStorage", "displayName": "Enable Analytical Storage", "values": ["true", "false"] },
+        { "field": "Microsoft.DocumentDB/databaseAccounts/capabilities[*].name", "displayName": "Capability Name", "values": ["EnableServerless", "EnableCassandra", "EnableTable", "EnableGremlin", "EnableMongo", "DisableRateLimitingResponses", "EnableAggregationPipeline", "MongoEnableDocLevelTTL"] },
+        { "field": "Microsoft.DocumentDB/databaseAccounts/consistencyPolicy.defaultConsistencyLevel", "displayName": "Default Consistency Level", "values": ["Eventual", "Session", "BoundedStaleness", "Strong", "ConsistentPrefix"] },
+        { "field": "Microsoft.DocumentDB/databaseAccounts/isVirtualNetworkFilterEnabled", "displayName": "Is Virtual Network Filter Enabled", "values": ["true", "false"] },
+        { "field": "Microsoft.DocumentDB/databaseAccounts/publicNetworkAccess", "displayName": "Public Network Access", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.DocumentDB/databaseAccounts/backupPolicy.type", "displayName": "Backup Policy Type", "values": ["Periodic", "Continuous"] },
+        { "field": "Microsoft.DocumentDB/databaseAccounts/apiProperties.serverVersion", "displayName": "Server Version", "values": ["3.2", "3.6", "4.0", "4.2"] },
+        { "field": "Microsoft.DocumentDB/databaseAccounts/keyVaultKeyUri", "displayName": "Key Vault Key URI" },
+        { "field": "Microsoft.DocumentDB/databaseAccounts/enablePartitionMerge", "displayName": "Enable Partition Merge", "values": ["true", "false"] },
+        { "field": "Microsoft.DocumentDB/databaseAccounts/enablePartitionKeyMonitor", "displayName": "Enable Partition Key Monitor", "values": ["true", "false"] }
+      ]
+    },
+    {
+      "name": "Microsoft.ServiceBus/namespaces",
+      "description": "Service Bus Namespaces",
+      "properties": [
+        { "field": "Microsoft.ServiceBus/namespaces/sku.name", "displayName": "SKU Name", "values": ["Basic", "Standard", "Premium"] },
+        { "field": "Microsoft.ServiceBus/namespaces/sku.tier", "displayName": "SKU Tier", "values": ["Basic", "Standard", "Premium"] },
+        { "field": "Microsoft.ServiceBus/namespaces/sku.capacity", "displayName": "SKU Capacity", "values": ["0", "1", "2", "4", "8", "16", "32"] },
+        { "field": "Microsoft.ServiceBus/namespaces/zoneRedundant", "displayName": "Zone Redundant", "values": ["true", "false"] },
+        { "field": "Microsoft.ServiceBus/namespaces/disableLocalAuth", "displayName": "Disable Local Auth", "values": ["true", "false"] },
+        { "field": "Microsoft.ServiceBus/namespaces/minimumTlsVersion", "displayName": "Minimum TLS Version", "values": ["1.0", "1.1", "1.2"] },
+        { "field": "Microsoft.ServiceBus/namespaces/publicNetworkAccess", "displayName": "Public Network Access", "values": ["Enabled", "Disabled", "SecuredByPerimeter"] },
+        { "field": "Microsoft.ServiceBus/namespaces/premiumMessagingPartitions", "displayName": "Premium Messaging Partitions", "values": ["1", "2", "4"] }
+      ]
+    },
+    {
+      "name": "Microsoft.EventHub/namespaces",
+      "description": "Event Hub Namespaces",
+      "properties": [
+        { "field": "Microsoft.EventHub/namespaces/sku.name", "displayName": "SKU Name", "values": ["Basic", "Standard", "Premium"] },
+        { "field": "Microsoft.EventHub/namespaces/sku.tier", "displayName": "SKU Tier", "values": ["Basic", "Standard", "Premium"] },
+        { "field": "Microsoft.EventHub/namespaces/sku.capacity", "displayName": "SKU Capacity", "values": ["1", "2", "4", "8", "16", "32"] },
+        { "field": "Microsoft.EventHub/namespaces/isAutoInflateEnabled", "displayName": "Auto Inflate Enabled", "values": ["true", "false"] },
+        { "field": "Microsoft.EventHub/namespaces/maximumThroughputUnits", "displayName": "Maximum Throughput Units" },
+        { "field": "Microsoft.EventHub/namespaces/zoneRedundant", "displayName": "Zone Redundant", "values": ["true", "false"] },
+        { "field": "Microsoft.EventHub/namespaces/disableLocalAuth", "displayName": "Disable Local Auth", "values": ["true", "false"] },
+        { "field": "Microsoft.EventHub/namespaces/minimumTlsVersion", "displayName": "Minimum TLS Version", "values": ["1.0", "1.1", "1.2"] },
+        { "field": "Microsoft.EventHub/namespaces/publicNetworkAccess", "displayName": "Public Network Access", "values": ["Enabled", "Disabled", "SecuredByPerimeter"] },
+        { "field": "Microsoft.EventHub/namespaces/kafkaEnabled", "displayName": "Kafka Enabled", "values": ["true", "false"] },
+        { "field": "Microsoft.EventHub/namespaces/clusterArmId", "displayName": "Cluster ARM ID" }
+      ]
+    },
+    {
+      "name": "Microsoft.Synapse/workspaces",
+      "description": "Synapse Workspaces",
+      "properties": [
+        { "field": "Microsoft.Synapse/workspaces/defaultDataLakeStorage.accountUrl", "displayName": "Default Data Lake Storage Account URL" },
+        { "field": "Microsoft.Synapse/workspaces/defaultDataLakeStorage.filesystem", "displayName": "Default Data Lake Storage Filesystem" },
+        { "field": "Microsoft.Synapse/workspaces/publicNetworkAccess", "displayName": "Public Network Access", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.Synapse/workspaces/managedVirtualNetwork", "displayName": "Managed Virtual Network" },
+        { "field": "Microsoft.Synapse/workspaces/encryption.cmk.key.name", "displayName": "CMK Key Name" },
+        { "field": "Microsoft.Synapse/workspaces/encryption.cmk.key.keyVaultUrl", "displayName": "CMK Key Vault URL" },
+        { "field": "Microsoft.Synapse/workspaces/azureADOnlyAuthentication", "displayName": "Azure AD Only Authentication", "values": ["true", "false"] },
+        { "field": "Microsoft.Synapse/workspaces/trustedServiceBypassEnabled", "displayName": "Trusted Service Bypass Enabled", "values": ["true", "false"] },
+        { "field": "Microsoft.Synapse/workspaces/purviewConfiguration.purviewResourceId", "displayName": "Purview Resource ID" }
+      ]
+    },
+    {
+      "name": "Microsoft.DBforPostgreSQL/servers",
+      "description": "PostgreSQL Servers",
+      "properties": [
+        { "field": "Microsoft.DBforPostgreSQL/servers/sku.name", "displayName": "SKU Name" },
+        { "field": "Microsoft.DBforPostgreSQL/servers/sku.tier", "displayName": "SKU Tier", "values": ["Basic", "GeneralPurpose", "MemoryOptimized", "Burstable"] },
+        { "field": "Microsoft.DBforPostgreSQL/servers/version", "displayName": "PostgreSQL Version", "values": ["9.5", "9.6", "10.0", "11", "12", "13", "14"] },
+        { "field": "Microsoft.DBforPostgreSQL/servers/sslEnforcement", "displayName": "SSL Enforcement", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.DBforPostgreSQL/servers/minimalTlsVersion", "displayName": "Minimal TLS Version", "values": ["TLS1_0", "TLS1_1", "TLS1_2", "TLSEnforcementDisabled"] },
+        { "field": "Microsoft.DBforPostgreSQL/servers/publicNetworkAccess", "displayName": "Public Network Access", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.DBforPostgreSQL/servers/infrastructureEncryption", "displayName": "Infrastructure Encryption", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.DBforPostgreSQL/servers/storageProfile.backupRetentionDays", "displayName": "Backup Retention Days" },
+        { "field": "Microsoft.DBforPostgreSQL/servers/storageProfile.storageMB", "displayName": "Storage MB" },
+        { "field": "Microsoft.DBforPostgreSQL/servers/storageProfile.geoRedundantBackup", "displayName": "Geo-Redundant Backup", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.DBforPostgreSQL/servers/storageProfile.storageAutogrow", "displayName": "Storage Autogrow", "values": ["Enabled", "Disabled"] }
+      ]
+    },
+    {
+      "name": "Microsoft.DBforMySQL/servers",
+      "description": "MySQL Servers",
+      "properties": [
+        { "field": "Microsoft.DBforMySQL/servers/sku.name", "displayName": "SKU Name" },
+        { "field": "Microsoft.DBforMySQL/servers/sku.tier", "displayName": "SKU Tier", "values": ["Basic", "GeneralPurpose", "MemoryOptimized", "Burstable"] },
+        { "field": "Microsoft.DBforMySQL/servers/version", "displayName": "MySQL Version", "values": ["5.6", "5.7", "8.0"] },
+        { "field": "Microsoft.DBforMySQL/servers/sslEnforcement", "displayName": "SSL Enforcement", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.DBforMySQL/servers/minimalTlsVersion", "displayName": "Minimal TLS Version", "values": ["TLS1_0", "TLS1_1", "TLS1_2", "TLSEnforcementDisabled"] },
+        { "field": "Microsoft.DBforMySQL/servers/publicNetworkAccess", "displayName": "Public Network Access", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.DBforMySQL/servers/infrastructureEncryption", "displayName": "Infrastructure Encryption", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.DBforMySQL/servers/storageProfile.backupRetentionDays", "displayName": "Backup Retention Days" },
+        { "field": "Microsoft.DBforMySQL/servers/storageProfile.storageMB", "displayName": "Storage MB" },
+        { "field": "Microsoft.DBforMySQL/servers/storageProfile.geoRedundantBackup", "displayName": "Geo-Redundant Backup", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.DBforMySQL/servers/storageProfile.storageAutogrow", "displayName": "Storage Autogrow", "values": ["Enabled", "Disabled"] }
+      ]
+    },
+    {
+      "name": "Microsoft.MachineLearningServices/workspaces",
+      "description": "Machine Learning Services Workspaces",
+      "properties": [
+        { "field": "Microsoft.MachineLearningServices/workspaces/sku", "displayName": "SKU", "values": ["Basic", "Enterprise", "Free"] },
+        { "field": "Microsoft.MachineLearningServices/workspaces/description", "displayName": "Description" },
+        { "field": "Microsoft.MachineLearningServices/workspaces/friendlyName", "displayName": "Friendly Name" },
+        { "field": "Microsoft.MachineLearningServices/workspaces/hbiWorkspace", "displayName": "HBI Workspace", "values": ["true", "false"] },
+        { "field": "Microsoft.MachineLearningServices/workspaces/storageAccount", "displayName": "Storage Account" },
+        { "field": "Microsoft.MachineLearningServices/workspaces/keyVault", "displayName": "Key Vault" },
+        { "field": "Microsoft.MachineLearningServices/workspaces/applicationInsights", "displayName": "Application Insights" },
+        { "field": "Microsoft.MachineLearningServices/workspaces/containerRegistry", "displayName": "Container Registry" },
+        { "field": "Microsoft.MachineLearningServices/workspaces/publicNetworkAccess", "displayName": "Public Network Access", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.MachineLearningServices/workspaces/allowPublicAccessWhenBehindVnet", "displayName": "Allow Public Access When Behind VNet", "values": ["true", "false"] }
+      ]
+    },
+    {
+      "name": "Microsoft.DataFactory/factories",
+      "description": "Data Factories",
+      "properties": [
+        { "field": "Microsoft.DataFactory/factories/publicNetworkAccess", "displayName": "Public Network Access", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.DataFactory/factories/encryption.vaultBaseUrl", "displayName": "Key Vault Base URL" },
+        { "field": "Microsoft.DataFactory/factories/encryption.cmk.name", "displayName": "CMK Name" },
+        { "field": "Microsoft.DataFactory/factories/encryption.cmk.version", "displayName": "CMK Version" },
+        { "field": "Microsoft.DataFactory/factories/purviewConfiguration.purviewResourceId", "displayName": "Purview Resource ID" },
+        { "field": "Microsoft.DataFactory/factories/globalParameters", "displayName": "Global Parameters" },
+        { "field": "Microsoft.DataFactory/factories/repoConfiguration.accountName", "displayName": "Repo Account Name" },
+        { "field": "Microsoft.DataFactory/factories/repoConfiguration.repositoryName", "displayName": "Repository Name" },
+        { "field": "Microsoft.DataFactory/factories/repoConfiguration.type", "displayName": "Repo Type", "values": ["FactoryVSTSConfiguration", "FactoryGitHubConfiguration"] }
+      ]
+    },
+    {
+      "name": "Microsoft.RecoveryServices/vaults",
+      "description": "Recovery Services Vaults",
+      "properties": [
+        { "field": "Microsoft.RecoveryServices/vaults/sku.name", "displayName": "SKU Name", "values": ["Standard", "RS0"] },
+        { "field": "Microsoft.RecoveryServices/vaults/publicNetworkAccess", "displayName": "Public Network Access", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.RecoveryServices/vaults/encryption.keyVaultProperties.keyUri", "displayName": "Key URI" },
+        { "field": "Microsoft.RecoveryServices/vaults/encryption.infrastructureEncryption", "displayName": "Infrastructure Encryption", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.RecoveryServices/vaults/encryption.kekIdentity.useSystemAssignedIdentity", "displayName": "Use System Assigned Identity", "values": ["true", "false"] },
+        { "field": "Microsoft.RecoveryServices/vaults/encryption.kekIdentity.userAssignedIdentity", "displayName": "User Assigned Identity" },
+        { "field": "Microsoft.RecoveryServices/vaults/securitySettings.immutabilitySettings.state", "displayName": "Immutability State", "values": ["Unlocked", "Locked", "Disabled"] },
+        { "field": "Microsoft.RecoveryServices/vaults/monitoringSettings.classicAlertSettings.alertsForCriticalOperations", "displayName": "Alerts For Critical Operations", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.RecoveryServices/vaults/backupPolicies", "displayName": "Backup Policies" }
+      ]
+    },
+    {
+      "name": "Microsoft.Network/privateEndpoints",
+      "description": "Private Endpoints",
+      "properties": [
+        { "field": "Microsoft.Network/privateEndpoints/privateLinkServiceConnections[*].privateLinkServiceId", "displayName": "Private Link Service ID" },
+        { "field": "Microsoft.Network/privateEndpoints/privateLinkServiceConnections[*].groupIds[*]", "displayName": "Group IDs" },
+        { "field": "Microsoft.Network/privateEndpoints/privateLinkServiceConnections[*].privateLinkServiceConnectionState.status", "displayName": "Connection Status", "values": ["Pending", "Approved", "Rejected"] },
+        { "field": "Microsoft.Network/privateEndpoints/manualPrivateLinkServiceConnections[*].privateLinkServiceId", "displayName": "Manual Private Link Service ID" },
+        { "field": "Microsoft.Network/privateEndpoints/customNetworkInterfaceName", "displayName": "Custom Network Interface Name" },
+        { "field": "Microsoft.Network/privateEndpoints/subnet.id", "displayName": "Subnet ID" },
+        { "field": "Microsoft.Network/privateEndpoints/ipConfigurations[*].name", "displayName": "IP Configuration Name" },
+        { "field": "Microsoft.Network/privateEndpoints/ipConfigurations[*].properties.privateIPAddress", "displayName": "Private IP Address" }
+      ]
+    },
+    {
+      "name": "Microsoft.Network/privateDnsZones",
+      "description": "Private DNS Zones",
+      "properties": [
+        { "field": "Microsoft.Network/privateDnsZones/zoneType", "displayName": "Zone Type", "values": ["Private"] },
+        { "field": "Microsoft.Network/privateDnsZones/registrationVirtualNetworks[*].id", "displayName": "Registration Virtual Network ID" },
+        { "field": "Microsoft.Network/privateDnsZones/resolutionVirtualNetworks[*].id", "displayName": "Resolution Virtual Network ID" },
+        { "field": "Microsoft.Network/privateDnsZones/numberOfRecordSets", "displayName": "Number Of Record Sets" },
+        { "field": "Microsoft.Network/privateDnsZones/numberOfVirtualNetworkLinks", "displayName": "Number Of Virtual Network Links" },
+        { "field": "Microsoft.Network/privateDnsZones/maxNumberOfRecordSets", "displayName": "Max Number Of Record Sets" },
+        { "field": "Microsoft.Network/privateDnsZones/maxNumberOfVirtualNetworkLinks", "displayName": "Max Number Of Virtual Network Links" }
+      ]
+    },
+    {
+      "name": "Microsoft.Network/frontDoors",
+      "description": "Front Doors",
+      "properties": [
+        { "field": "Microsoft.Network/frontDoors/routingRules[*].enabledState", "displayName": "Routing Rule Enabled State", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.Network/frontDoors/routingRules[*].acceptedProtocols[*]", "displayName": "Accepted Protocols", "values": ["Http", "Https"] },
+        { "field": "Microsoft.Network/frontDoors/routingRules[*].routeConfiguration.customForwardingPath", "displayName": "Custom Forwarding Path" },
+        { "field": "Microsoft.Network/frontDoors/frontendEndpoints[*].hostName", "displayName": "Frontend Endpoint Host Name" },
+        { "field": "Microsoft.Network/frontDoors/frontendEndpoints[*].sessionAffinityEnabledState", "displayName": "Session Affinity Enabled State", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.Network/frontDoors/frontendEndpoints[*].webApplicationFirewallPolicyLink.id", "displayName": "WAF Policy Link ID" },
+        { "field": "Microsoft.Network/frontDoors/healthProbeSettings[*].path", "displayName": "Health Probe Path" },
+        { "field": "Microsoft.Network/frontDoors/healthProbeSettings[*].protocol", "displayName": "Health Probe Protocol", "values": ["Http", "Https"] },
+        { "field": "Microsoft.Network/frontDoors/healthProbeSettings[*].intervalInSeconds", "displayName": "Health Probe Interval In Seconds" },
+        { "field": "Microsoft.Network/frontDoors/loadBalancingSettings[*].sampleSize", "displayName": "Load Balancing Sample Size" },
+        { "field": "Microsoft.Network/frontDoors/loadBalancingSettings[*].successfulSamplesRequired", "displayName": "Successful Samples Required" },
+        { "field": "Microsoft.Network/frontDoors/backendPools[*].backends[*].address", "displayName": "Backend Address" },
+        { "field": "Microsoft.Network/frontDoors/backendPools[*].backends[*].enabledState", "displayName": "Backend Enabled State", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.Network/frontDoors/backendPools[*].backends[*].httpPort", "displayName": "Backend HTTP Port" },
+        { "field": "Microsoft.Network/frontDoors/backendPools[*].backends[*].httpsPort", "displayName": "Backend HTTPS Port" },
+        { "field": "Microsoft.Network/frontDoors/backendPools[*].backends[*].weight", "displayName": "Backend Weight" },
+        { "field": "Microsoft.Network/frontDoors/backendPools[*].backends[*].priority", "displayName": "Backend Priority" }
+      ]
+    },
+    {
+      "name": "Microsoft.Network/frontdoorWebApplicationFirewallPolicies",
+      "description": "Front Door WAF Policies",
+      "properties": [
+        { "field": "Microsoft.Network/frontdoorWebApplicationFirewallPolicies/policySettings.enabledState", "displayName": "Enabled State", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.Network/frontdoorWebApplicationFirewallPolicies/policySettings.mode", "displayName": "Mode", "values": ["Prevention", "Detection"] },
+        { "field": "Microsoft.Network/frontdoorWebApplicationFirewallPolicies/policySettings.redirectUrl", "displayName": "Redirect URL" },
+        { "field": "Microsoft.Network/frontdoorWebApplicationFirewallPolicies/policySettings.customBlockResponseStatusCode", "displayName": "Custom Block Response Status Code" },
+        { "field": "Microsoft.Network/frontdoorWebApplicationFirewallPolicies/managedRules.managedRuleSets[*].ruleSetType", "displayName": "Rule Set Type", "values": ["DefaultRuleSet", "Microsoft_BotManagerRuleSet"] },
+        { "field": "Microsoft.Network/frontdoorWebApplicationFirewallPolicies/managedRules.managedRuleSets[*].ruleSetVersion", "displayName": "Rule Set Version", "values": ["1.0", "1.1", "preview-0.1"] },
+        { "field": "Microsoft.Network/frontdoorWebApplicationFirewallPolicies/managedRules.managedRuleSets[*].exclusions[*].matchVariable", "displayName": "Exclusion Match Variable", "values": ["RequestHeaderNames", "RequestCookieNames", "QueryStringArgNames", "RequestBodyPostArgNames"] },
+        { "field": "Microsoft.Network/frontdoorWebApplicationFirewallPolicies/managedRules.managedRuleSets[*].exclusions[*].selectorMatchOperator", "displayName": "Exclusion Selector Match Operator", "values": ["Equals", "Contains", "StartsWith", "EndsWith", "EqualsAny"] }
+      ]
+    },
+    {
+      "name": "Microsoft.StreamAnalytics/streamingjobs",
+      "description": "Stream Analytics Jobs",
+      "properties": [
+        { "field": "Microsoft.StreamAnalytics/streamingjobs/sku.name", "displayName": "SKU Name", "values": ["Standard"] },
+        { "field": "Microsoft.StreamAnalytics/streamingjobs/jobType", "displayName": "Job Type", "values": ["Cloud"] },
+        { "field": "Microsoft.StreamAnalytics/streamingjobs/compatibilityLevel", "displayName": "Compatibility Level", "values": ["1.0", "1.1", "1.2"] },
+        { "field": "Microsoft.StreamAnalytics/streamingjobs/eventsOutOfOrderPolicy", "displayName": "Events Out Of Order Policy", "values": ["Adjust", "Drop"] },
+        { "field": "Microsoft.StreamAnalytics/streamingjobs/eventsOutOfOrderMaxDelayInSeconds", "displayName": "Events Out Of Order Max Delay In Seconds" },
+        { "field": "Microsoft.StreamAnalytics/streamingjobs/outputErrorPolicy", "displayName": "Output Error Policy", "values": ["Stop", "Drop"] },
+        { "field": "Microsoft.StreamAnalytics/streamingjobs/inputStartMode", "displayName": "Input Start Mode", "values": ["JobStartTime", "CustomTime", "LastOutputEventTime"] },
+        { "field": "Microsoft.StreamAnalytics/streamingjobs/transformation.streamingUnits", "displayName": "Streaming Units" },
+        { "field": "Microsoft.StreamAnalytics/streamingjobs/transformation.query", "displayName": "Query" },
+        { "field": "Microsoft.StreamAnalytics/streamingjobs/contentStoragePolicy", "displayName": "Content Storage Policy", "values": ["SystemAccount", "JobStorageAccount"] }
+      ]
+    },
+    {
+      "name": "Microsoft.HealthcareApis/workspaces",
+      "description": "Healthcare APIs Workspaces",
+      "properties": [
+        { "field": "Microsoft.HealthcareApis/workspaces/publicNetworkAccess", "displayName": "Public Network Access", "values": ["Enabled", "Disabled"] }
+      ]
+    },
+    {
+      "name": "Microsoft.HealthcareApis/workspaces/fhirservices",
+      "description": "FHIR Services",
+      "properties": [
+        { "field": "Microsoft.HealthcareApis/workspaces/fhirservices/kind", "displayName": "Kind", "values": ["fhir-R4", "fhir-Stu3"] },
+        { "field": "Microsoft.HealthcareApis/workspaces/fhirservices/corsConfiguration.origins[*]", "displayName": "CORS Origins" },
+        { "field": "Microsoft.HealthcareApis/workspaces/fhirservices/corsConfiguration.headers[*]", "displayName": "CORS Headers" },
+        { "field": "Microsoft.HealthcareApis/workspaces/fhirservices/corsConfiguration.methods[*]", "displayName": "CORS Methods", "values": ["GET", "POST", "PUT", "DELETE", "PATCH"] },
+        { "field": "Microsoft.HealthcareApis/workspaces/fhirservices/corsConfiguration.maxAge", "displayName": "CORS Max Age" },
+        { "field": "Microsoft.HealthcareApis/workspaces/fhirservices/corsConfiguration.allowCredentials", "displayName": "CORS Allow Credentials", "values": ["true", "false"] },
+        { "field": "Microsoft.HealthcareApis/workspaces/fhirservices/acrConfiguration.loginServers[*]", "displayName": "ACR Login Servers" },
+        { "field": "Microsoft.HealthcareApis/workspaces/fhirservices/exportConfiguration.storageAccountName", "displayName": "Export Storage Account Name" },
+        { "field": "Microsoft.HealthcareApis/workspaces/fhirservices/authenticationConfiguration.authority", "displayName": "Authentication Authority" },
+        { "field": "Microsoft.HealthcareApis/workspaces/fhirservices/authenticationConfiguration.audience", "displayName": "Authentication Audience" }
+      ]
+    },
+    {
+      "name": "Microsoft.ContainerRegistry/registries",
+      "description": "Container Registries",
+      "properties": [
+        { "field": "Microsoft.ContainerRegistry/registries/sku.name", "displayName": "SKU Name", "values": ["Basic", "Standard", "Premium"] },
+        { "field": "Microsoft.ContainerRegistry/registries/adminUserEnabled", "displayName": "Admin User Enabled", "values": ["true", "false"] },
+        { "field": "Microsoft.ContainerRegistry/registries/publicNetworkAccess", "displayName": "Public Network Access", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.ContainerRegistry/registries/networkRuleSet.defaultAction", "displayName": "Network Rule Default Action", "values": ["Allow", "Deny"] },
+        { "field": "Microsoft.ContainerRegistry/registries/encryption.status", "displayName": "Encryption Status", "values": ["enabled", "disabled"] },
+        { "field": "Microsoft.ContainerRegistry/registries/policies.trustPolicy.status", "displayName": "Trust Policy Status", "values": ["enabled", "disabled"] },
+        { "field": "Microsoft.ContainerRegistry/registries/policies.retentionPolicy.status", "displayName": "Retention Policy Status", "values": ["enabled", "disabled"] },
+        { "field": "Microsoft.ContainerRegistry/registries/policies.retentionPolicy.days", "displayName": "Retention Policy Days" },
+        { "field": "Microsoft.ContainerRegistry/registries/dataEndpointEnabled", "displayName": "Data Endpoint Enabled", "values": ["true", "false"] },
+        { "field": "Microsoft.ContainerRegistry/registries/zoneRedundancy", "displayName": "Zone Redundancy", "values": ["Enabled", "Disabled"] }
+      ]
+    },
+    {
+      "name": "Microsoft.Insights/components",
+      "description": "Application Insights",
+      "properties": [
+        { "field": "Microsoft.Insights/components/kind", "displayName": "Kind", "values": ["web", "ios", "other", "java", "store"] },
+        { "field": "Microsoft.Insights/components/Application_Type", "displayName": "Application Type", "values": ["web", "other"] },
+        { "field": "Microsoft.Insights/components/RetentionInDays", "displayName": "Retention In Days" },
+        { "field": "Microsoft.Insights/components/publicNetworkAccessForIngestion", "displayName": "Public Network Access For Ingestion", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.Insights/components/publicNetworkAccessForQuery", "displayName": "Public Network Access For Query", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.Insights/components/IngestionMode", "displayName": "Ingestion Mode", "values": ["ApplicationInsights", "ApplicationInsightsWithDiagnosticSettings", "LogAnalytics"] },
+        { "field": "Microsoft.Insights/components/WorkspaceResourceId", "displayName": "Workspace Resource ID" },
+        { "field": "Microsoft.Insights/components/SamplingPercentage", "displayName": "Sampling Percentage" },
+        { "field": "Microsoft.Insights/components/DisableIpMasking", "displayName": "Disable IP Masking", "values": ["true", "false"] }
+      ]
+    },
+    {
+      "name": "Microsoft.CognitiveServices/accounts",
+      "description": "Cognitive Services",
+      "properties": [
+        { "field": "Microsoft.CognitiveServices/accounts/sku.name", "displayName": "SKU Name", "values": ["F0", "F1", "S0", "S1", "S2", "S3", "S4", "S5", "C1", "C2", "C3", "C4"] },
+        { "field": "Microsoft.CognitiveServices/accounts/kind", "displayName": "Kind", "values": ["AnomalyDetector", "ComputerVision", "ContentModerator", "CustomVision.Prediction", "CustomVision.Training", "Face", "FormRecognizer", "ImmersiveReader", "LUIS", "QnAMaker", "SpeechServices", "TextAnalytics", "TextTranslation", "OpenAI"] },
+        { "field": "Microsoft.CognitiveServices/accounts/publicNetworkAccess", "displayName": "Public Network Access", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.CognitiveServices/accounts/networkAcls.defaultAction", "displayName": "Network Default Action", "values": ["Allow", "Deny"] },
+        { "field": "Microsoft.CognitiveServices/accounts/disableLocalAuth", "displayName": "Disable Local Auth", "values": ["true", "false"] },
+        { "field": "Microsoft.CognitiveServices/accounts/customSubDomainName", "displayName": "Custom Subdomain Name" },
+        { "field": "Microsoft.CognitiveServices/accounts/encryption.keySource", "displayName": "Encryption Key Source", "values": ["Microsoft.CognitiveServices", "Microsoft.KeyVault"] },
+        { "field": "Microsoft.CognitiveServices/accounts/allowedFqdnList[*]", "displayName": "Allowed FQDN" },
+        { "field": "Microsoft.CognitiveServices/accounts/restrictOutboundNetworkAccess", "displayName": "Restrict Outbound Network Access", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.CognitiveServices/accounts/userOwnedStorage[*].resourceId", "displayName": "User Owned Storage Resource ID" }
+      ]
+    },
+    {
+      "name": "Microsoft.Search/searchServices",
+      "description": "Azure Search Services",
+      "properties": [
+        { "field": "Microsoft.Search/searchServices/sku.name", "displayName": "SKU Name", "values": ["free", "basic", "standard", "standard2", "standard3", "storage_optimized_l1", "storage_optimized_l2"] },
+        { "field": "Microsoft.Search/searchServices/partitionCount", "displayName": "Partition Count" },
+        { "field": "Microsoft.Search/searchServices/replicaCount", "displayName": "Replica Count" },
+        { "field": "Microsoft.Search/searchServices/publicNetworkAccess", "displayName": "Public Network Access", "values": ["enabled", "disabled"] },
+        { "field": "Microsoft.Search/searchServices/networkRuleSet.ipRules[*].value", "displayName": "IP Rule" },
+        { "field": "Microsoft.Search/searchServices/networkRuleSet.defaultAction", "displayName": "Network Rule Default Action", "values": ["Allow", "Deny"] },
+        { "field": "Microsoft.Search/searchServices/hostingMode", "displayName": "Hosting Mode", "values": ["default", "highDensity"] },
+        { "field": "Microsoft.Search/searchServices/encryptionWithCmk.enforcement", "displayName": "CMK Enforcement", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.Search/searchServices/disableLocalAuth", "displayName": "Disable Local Auth", "values": ["true", "false"] },
+        { "field": "Microsoft.Search/searchServices/semanticSearch", "displayName": "Semantic Search", "values": ["free", "standard"] }
+      ]
+    },
+    {
+      "name": "Microsoft.AppConfiguration/configurationStores",
+      "description": "App Configuration Stores",
+      "properties": [
+        { "field": "Microsoft.AppConfiguration/configurationStores/sku.name", "displayName": "SKU Name", "values": ["Free", "Standard"] },
+        { "field": "Microsoft.AppConfiguration/configurationStores/publicNetworkAccess", "displayName": "Public Network Access", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.AppConfiguration/configurationStores/disableLocalAuth", "displayName": "Disable Local Auth", "values": ["true", "false"] },
+        { "field": "Microsoft.AppConfiguration/configurationStores/enablePurgeProtection", "displayName": "Enable Purge Protection", "values": ["true", "false"] },
+        { "field": "Microsoft.AppConfiguration/configurationStores/softDeleteRetentionInDays", "displayName": "Soft Delete Retention In Days" },
+        { "field": "Microsoft.AppConfiguration/configurationStores/encryption.keyVaultProperties.keyIdentifier", "displayName": "Key Vault Key Identifier" },
+        { "field": "Microsoft.AppConfiguration/configurationStores/encryption.keyVaultProperties.identityClientId", "displayName": "Identity Client ID" }
+      ]
+    },
+    {
+      "name": "Microsoft.Automation/automationAccounts",
+      "description": "Automation Accounts",
+      "properties": [
+        { "field": "Microsoft.Automation/automationAccounts/sku.name", "displayName": "SKU Name", "values": ["Free", "Basic"] },
+        { "field": "Microsoft.Automation/automationAccounts/publicNetworkAccess", "displayName": "Public Network Access", "values": ["true", "false"] },
+        { "field": "Microsoft.Automation/automationAccounts/encryption.keySource", "displayName": "Encryption Key Source", "values": ["Microsoft.Automation", "Microsoft.KeyVault"] },
+        { "field": "Microsoft.Automation/automationAccounts/encryption.keyVaultProperties.keyName", "displayName": "Key Vault Key Name" },
+        { "field": "Microsoft.Automation/automationAccounts/encryption.keyVaultProperties.keyvaultUri", "displayName": "Key Vault URI" },
+        { "field": "Microsoft.Automation/automationAccounts/disableLocalAuth", "displayName": "Disable Local Auth", "values": ["true", "false"] }
+      ]
+    },
+    {
+      "name": "Microsoft.Insights/diagnosticSettings",
+      "description": "Diagnostic Settings",
+      "properties": [
+        { "field": "Microsoft.Insights/diagnosticSettings/workspaceId", "displayName": "Log Analytics Workspace ID" },
+        { "field": "Microsoft.Insights/diagnosticSettings/storageAccountId", "displayName": "Storage Account ID" },
+        { "field": "Microsoft.Insights/diagnosticSettings/eventHubAuthorizationRuleId", "displayName": "Event Hub Authorization Rule ID" },
+        { "field": "Microsoft.Insights/diagnosticSettings/eventHubName", "displayName": "Event Hub Name" },
+        { "field": "Microsoft.Insights/diagnosticSettings/logs[*].category", "displayName": "Log Category" },
+        { "field": "Microsoft.Insights/diagnosticSettings/logs[*].enabled", "displayName": "Log Enabled", "values": ["true", "false"] },
+        { "field": "Microsoft.Insights/diagnosticSettings/metrics[*].category", "displayName": "Metric Category" },
+        { "field": "Microsoft.Insights/diagnosticSettings/metrics[*].enabled", "displayName": "Metric Enabled", "values": ["true", "false"] }
+      ]
+    },
+    {
+      "name": "Microsoft.Purview/accounts",
+      "description": "Purview Accounts",
+      "properties": [
+        { "field": "Microsoft.Purview/accounts/publicNetworkAccess", "displayName": "Public Network Access", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.Purview/accounts/managedResourceGroupName", "displayName": "Managed Resource Group Name" },
+        { "field": "Microsoft.Purview/accounts/friendlyName", "displayName": "Friendly Name" },
+        { "field": "Microsoft.Purview/accounts/encryption.keyVaultProperties.keyName", "displayName": "Key Vault Key Name" },
+        { "field": "Microsoft.Purview/accounts/encryption.keyVaultProperties.keyVaultUri", "displayName": "Key Vault URI" },
+        { "field": "Microsoft.Purview/accounts/encryption.status", "displayName": "Encryption Status", "values": ["Enabled", "Disabled"] }
+      ]
+    },
+    {
+      "name": "Microsoft.SignalRService/signalR",
+      "description": "SignalR Services",
+      "properties": [
+        { "field": "Microsoft.SignalRService/signalR/sku.name", "displayName": "SKU Name", "values": ["Free_F1", "Standard_S1", "Premium_P1"] },
+        { "field": "Microsoft.SignalRService/signalR/sku.capacity", "displayName": "SKU Capacity" },
+        { "field": "Microsoft.SignalRService/signalR/kind", "displayName": "Kind", "values": ["SignalR", "RawWebSockets"] },
+        { "field": "Microsoft.SignalRService/signalR/features[*].flag", "displayName": "Feature Flag", "values": ["ServiceMode", "EnableConnectivityLogs", "EnableMessagingLogs", "EnableLiveTrace"] },
+        { "field": "Microsoft.SignalRService/signalR/features[*].value", "displayName": "Feature Value", "values": ["Default", "Serverless", "Classic", "true", "false"] },
+        { "field": "Microsoft.SignalRService/signalR/tls", "displayName": "TLS", "values": ["1.0", "1.1", "1.2"] },
+        { "field": "Microsoft.SignalRService/signalR/publicNetworkAccess", "displayName": "Public Network Access", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.SignalRService/signalR/disableLocalAuth", "displayName": "Disable Local Auth", "values": ["true", "false"] },
+        { "field": "Microsoft.SignalRService/signalR/resourceLogConfiguration.categories[*].enabled", "displayName": "Resource Log Enabled", "values": ["true", "false"] }
+      ]
+    },
+    {
+      "name": "Microsoft.Network/azureFirewalls",
+      "description": "Azure Firewalls",
+      "properties": [
+        { "field": "Microsoft.Network/azureFirewalls/sku.name", "displayName": "SKU Name", "values": ["AZFW_VNet", "AZFW_Hub"] },
+        { "field": "Microsoft.Network/azureFirewalls/sku.tier", "displayName": "SKU Tier", "values": ["Standard", "Premium"] },
+        { "field": "Microsoft.Network/azureFirewalls/threatIntelMode", "displayName": "Threat Intel Mode", "values": ["Alert", "Deny", "Off"] },
+        { "field": "Microsoft.Network/azureFirewalls/ipConfigurations[*].subnet.id", "displayName": "Subnet ID" },
+        { "field": "Microsoft.Network/azureFirewalls/ipConfigurations[*].publicIPAddress.id", "displayName": "Public IP Address ID" },
+        { "field": "Microsoft.Network/azureFirewalls/managementIpConfiguration.subnet.id", "displayName": "Management Subnet ID" },
+        { "field": "Microsoft.Network/azureFirewalls/managementIpConfiguration.publicIPAddress.id", "displayName": "Management Public IP Address ID" },
+        { "field": "Microsoft.Network/azureFirewalls/applicationRuleCollections[*].priority", "displayName": "Application Rule Collection Priority" },
+        { "field": "Microsoft.Network/azureFirewalls/applicationRuleCollections[*].action.type", "displayName": "Application Rule Collection Action", "values": ["Allow", "Deny"] },
+        { "field": "Microsoft.Network/azureFirewalls/networkRuleCollections[*].priority", "displayName": "Network Rule Collection Priority" },
+        { "field": "Microsoft.Network/azureFirewalls/networkRuleCollections[*].action.type", "displayName": "Network Rule Collection Action", "values": ["Allow", "Deny"] },
+        { "field": "Microsoft.Network/azureFirewalls/natRuleCollections[*].priority", "displayName": "NAT Rule Collection Priority" },
+        { "field": "Microsoft.Network/azureFirewalls/natRuleCollections[*].action.type", "displayName": "NAT Rule Collection Action", "values": ["Dnat"] }
+      ]
+    },
+    {
+      "name": "Microsoft.SecurityInsights/sentinel",
+      "description": "Microsoft Sentinel",
+      "properties": [
+        { "field": "Microsoft.SecurityInsights/sentinel/etags", "displayName": "ETags" },
+        { "field": "Microsoft.SecurityInsights/sentinel/contentProductId", "displayName": "Content Product ID" }
+      ]
+    },
+    {
+      "name": "Microsoft.Security/azureSecurityCenter",
+      "description": "Azure Security Center",
+      "properties": [
+        { "field": "Microsoft.Security/azureSecurityCenter/pricingTier", "displayName": "Pricing Tier", "values": ["Free", "Standard"] },
+        { "field": "Microsoft.Security/azureSecurityCenter/contact/email", "displayName": "Contact Email" },
+        { "field": "Microsoft.Security/azureSecurityCenter/contact/phone", "displayName": "Contact Phone" },
+        { "field": "Microsoft.Security/azureSecurityCenter/contact/alertNotifications", "displayName": "Alert Notifications", "values": ["On", "Off"] },
+        { "field": "Microsoft.Security/azureSecurityCenter/contact/alertsToAdmins", "displayName": "Alerts To Admins", "values": ["On", "Off"] }
+      ]
+    },
+    {
+      "name": "Microsoft.Kubernetes/connectedClusters",
+      "description": "Azure Arc-enabled Kubernetes Clusters",
+      "properties": [
+        { "field": "Microsoft.Kubernetes/connectedClusters/distribution", "displayName": "Distribution" },
+        { "field": "Microsoft.Kubernetes/connectedClusters/infrastructure", "displayName": "Infrastructure" },
+        { "field": "Microsoft.Kubernetes/connectedClusters/offerType", "displayName": "Offer Type", "values": ["Standard"] },
+        { "field": "Microsoft.Kubernetes/connectedClusters/connectivityStatus", "displayName": "Connectivity Status", "values": ["Connected", "Disconnected", "Expired"] },
+        { "field": "Microsoft.Kubernetes/connectedClusters/totalNodeCount", "displayName": "Total Node Count" },
+        { "field": "Microsoft.Kubernetes/connectedClusters/agentPublicKeyCertificate", "displayName": "Agent Public Key Certificate" },
+        { "field": "Microsoft.Kubernetes/connectedClusters/aadProfile.tenantId", "displayName": "AAD Tenant ID" },
+        { "field": "Microsoft.Kubernetes/connectedClusters/aadProfile.clientAppId", "displayName": "AAD Client App ID" },
+        { "field": "Microsoft.Kubernetes/connectedClusters/aadProfile.serverAppId", "displayName": "AAD Server App ID" }
+      ]
+    },
+    {
+      "name": "Microsoft.HybridCompute/machines",
+      "description": "Azure Arc-enabled Servers",
+      "properties": [
+        { "field": "Microsoft.HybridCompute/machines/osType", "displayName": "OS Type", "values": ["Windows", "Linux"] },
+        { "field": "Microsoft.HybridCompute/machines/osName", "displayName": "OS Name" },
+        { "field": "Microsoft.HybridCompute/machines/osVersion", "displayName": "OS Version" },
+        { "field": "Microsoft.HybridCompute/machines/licenseType", "displayName": "License Type", "values": ["Windows_Server", "Windows_Client", "None"] },
+        { "field": "Microsoft.HybridCompute/machines/vmId", "displayName": "VM ID" },
+        { "field": "Microsoft.HybridCompute/machines/machineFqdn", "displayName": "Machine FQDN" },
+        { "field": "Microsoft.HybridCompute/machines/agentConfiguration.isExtensionUpgradeEnabled", "displayName": "Extension Upgrade Enabled", "values": ["true", "false"] },
+        { "field": "Microsoft.HybridCompute/machines/status.status", "displayName": "Status", "values": ["Connected", "Disconnected", "Error"] },
+        { "field": "Microsoft.HybridCompute/machines/privateEndpointConnections[*].privateLinkServiceConnectionState.status", "displayName": "Private Link Connection Status", "values": ["Pending", "Approved", "Rejected"] }
+      ]
+    },
+    {
+      "name": "Microsoft.Compute/diskEncryptionSets",
+      "description": "Disk Encryption Sets",
+      "properties": [
+        { "field": "Microsoft.Compute/diskEncryptionSets/encryptionType", "displayName": "Encryption Type", "values": ["EncryptionAtRestWithPlatformKey", "EncryptionAtRestWithCustomerKey", "EncryptionAtRestWithPlatformAndCustomerKeys"] },
+        { "field": "Microsoft.Compute/diskEncryptionSets/activeKey.keyUrl", "displayName": "Active Key URL" },
+        { "field": "Microsoft.Compute/diskEncryptionSets/activeKey.sourceVault.id", "displayName": "Active Key Source Vault ID" },
+        { "field": "Microsoft.Compute/diskEncryptionSets/rotationToLatestKeyVersionEnabled", "displayName": "Rotation To Latest Key Version Enabled", "values": ["true", "false"] },
+        { "field": "Microsoft.Compute/diskEncryptionSets/federatedClientId", "displayName": "Federated Client ID" }
+      ]
+    },
+    {
+      "name": "Microsoft.Network/bastionHosts",
+      "description": "Bastion Hosts",
+      "properties": [
+        { "field": "Microsoft.Network/bastionHosts/ipConfigurations[*].subnet.id", "displayName": "Subnet ID" },
+        { "field": "Microsoft.Network/bastionHosts/ipConfigurations[*].publicIPAddress.id", "displayName": "Public IP Address ID" },
+        { "field": "Microsoft.Network/bastionHosts/scaleUnits", "displayName": "Scale Units" },
+        { "field": "Microsoft.Network/bastionHosts/enableFileCopy", "displayName": "Enable File Copy", "values": ["true", "false"] },
+        { "field": "Microsoft.Network/bastionHosts/enableIpConnect", "displayName": "Enable IP Connect", "values": ["true", "false"] },
+        { "field": "Microsoft.Network/bastionHosts/enableKerberos", "displayName": "Enable Kerberos", "values": ["true", "false"] },
+        { "field": "Microsoft.Network/bastionHosts/enableShareableLink", "displayName": "Enable Shareable Link", "values": ["true", "false"] },
+        { "field": "Microsoft.Network/bastionHosts/enableTunneling", "displayName": "Enable Tunneling", "values": ["true", "false"] },
+        { "field": "Microsoft.Network/bastionHosts/disableCopyPaste", "displayName": "Disable Copy Paste", "values": ["true", "false"] }
+      ]
+    },
+    {
+      "name": "Microsoft.AzureStackHCI/clusters",
+      "description": "Azure Stack HCI Clusters",
+      "properties": [
+        { "field": "Microsoft.AzureStackHCI/clusters/aadClientId", "displayName": "AAD Client ID" },
+        { "field": "Microsoft.AzureStackHCI/clusters/aadTenantId", "displayName": "AAD Tenant ID" },
+        { "field": "Microsoft.AzureStackHCI/clusters/billingModel", "displayName": "Billing Model", "values": ["standard", "subscription"] },
+        { "field": "Microsoft.AzureStackHCI/clusters/clusterId", "displayName": "Cluster ID" },
+        { "field": "Microsoft.AzureStackHCI/clusters/status", "displayName": "Status", "values": ["NotYetRegistered", "Registered", "ConnectionFailed", "ConnectionDelayed"] },
+        { "field": "Microsoft.AzureStackHCI/clusters/cloudId", "displayName": "Cloud ID" },
+        { "field": "Microsoft.AzureStackHCI/clusters/trialDaysRemaining", "displayName": "Trial Days Remaining" }
+      ]
+    },
+    {
+      "name": "Microsoft.Web/staticSites",
+      "description": "Static Web Apps",
+      "properties": [
+        { "field": "Microsoft.Web/staticSites/repositoryUrl", "displayName": "Repository URL" },
+        { "field": "Microsoft.Web/staticSites/branch", "displayName": "Branch" },
+        { "field": "Microsoft.Web/staticSites/buildProperties.appArtifactLocation", "displayName": "App Artifact Location" },
+        { "field": "Microsoft.Web/staticSites/buildProperties.apiArtifactLocation", "displayName": "API Artifact Location" },
+        { "field": "Microsoft.Web/staticSites/repositoryToken", "displayName": "Repository Token" },
+        { "field": "Microsoft.Web/staticSites/stagingEnvironmentPolicy", "displayName": "Staging Environment Policy", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.Web/staticSites/allowConfigFileUpdates", "displayName": "Allow Config File Updates", "values": ["true", "false"] },
+        { "field": "Microsoft.Web/staticSites/enterpriseGradeCdnStatus", "displayName": "Enterprise Grade CDN Status", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.Web/staticSites/provider", "displayName": "Provider", "values": ["GitHub", "DevOps", "GitLab", "Bitbucket"] },
+        { "field": "Microsoft.Web/staticSites/publicNetworkAccess", "displayName": "Public Network Access", "values": ["Enabled", "Disabled"] }
+      ]
+    },
+    {
+      "name": "Microsoft.Network/dnsZones",
+      "description": "DNS Zones",
+      "properties": [
+        { "field": "Microsoft.Network/dnsZones/zoneType", "displayName": "Zone Type", "values": ["Public", "Private"] },
+        { "field": "Microsoft.Network/dnsZones/numberOfRecordSets", "displayName": "Number Of Record Sets" },
+        { "field": "Microsoft.Network/dnsZones/maxNumberOfRecordSets", "displayName": "Max Number Of Record Sets" },
+        { "field": "Microsoft.Network/dnsZones/nameServers[*]", "displayName": "Name Servers" }
+      ]
+    },
+    {
+      "name": "Microsoft.Network/trafficManagerProfiles",
+      "description": "Traffic Manager Profiles",
+      "properties": [
+        { "field": "Microsoft.Network/trafficManagerProfiles/profileStatus", "displayName": "Profile Status", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.Network/trafficManagerProfiles/trafficRoutingMethod", "displayName": "Traffic Routing Method", "values": ["Performance", "Priority", "Weighted", "Geographic", "MultiValue", "Subnet"] },
+        { "field": "Microsoft.Network/trafficManagerProfiles/dnsConfig.relativeName", "displayName": "DNS Relative Name" },
+        { "field": "Microsoft.Network/trafficManagerProfiles/dnsConfig.ttl", "displayName": "DNS TTL" },
+        { "field": "Microsoft.Network/trafficManagerProfiles/monitorConfig.protocol", "displayName": "Monitor Protocol", "values": ["HTTP", "HTTPS", "TCP"] },
+        { "field": "Microsoft.Network/trafficManagerProfiles/monitorConfig.port", "displayName": "Monitor Port" },
+        { "field": "Microsoft.Network/trafficManagerProfiles/monitorConfig.path", "displayName": "Monitor Path" },
+        { "field": "Microsoft.Network/trafficManagerProfiles/monitorConfig.intervalInSeconds", "displayName": "Monitor Interval In Seconds" },
+        { "field": "Microsoft.Network/trafficManagerProfiles/monitorConfig.timeoutInSeconds", "displayName": "Monitor Timeout In Seconds" },
+        { "field": "Microsoft.Network/trafficManagerProfiles/monitorConfig.toleratedNumberOfFailures", "displayName": "Tolerated Number Of Failures" },
+        { "field": "Microsoft.Network/trafficManagerProfiles/maxReturn", "displayName": "Max Return" }
+      ]
+    },
+    {
+      "name": "Microsoft.Network/expressRouteCircuits",
+      "description": "ExpressRoute Circuits",
+      "properties": [
+        { "field": "Microsoft.Network/expressRouteCircuits/serviceProviderProperties.serviceProviderName", "displayName": "Service Provider Name" },
+        { "field": "Microsoft.Network/expressRouteCircuits/serviceProviderProperties.peeringLocation", "displayName": "Peering Location" },
+        { "field": "Microsoft.Network/expressRouteCircuits/serviceProviderProperties.bandwidthInMbps", "displayName": "Bandwidth In Mbps" },
+        { "field": "Microsoft.Network/expressRouteCircuits/circuitProvisioningState", "displayName": "Circuit Provisioning State", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.Network/expressRouteCircuits/serviceKey", "displayName": "Service Key" },
+        { "field": "Microsoft.Network/expressRouteCircuits/serviceProviderProvisioningState", "displayName": "Service Provider Provisioning State", "values": ["NotProvisioned", "Provisioning", "Provisioned", "Deprovisioning"] },
+        { "field": "Microsoft.Network/expressRouteCircuits/sku.name", "displayName": "SKU Name", "values": ["Standard", "Premium", "Local", "Basic"] },
+        { "field": "Microsoft.Network/expressRouteCircuits/sku.tier", "displayName": "SKU Tier", "values": ["Standard", "Premium", "Local", "Basic"] },
+        { "field": "Microsoft.Network/expressRouteCircuits/sku.family", "displayName": "SKU Family", "values": ["MeteredData", "UnlimitedData"] },
+        { "field": "Microsoft.Network/expressRouteCircuits/allowClassicOperations", "displayName": "Allow Classic Operations", "values": ["true", "false"] },
+        { "field": "Microsoft.Network/expressRouteCircuits/globalReachEnabled", "displayName": "Global Reach Enabled", "values": ["true", "false"] }
+      ]
+    },
+    {
+      "name": "Microsoft.ServiceFabric/clusters",
+      "description": "Service Fabric Clusters",
+      "properties": [
+        { "field": "Microsoft.ServiceFabric/clusters/reliabilityLevel", "displayName": "Reliability Level", "values": ["None", "Bronze", "Silver", "Gold", "Platinum"] },
+        { "field": "Microsoft.ServiceFabric/clusters/managementEndpoint", "displayName": "Management Endpoint" },
+        { "field": "Microsoft.ServiceFabric/clusters/certificate.thumbprint", "displayName": "Certificate Thumbprint" },
+        { "field": "Microsoft.ServiceFabric/clusters/certificate.x509StoreName", "displayName": "X509 Store Name", "values": ["My"] },
+        { "field": "Microsoft.ServiceFabric/clusters/clientCertificateThumbprints[*].certificateThumbprint", "displayName": "Client Certificate Thumbprint" },
+        { "field": "Microsoft.ServiceFabric/clusters/clientCertificateThumbprints[*].isAdmin", "displayName": "Is Admin", "values": ["true", "false"] },
+        { "field": "Microsoft.ServiceFabric/clusters/fabricSettings[*].name", "displayName": "Fabric Setting Name" },
+        { "field": "Microsoft.ServiceFabric/clusters/fabricSettings[*].parameters[*].name", "displayName": "Fabric Setting Parameter Name" },
+        { "field": "Microsoft.ServiceFabric/clusters/fabricSettings[*].parameters[*].value", "displayName": "Fabric Setting Parameter Value" },
+        { "field": "Microsoft.ServiceFabric/clusters/upgradeMode", "displayName": "Upgrade Mode", "values": ["Automatic", "Manual"] },
+        { "field": "Microsoft.ServiceFabric/clusters/vmImage", "displayName": "VM Image" }
+      ]
+    },
+    {
+      "name": "Microsoft.Databricks/workspaces",
+      "description": "Databricks Workspaces",
+      "properties": [
+        { "field": "Microsoft.Databricks/workspaces/managedResourceGroupId", "displayName": "Managed Resource Group ID" },
+        { "field": "Microsoft.Databricks/workspaces/parameters.enableNoPublicIp", "displayName": "Enable No Public IP", "values": ["true", "false"] },
+        { "field": "Microsoft.Databricks/workspaces/parameters.customVirtualNetworkId", "displayName": "Custom Virtual Network ID" },
+        { "field": "Microsoft.Databricks/workspaces/parameters.customPublicSubnetName", "displayName": "Custom Public Subnet Name" },
+        { "field": "Microsoft.Databricks/workspaces/parameters.customPrivateSubnetName", "displayName": "Custom Private Subnet Name" },
+        { "field": "Microsoft.Databricks/workspaces/parameters.prepareEncryption", "displayName": "Prepare Encryption", "values": ["true", "false"] },
+        { "field": "Microsoft.Databricks/workspaces/parameters.requireInfrastructureEncryption", "displayName": "Require Infrastructure Encryption", "values": ["true", "false"] },
+        { "field": "Microsoft.Databricks/workspaces/parameters.encryption.keySource", "displayName": "Key Source", "values": ["Default", "Microsoft.KeyVault"] },
+        { "field": "Microsoft.Databricks/workspaces/parameters.encryption.keyName", "displayName": "Key Name" },
+        { "field": "Microsoft.Databricks/workspaces/parameters.encryption.keyVersion", "displayName": "Key Version" },
+        { "field": "Microsoft.Databricks/workspaces/parameters.encryption.keyVaultUri", "displayName": "Key Vault URI" }
+      ]
+    },
+    {
+      "name": "Microsoft.Sql/managedInstances",
+      "description": "SQL Managed Instances",
+      "properties": [
+        { "field": "Microsoft.Sql/managedInstances/sku.name", "displayName": "SKU Name", "values": ["GP_Gen5", "BC_Gen5", "GP_Gen8IM", "BC_Gen8IM"] },
+        { "field": "Microsoft.Sql/managedInstances/sku.tier", "displayName": "SKU Tier", "values": ["GeneralPurpose", "BusinessCritical"] },
+        { "field": "Microsoft.Sql/managedInstances/administratorLogin", "displayName": "Administrator Login" },
+        { "field": "Microsoft.Sql/managedInstances/subnetId", "displayName": "Subnet ID" },
+        { "field": "Microsoft.Sql/managedInstances/licenseType", "displayName": "License Type", "values": ["BasePrice", "LicenseIncluded"] },
+        { "field": "Microsoft.Sql/managedInstances/vCores", "displayName": "vCores", "values": ["4", "8", "16", "24", "32", "40", "64", "80"] },
+        { "field": "Microsoft.Sql/managedInstances/storageSizeInGB", "displayName": "Storage Size In GB" },
+        { "field": "Microsoft.Sql/managedInstances/collation", "displayName": "Collation" },
+        { "field": "Microsoft.Sql/managedInstances/dnsZonePartner", "displayName": "DNS Zone Partner" },
+        { "field": "Microsoft.Sql/managedInstances/publicDataEndpointEnabled", "displayName": "Public Data Endpoint Enabled", "values": ["true", "false"] },
+        { "field": "Microsoft.Sql/managedInstances/proxyOverride", "displayName": "Proxy Override", "values": ["Proxy", "Redirect", "Default"] },
+        { "field": "Microsoft.Sql/managedInstances/timezoneId", "displayName": "Timezone ID" },
+        { "field": "Microsoft.Sql/managedInstances/minimalTlsVersion", "displayName": "Minimal TLS Version", "values": ["1.0", "1.1", "1.2"] },
+        { "field": "Microsoft.Sql/managedInstances/zoneRedundant", "displayName": "Zone Redundant", "values": ["true", "false"] },
+        { "field": "Microsoft.Sql/managedInstances/instancePoolId", "displayName": "Instance Pool ID" },
+        { "field": "Microsoft.Sql/managedInstances/maintenanceConfigurationId", "displayName": "Maintenance Configuration ID" },
+        { "field": "Microsoft.Sql/managedInstances/requestedBackupStorageRedundancy", "displayName": "Requested Backup Storage Redundancy", "values": ["Local", "Zone", "Geo"] }
+      ]
+    },
+    {
+      "name": "Microsoft.HDInsight/clusters",
+      "description": "HDInsight Clusters",
+      "properties": [
+        { "field": "Microsoft.HDInsight/clusters/clusterVersion", "displayName": "Cluster Version" },
+        { "field": "Microsoft.HDInsight/clusters/osType", "displayName": "OS Type", "values": ["Linux", "Windows"] },
+        { "field": "Microsoft.HDInsight/clusters/tier", "displayName": "Tier", "values": ["Standard", "Premium"] },
+        { "field": "Microsoft.HDInsight/clusters/clusterDefinition.kind", "displayName": "Cluster Kind", "values": ["hadoop", "spark", "hbase", "kafka", "storm", "interactivehive", "mlservices"] },
+        { "field": "Microsoft.HDInsight/clusters/clusterDefinition.componentVersion", "displayName": "Component Version" },
+        { "field": "Microsoft.HDInsight/clusters/clusterDefinition.gateway.restAuthCredential.username", "displayName": "Gateway Username" },
+        { "field": "Microsoft.HDInsight/clusters/computeProfile.roles[*].name", "displayName": "Role Name", "values": ["headnode", "workernode", "zookeepernode", "edgenode"] },
+        { "field": "Microsoft.HDInsight/clusters/computeProfile.roles[*].hardwareProfile.vmSize", "displayName": "VM Size" },
+        { "field": "Microsoft.HDInsight/clusters/computeProfile.roles[*].targetInstanceCount", "displayName": "Target Instance Count" },
+        { "field": "Microsoft.HDInsight/clusters/computeProfile.roles[*].osProfile.linuxOperatingSystemProfile.username", "displayName": "SSH Username" },
+        { "field": "Microsoft.HDInsight/clusters/storageProfile.storageaccounts[*].name", "displayName": "Storage Account Name" },
+        { "field": "Microsoft.HDInsight/clusters/storageProfile.storageaccounts[*].isDefault", "displayName": "Is Default Storage", "values": ["true", "false"] },
+        { "field": "Microsoft.HDInsight/clusters/securityProfile.directory", "displayName": "Directory" },
+        { "field": "Microsoft.HDInsight/clusters/securityProfile.domain", "displayName": "Domain" },
+        { "field": "Microsoft.HDInsight/clusters/securityProfile.ldapsUrls[*]", "displayName": "LDAPS URLs" },
+        { "field": "Microsoft.HDInsight/clusters/diskEncryptionProperties.encryptionAlgorithm", "displayName": "Encryption Algorithm", "values": ["RSA-OAEP", "RSA-OAEP-256", "RSA1_5"] },
+        { "field": "Microsoft.HDInsight/clusters/diskEncryptionProperties.keyName", "displayName": "Key Name" },
+        { "field": "Microsoft.HDInsight/clusters/diskEncryptionProperties.keyVersion", "displayName": "Key Version" },
+        { "field": "Microsoft.HDInsight/clusters/diskEncryptionProperties.vaultUri", "displayName": "Vault URI" }
+      ]
+    },
+    {
+      "name": "Microsoft.Kusto/clusters",
+      "description": "Azure Data Explorer Clusters",
+      "properties": [
+        { "field": "Microsoft.Kusto/clusters/sku.name", "displayName": "SKU Name", "values": ["Dev(No SLA)_Standard_D11_v2", "Standard_D11_v2", "Standard_D12_v2", "Standard_D13_v2", "Standard_D14_v2", "Standard_L4s", "Standard_L8s", "Standard_L16s", "Standard_L8s_v2", "Standard_L16s_v2", "Standard_DS13_v2+1TB_PS", "Standard_DS13_v2+2TB_PS", "Standard_DS14_v2+3TB_PS", "Standard_DS14_v2+4TB_PS"] },
+        { "field": "Microsoft.Kusto/clusters/sku.tier", "displayName": "SKU Tier", "values": ["Basic", "Standard"] },
+        { "field": "Microsoft.Kusto/clusters/sku.capacity", "displayName": "SKU Capacity" },
+        { "field": "Microsoft.Kusto/clusters/trustedExternalTenants[*].value", "displayName": "Trusted External Tenant" },
+        { "field": "Microsoft.Kusto/clusters/enableDiskEncryption", "displayName": "Enable Disk Encryption", "values": ["true", "false"] },
+        { "field": "Microsoft.Kusto/clusters/enableStreamingIngest", "displayName": "Enable Streaming Ingest", "values": ["true", "false"] },
+        { "field": "Microsoft.Kusto/clusters/enablePurge", "displayName": "Enable Purge", "values": ["true", "false"] },
+        { "field": "Microsoft.Kusto/clusters/enableDoubleEncryption", "displayName": "Enable Double Encryption", "values": ["true", "false"] },
+        { "field": "Microsoft.Kusto/clusters/engineType", "displayName": "Engine Type", "values": ["V2", "V3"] },
+        { "field": "Microsoft.Kusto/clusters/stateReason", "displayName": "State Reason" },
+        { "field": "Microsoft.Kusto/clusters/restrictOutboundNetworkAccess", "displayName": "Restrict Outbound Network Access", "values": ["true", "false"] },
+        { "field": "Microsoft.Kusto/clusters/keyVaultProperties.keyName", "displayName": "Key Vault Key Name" },
+        { "field": "Microsoft.Kusto/clusters/keyVaultProperties.keyVaultUri", "displayName": "Key Vault URI" },
+        { "field": "Microsoft.Kusto/clusters/keyVaultProperties.keyVersion", "displayName": "Key Version" },
+        { "field": "Microsoft.Kusto/clusters/languageExtensions[*].extensionName", "displayName": "Language Extension Name", "values": ["python", "r"] }
+      ]
+    },
+    {
+      "name": "Microsoft.Network/natGateways",
+      "description": "NAT Gateways",
+      "properties": [
+        { "field": "Microsoft.Network/natGateways/sku.name", "displayName": "SKU Name", "values": ["Standard"] },
+        { "field": "Microsoft.Network/natGateways/idleTimeoutInMinutes", "displayName": "Idle Timeout In Minutes" },
+        { "field": "Microsoft.Network/natGateways/publicIpAddresses[*].id", "displayName": "Public IP Address ID" },
+        { "field": "Microsoft.Network/natGateways/publicIpPrefixes[*].id", "displayName": "Public IP Prefix ID" },
+        { "field": "Microsoft.Network/natGateways/zones[*]", "displayName": "Availability Zones" }
+      ]
+    },
+    {
+      "name": "Microsoft.ContainerInstance/containerGroups",
+      "description": "Container Instances",
+      "properties": [
+        { "field": "Microsoft.ContainerInstance/containerGroups/osType", "displayName": "OS Type", "values": ["Windows", "Linux"] },
+        { "field": "Microsoft.ContainerInstance/containerGroups/restartPolicy", "displayName": "Restart Policy", "values": ["Always", "OnFailure", "Never"] },
+        { "field": "Microsoft.ContainerInstance/containerGroups/ipAddress.type", "displayName": "IP Address Type", "values": ["Public", "Private"] },
+        { "field": "Microsoft.ContainerInstance/containerGroups/ipAddress.ports[*].port", "displayName": "Port" },
+        { "field": "Microsoft.ContainerInstance/containerGroups/ipAddress.ports[*].protocol", "displayName": "Protocol", "values": ["TCP", "UDP"] },
+        { "field": "Microsoft.ContainerInstance/containerGroups/containers[*].name", "displayName": "Container Name" },
+        { "field": "Microsoft.ContainerInstance/containerGroups/containers[*].image", "displayName": "Container Image" },
+        { "field": "Microsoft.ContainerInstance/containerGroups/containers[*].resources.requests.cpu", "displayName": "CPU Request" },
+        { "field": "Microsoft.ContainerInstance/containerGroups/containers[*].resources.requests.memoryInGB", "displayName": "Memory Request (GB)" },
+        { "field": "Microsoft.ContainerInstance/containerGroups/containers[*].resources.limits.cpu", "displayName": "CPU Limit" },
+        { "field": "Microsoft.ContainerInstance/containerGroups/containers[*].resources.limits.memoryInGB", "displayName": "Memory Limit (GB)" },
+        { "field": "Microsoft.ContainerInstance/containerGroups/dnsConfig.nameServers[*]", "displayName": "DNS Name Server" },
+        { "field": "Microsoft.ContainerInstance/containerGroups/networkProfile.id", "displayName": "Network Profile ID" },
+        { "field": "Microsoft.ContainerInstance/containerGroups/sku", "displayName": "SKU", "values": ["Standard", "Dedicated"] }
+      ]
+    },
+    {
+      "name": "Microsoft.Compute/galleries",
+      "description": "Shared Image Galleries",
+      "properties": [
+        { "field": "Microsoft.Compute/galleries/description", "displayName": "Description" },
+        { "field": "Microsoft.Compute/galleries/identifier.uniqueName", "displayName": "Unique Name" },
+        { "field": "Microsoft.Compute/galleries/sharingProfile.permissions", "displayName": "Sharing Permissions", "values": ["Private", "Groups", "Community"] },
+        { "field": "Microsoft.Compute/galleries/sharingProfile.groups[*].type", "displayName": "Sharing Group Type", "values": ["Subscriptions", "AADTenants"] },
+        { "field": "Microsoft.Compute/galleries/sharingProfile.groups[*].ids[*]", "displayName": "Sharing Group ID" },
+        { "field": "Microsoft.Compute/galleries/softDeletePolicy.isSoftDeleteEnabled", "displayName": "Soft Delete Enabled", "values": ["true", "false"] }
+      ]
+    },
+    {
+      "name": "Microsoft.Compute/galleries/images",
+      "description": "Gallery Images",
+      "properties": [
+        { "field": "Microsoft.Compute/galleries/images/osType", "displayName": "OS Type", "values": ["Windows", "Linux"] },
+        { "field": "Microsoft.Compute/galleries/images/osState", "displayName": "OS State", "values": ["Generalized", "Specialized"] },
+        { "field": "Microsoft.Compute/galleries/images/endOfLifeDate", "displayName": "End Of Life Date" },
+        { "field": "Microsoft.Compute/galleries/images/hyperVGeneration", "displayName": "Hyper-V Generation", "values": ["V1", "V2"] },
+        { "field": "Microsoft.Compute/galleries/images/architecture", "displayName": "Architecture", "values": ["x64", "Arm64"] },
+        { "field": "Microsoft.Compute/galleries/images/identifier.publisher", "displayName": "Publisher" },
+        { "field": "Microsoft.Compute/galleries/images/identifier.offer", "displayName": "Offer" },
+        { "field": "Microsoft.Compute/galleries/images/identifier.sku", "displayName": "SKU" },
+        { "field": "Microsoft.Compute/galleries/images/features[*].name", "displayName": "Feature Name", "values": ["SecurityType", "IsAcceleratedNetworkSupported"] },
+        { "field": "Microsoft.Compute/galleries/images/features[*].value", "displayName": "Feature Value", "values": ["TrustedLaunch", "ConfidentialVM", "Standard", "true", "false"] }
+      ]
+    },
+    {
+      "name": "Microsoft.DBforMariaDB/servers",
+      "description": "MariaDB Servers",
+      "properties": [
+        { "field": "Microsoft.DBforMariaDB/servers/sku.name", "displayName": "SKU Name" },
+        { "field": "Microsoft.DBforMariaDB/servers/sku.tier", "displayName": "SKU Tier", "values": ["Basic", "GeneralPurpose", "MemoryOptimized"] },
+        { "field": "Microsoft.DBforMariaDB/servers/administratorLogin", "displayName": "Administrator Login" },
+        { "field": "Microsoft.DBforMariaDB/servers/version", "displayName": "Version", "values": ["10.2", "10.3"] },
+        { "field": "Microsoft.DBforMariaDB/servers/sslEnforcement", "displayName": "SSL Enforcement", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.DBforMariaDB/servers/minimalTlsVersion", "displayName": "Minimal TLS Version", "values": ["TLS1_0", "TLS1_1", "TLS1_2", "TLSEnforcementDisabled"] },
+        { "field": "Microsoft.DBforMariaDB/servers/publicNetworkAccess", "displayName": "Public Network Access", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.DBforMariaDB/servers/storageProfile.backupRetentionDays", "displayName": "Backup Retention Days" },
+        { "field": "Microsoft.DBforMariaDB/servers/storageProfile.storageMB", "displayName": "Storage MB" },
+        { "field": "Microsoft.DBforMariaDB/servers/storageProfile.geoRedundantBackup", "displayName": "Geo-Redundant Backup", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.DBforMariaDB/servers/storageProfile.storageAutogrow", "displayName": "Storage Autogrow", "values": ["Enabled", "Disabled"] }
+      ]
+    },
+    {
+      "name": "Microsoft.ManagedIdentity/userAssignedIdentities",
+      "description": "User Assigned Managed Identities",
+      "properties": [
+        { "field": "Microsoft.ManagedIdentity/userAssignedIdentities/principalId", "displayName": "Principal ID" },
+        { "field": "Microsoft.ManagedIdentity/userAssignedIdentities/clientId", "displayName": "Client ID" },
+        { "field": "Microsoft.ManagedIdentity/userAssignedIdentities/tenantId", "displayName": "Tenant ID" }
+      ]
+    },
+    {
+      "name": "Microsoft.OperationsManagement/solutions",
+      "description": "Operations Management Solutions",
+      "properties": [
+        { "field": "Microsoft.OperationsManagement/solutions/plan.name", "displayName": "Plan Name" },
+        { "field": "Microsoft.OperationsManagement/solutions/plan.publisher", "displayName": "Publisher" },
+        { "field": "Microsoft.OperationsManagement/solutions/plan.product", "displayName": "Product" },
+        { "field": "Microsoft.OperationsManagement/solutions/plan.promotionCode", "displayName": "Promotion Code" },
+        { "field": "Microsoft.OperationsManagement/solutions/workspaceResourceId", "displayName": "Workspace Resource ID" }
+      ]
+    },
+    {
+      "name": "Microsoft.AVS/privateClouds",
+      "description": "Azure VMware Solution Private Clouds",
+      "properties": [
+        { "field": "Microsoft.AVS/privateClouds/sku.name", "displayName": "SKU Name", "values": ["AV36", "AV36P", "AV36T", "AV36PT", "AV52", "AV52T"] },
+        { "field": "Microsoft.AVS/privateClouds/networkBlock", "displayName": "Network Block" },
+        { "field": "Microsoft.AVS/privateClouds/internet", "displayName": "Internet", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.AVS/privateClouds/managementCluster.clusterSize", "displayName": "Management Cluster Size" },
+        { "field": "Microsoft.AVS/privateClouds/endpoints.nsxtManager", "displayName": "NSXT Manager Endpoint" },
+        { "field": "Microsoft.AVS/privateClouds/endpoints.vcsa", "displayName": "VCSA Endpoint" },
+        { "field": "Microsoft.AVS/privateClouds/endpoints.hcx", "displayName": "HCX Endpoint" },
+        { "field": "Microsoft.AVS/privateClouds/identitySources[*].name", "displayName": "Identity Source Name" },
+        { "field": "Microsoft.AVS/privateClouds/identitySources[*].alias", "displayName": "Identity Source Alias" },
+        { "field": "Microsoft.AVS/privateClouds/identitySources[*].domain", "displayName": "Identity Source Domain" },
+        { "field": "Microsoft.AVS/privateClouds/identitySources[*].baseUserDN", "displayName": "Identity Source Base User DN" },
+        { "field": "Microsoft.AVS/privateClouds/identitySources[*].baseGroupDN", "displayName": "Identity Source Base Group DN" },
+        { "field": "Microsoft.AVS/privateClouds/identitySources[*].primaryServer", "displayName": "Identity Source Primary Server" },
+        { "field": "Microsoft.AVS/privateClouds/identitySources[*].secondaryServer", "displayName": "Identity Source Secondary Server" },
+        { "field": "Microsoft.AVS/privateClouds/identitySources[*].ssl", "displayName": "Identity Source SSL", "values": ["Enabled", "Disabled"] }
+      ]
+    },
+    {
+      "name": "Microsoft.DataProtection/backupVaults",
+      "description": "Backup Vaults",
+      "properties": [
+        { "field": "Microsoft.DataProtection/backupVaults/storageSettings.dataStoreType", "displayName": "Data Store Type", "values": ["VaultStore", "OperationalStore"] },
+        { "field": "Microsoft.DataProtection/backupVaults/storageSettings.type", "displayName": "Storage Type", "values": ["GeoRedundant", "LocallyRedundant", "ZoneRedundant"] },
+        { "field": "Microsoft.DataProtection/backupVaults/securitySettings.softDelete.state", "displayName": "Soft Delete State", "values": ["Enabled", "Disabled"] },
+        { "field": "Microsoft.DataProtection/backupVaults/securitySettings.softDelete.retentionDurationInDays", "displayName": "Soft Delete Retention Duration In Days" },
+        { "field": "Microsoft.DataProtection/backupVaults/securitySettings.immutabilitySettings.state", "displayName": "Immutability State", "values": ["Enabled", "Disabled", "Locked"] }
+      ]
+    },
+    {
+      "name": "Microsoft.AlertsManagement/actionRules",
+      "description": "Alert Processing Rules",
+      "properties": [
+        { "field": "Microsoft.AlertsManagement/actionRules/scope.type", "displayName": "Scope Type", "values": ["Resource", "ResourceGroup", "Subscription"] },
+        { "field": "Microsoft.AlertsManagement/actionRules/scope.resourceIds[*]", "displayName": "Scope Resource ID" },
+        { "field": "Microsoft.AlertsManagement/actionRules/conditions.severity.operator", "displayName": "Severity Operator", "values": ["Equals", "NotEquals"] },
+        { "field": "Microsoft.AlertsManagement/actionRules/conditions.severity.values[*]", "displayName": "Severity Value", "values": ["Sev0", "Sev1", "Sev2", "Sev3", "Sev4"] },
+        { "field": "Microsoft.AlertsManagement/actionRules/conditions.monitorService.operator", "displayName": "Monitor Service Operator", "values": ["Equals", "NotEquals"] },
+        { "field": "Microsoft.AlertsManagement/actionRules/conditions.monitorService.values[*]", "displayName": "Monitor Service Value", "values": ["Platform", "Application Insights", "Log Analytics", "Nagios", "Zabbix", "ActivityLog Administrative", "ActivityLog Security", "ActivityLog Recommendation", "ActivityLog Policy", "ActivityLog Autoscale", "ActivityLog ServiceHealth", "ActivityLog ResourceHealth"] },
+        { "field": "Microsoft.AlertsManagement/actionRules/conditions.alertRuleId.operator", "displayName": "Alert Rule ID Operator", "values": ["Equals", "NotEquals"] },
+        { "field": "Microsoft.AlertsManagement/actionRules/conditions.alertRuleId.values[*]", "displayName": "Alert Rule ID Value" },
+        { "field": "Microsoft.AlertsManagement/actionRules/conditions.description.operator", "displayName": "Description Operator", "values": ["Contains", "DoesNotContain"] },
+        { "field": "Microsoft.AlertsManagement/actionRules/conditions.description.values[*]", "displayName": "Description Value" },
+        { "field": "Microsoft.AlertsManagement/actionRules/conditions.alertContext.operator", "displayName": "Alert Context Operator", "values": ["Contains", "DoesNotContain"] },
+        { "field": "Microsoft.AlertsManagement/actionRules/conditions.alertContext.values[*]", "displayName": "Alert Context Value" },
+        { "field": "Microsoft.AlertsManagement/actionRules/actions.actionGroupIds[*]", "displayName": "Action Group ID" },
+        { "field": "Microsoft.AlertsManagement/actionRules/actions.actionType", "displayName": "Action Type", "values": ["AddActionGroups", "RemoveAllActionGroups"] },
+        { "field": "Microsoft.AlertsManagement/actionRules/schedule.recurrenceType", "displayName": "Recurrence Type", "values": ["Once", "Daily", "Weekly", "Monthly"] },
+        { "field": "Microsoft.AlertsManagement/actionRules/schedule.recurrence.daysOfWeek[*]", "displayName": "Days Of Week", "values": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"] },
+        { "field": "Microsoft.AlertsManagement/actionRules/schedule.recurrence.daysOfMonth[*]", "displayName": "Days Of Month", "values": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"] },
+        { "field": "Microsoft.AlertsManagement/actionRules/schedule.startDate", "displayName": "Start Date" },
+        { "field": "Microsoft.AlertsManagement/actionRules/schedule.endDate", "displayName": "End Date" },
+        { "field": "Microsoft.AlertsManagement/actionRules/schedule.startTime", "displayName": "Start Time" },
+        { "field": "Microsoft.AlertsManagement/actionRules/schedule.endTime", "displayName": "End Time" }
+      ]
+    }
+  ],
+  "globalProperties": [
+    { "field": "type", "displayName": "Resource Type" },
+    { "field": "location", "displayName": "Location" },
+    { "field": "kind", "displayName": "Kind" },
+    { "field": "tags", "displayName": "Tags" },
+    { "field": "tags.environment", "displayName": "Environment Tag", "values": ["Production", "Development", "Test", "Staging", "QA", "DR"] },
+    { "field": "tags.costCenter", "displayName": "Cost Center Tag" },
+    { "field": "tags.owner", "displayName": "Owner Tag" },
+    { "field": "tags.application", "displayName": "Application Tag" },
+    { "field": "tags.department", "displayName": "Department Tag" },
+    { "field": "tags.dataClassification", "displayName": "Data Classification", "values": ["Public", "Internal", "Confidential", "Restricted"] },
+    { "field": "tags.project", "displayName": "Project Tag" },
+    { "field": "tags.createdBy", "displayName": "Created By Tag" },
+    { "field": "tags.createdDate", "displayName": "Created Date Tag" },
+    { "field": "identity.type", "displayName": "Identity Type", "values": ["SystemAssigned", "UserAssigned", "SystemAssigned, UserAssigned", "None"] },
+    { "field": "identity.userAssignedIdentities", "displayName": "User Assigned Identities" },
+    { "field": "zones", "displayName": "Availability Zones" },
+    { "field": "managedByTenants[*].tenantId", "displayName": "Managed By Tenant ID" },
+    { "field": "sku.tier", "displayName": "SKU Tier" },
+    { "field": "sku.name", "displayName": "SKU Name" },
+    { "field": "sku.family", "displayName": "SKU Family" },
+    { "field": "sku.size", "displayName": "SKU Size" }
+  ],
+  "operators": [
+    { "value": "equals", "label": "equals" },
+    { "value": "notEquals", "label": "not equals" },
+    { "value": "contains", "label": "contains" },
+    { "value": "notContains", "label": "not contains" },
+    { "value": "like", "label": "like" },
+    { "value": "notLike", "label": "not like" },
+    { "value": "in", "label": "in" },
+    { "value": "notIn", "label": "not in" },
+    { "value": "exists", "label": "exists" },
+    { "value": "notExists", "label": "not exists" },
+    { "value": "less", "label": "less than" },
+    { "value": "lessOrEquals", "label": "less than or equals" },
+    { "value": "greater", "label": "greater than" },
+    { "value": "greaterOrEquals", "label": "greater than or equals" }
+  ]
+}

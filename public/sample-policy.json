@@ -1,0 +1,45 @@
+{
+    "properties": {
+        "displayName": "Allowed Resource Types",
+        "description": "This policy enables you to specify the resource types that your organization can deploy.",
+        "mode": "Indexed",
+        "parameters": {
+            "allowedResourceTypes": {
+                "type": "Array",
+                "metadata": {
+                    "displayName": "Allowed resource types",
+                    "description": "The list of resource types that can be deployed."
+                },
+                "defaultValue": [
+                    "Microsoft.Compute/virtualMachines",
+                    "Microsoft.Network/virtualNetworks",
+                    "Microsoft.Storage/storageAccounts"
+                ]
+            },
+            "effect": {
+                "type": "String",
+                "metadata": {
+                    "displayName": "Effect",
+                    "description": "The effect determines what happens when the policy rule is evaluated to match"
+                },
+                "allowedValues": [
+                    "Audit",
+                    "Deny",
+                    "Disabled"
+                ],
+                "defaultValue": "Deny"
+            }
+        },
+        "policyRule": {
+            "if": {
+                "not": {
+                    "field": "type",
+                    "in": "[parameters('allowedResourceTypes')]"
+                }
+            },
+            "then": {
+                "effect": "[parameters('effect')]"
+            }
+        }
+    }
+}

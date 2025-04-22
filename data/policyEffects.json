@@ -1,0 +1,313 @@
+{
+  "effects": [
+    {
+      "name": "Audit",
+      "description": "Creates an audit event in the activity log when a non-compliant resource is evaluated",
+      "details": "Use when you want to be notified when a resource doesn't meet policy requirements without blocking resource creation or modification",
+      "impactLevel": "Low",
+      "policyType": "Enforcement",
+      "example": {
+        "if": {
+          "allOf": [
+            {
+              "field": "type",
+              "equals": "Microsoft.Storage/storageAccounts"
+            },
+            {
+              "field": "Microsoft.Storage/storageAccounts/networkAcls.defaultAction",
+              "notEquals": "Deny"
+            }
+          ]
+        },
+        "then": {
+          "effect": "Audit"
+        }
+      }
+    },
+    {
+      "name": "Deny",
+      "description": "Prevents the resource from being created or updated if it doesn't meet policy requirements",
+      "details": "Use when you want to enforce policy requirements by blocking non-compliant resources during deployment",
+      "impactLevel": "High",
+      "policyType": "Enforcement",
+      "example": {
+        "if": {
+          "allOf": [
+            {
+              "field": "type",
+              "equals": "Microsoft.Compute/virtualMachines"
+            },
+            {
+              "anyOf": [
+                {
+                  "field": "Microsoft.Compute/virtualMachines/osProfile.windowsConfiguration",
+                  "exists": true
+                },
+                {
+                  "field": "Microsoft.Compute/virtualMachines/storageProfile.osDisk.osType",
+                  "like": "Windows*"
+                }
+              ]
+            },
+            {
+              "field": "Microsoft.Compute/virtualMachines/securityProfile.securityType",
+              "notEquals": "TrustedLaunch"
+            }
+          ]
+        },
+        "then": {
+          "effect": "Deny"
+        }
+      }
+    },
+    {
+      "name": "Disabled",
+      "description": "Policy effect is turned off",
+      "details": "Use when testing a policy or when a policy includes parameters to conditionally disable enforcement",
+      "impactLevel": "None",
+      "policyType": "Enforcement",
+      "example": {
+        "if": {
+          "field": "type",
+          "equals": "Microsoft.KeyVault/vaults"
+        },
+        "then": {
+          "effect": "Disabled"
+        }
+      }
+    },
+    {
+      "name": "AuditIfNotExists",
+      "description": "Audits if related resources don't exist or don't meet conditions",
+      "details": "Use to audit for required companion resources or configurations. Applies after resource creation.",
+      "impactLevel": "Low",
+      "policyType": "Evaluation",
+      "example": {
+        "if": {
+          "field": "type",
+          "equals": "Microsoft.Compute/virtualMachines"
+        },
+        "then": {
+          "effect": "AuditIfNotExists",
+          "details": {
+            "type": "Microsoft.GuestConfiguration/guestConfigurationAssignments",
+            "existenceCondition": {
+              "field": "name",
+              "equals": "PasswordPolicy_msid121"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "DeployIfNotExists",
+      "description": "Deploys a related resource if it doesn't exist or meet conditions",
+      "details": "Use to automatically deploy companion resources or configurations. Remediation tasks can be created for existing resources.",
+      "impactLevel": "Medium",
+      "policyType": "Deployment",
+      "example": {
+        "if": {
+          "field": "type",
+          "equals": "Microsoft.Storage/storageAccounts"
+        },
+        "then": {
+          "effect": "DeployIfNotExists",
+          "details": {
+            "type": "Microsoft.Insights/diagnosticSettings",
+            "existenceCondition": {
+              "field": "Microsoft.Insights/diagnosticSettings/logs[*].enabled",
+              "equals": "true"
+            },
+            "roleDefinitionIds": [
+              "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+            ],
+            "deployment": {
+              "properties": {
+                "mode": "incremental",
+                "template": {
+                  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+                  "contentVersion": "1.0.0.0",
+                  "parameters": {},
+                  "resources": [
+                    {
+                      "name": "diagnostics",
+                      "type": "Microsoft.Insights/diagnosticSettings",
+                      "apiVersion": "2017-05-01-preview",
+                      "properties": {
+                        "logs": [
+                          {
+                            "category": "StorageRead",
+                            "enabled": true
+                          },
+                          {
+                            "category": "StorageWrite",
+                            "enabled": true
+                          },
+                          {
+                            "category": "StorageDelete",
+                            "enabled": true
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Modify",
+      "description": "Adds, updates, or removes tags or other properties on resources",
+      "details": "Use to automatically add, update, or remove tags and certain properties on resources during creation or update",
+      "impactLevel": "Medium",
+      "policyType": "Modification",
+      "example": {
+        "if": {
+          "allOf": [
+            {
+              "field": "type",
+              "equals": "Microsoft.Storage/storageAccounts"
+            },
+            {
+              "field": "tags",
+              "exists": true
+            }
+          ]
+        },
+        "then": {
+          "effect": "Modify",
+          "details": {
+            "operations": [
+              {
+                "operation": "addOrReplace",
+                "field": "tags.DataClassification",
+                "value": "Internal"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "Append",
+      "description": "Adds additional fields to the requested resource during creation or update",
+      "details": "Use when you need to add a specified set of properties to a resource, like specific security settings",
+      "impactLevel": "Medium",
+      "policyType": "Modification",
+      "example": {
+        "if": {
+          "field": "type",
+          "equals": "Microsoft.Storage/storageAccounts"
+        },
+        "then": {
+          "effect": "append",
+          "details": [
+            {
+              "field": "Microsoft.Storage/storageAccounts/networkAcls.defaultAction",
+              "value": "Deny"
+            },
+            {
+              "field": "Microsoft.Storage/storageAccounts/supportsHttpsTrafficOnly",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "DenyAction",
+      "description": "Denies a specific action or operation",
+      "details": "Use to prevent specific data plane operations. This is a more restrictive form of Deny that blocks specific actions.",
+      "impactLevel": "High",
+      "policyType": "Enforcement",
+      "example": {
+        "if": {
+          "allOf": [
+            {
+              "field": "type",
+              "equals": "Microsoft.Storage/storageAccounts/blobServices/containers"
+            },
+            {
+              "field": "name",
+              "like": "backup*"
+            }
+          ]
+        },
+        "then": {
+          "effect": "denyAction",
+          "details": {
+            "actionNames": [
+              "Microsoft.Storage/storageAccounts/blobServices/containers/delete"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "EnforceOPAConstraint",
+      "description": "Enforces an Open Policy Agent constraint",
+      "details": "Use for detailed policy evaluation using OPA policy language. Preview feature.",
+      "impactLevel": "Medium",
+      "policyType": "Enforcement",
+      "previewFeature": true,
+      "example": {
+        "if": {
+          "field": "type",
+          "equals": "Microsoft.Compute/virtualMachines"
+        },
+        "then": {
+          "effect": "enforceOPAConstraint",
+          "details": {
+            "constraintTemplate": "package namevalidation\n\ndeny[{\"msg\": msg}] {\n    input.name\n    not startswith(input.name, \"vm-\")\n    msg := \"VM names must start with 'vm-'\"\n}",
+            "constraint": "{\"name\": \"validate-vm-name\", \"parameters\": {}}" 
+          }
+        }
+      }
+    },
+    {
+      "name": "EnforceRegoPolicy",
+      "description": "Enforces a Rego policy",
+      "details": "Use for detailed policy evaluation using Rego policy language. Preview feature.",
+      "impactLevel": "Medium",
+      "policyType": "Enforcement",
+      "previewFeature": true,
+      "example": {
+        "if": {
+          "field": "type",
+          "equals": "Microsoft.KeyVault/vaults"
+        },
+        "then": {
+          "effect": "enforceRegoPolicy",
+          "details": {
+            "policy": "package policy\n\nevaluate{\n  input.properties.networkAcls.defaultAction == \"Deny\"\n}\n\ndeny[reason] {\n  not evaluate\n  reason := \"Key vault must have default network action set to Deny\"\n}"
+          }
+        }
+      }
+    }
+  ],
+  "effectCategories": [
+    {
+      "name": "Enforcement",
+      "description": "Policy effects that prevent or restrict resource operations",
+      "effects": ["Deny", "Audit", "DenyAction"]
+    },
+    {
+      "name": "Evaluation",
+      "description": "Policy effects that evaluate resource compliance",
+      "effects": ["AuditIfNotExists", "Audit"]
+    },
+    {
+      "name": "Deployment",
+      "description": "Policy effects that deploy resources",
+      "effects": ["DeployIfNotExists"]
+    },
+    {
+      "name": "Modification",
+      "description": "Policy effects that modify resources",
+      "effects": ["Modify", "Append"]
+    }
+  ]
+}

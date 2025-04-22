@@ -1,0 +1,489 @@
+{
+  "initiatives": [
+    {
+      "name": "Azure Security Benchmark",
+      "description": "The Azure Security Benchmark initiative represents the policies and controls implementing security recommendations defined in Azure Security Benchmark, see https://aka.ms/azsecbm.",
+      "categories": ["Security", "Compliance"],
+      "policyTypes": [
+        "Audit",
+        "Deny",
+        "AuditIfNotExists"
+      ],
+      "complexity": "High",
+      "policiesCount": 85,
+      "effectiveDate": "2021-08-15"
+    },
+    {
+      "name": "NIST SP 800-53 Rev. 5",
+      "description": "This initiative includes policies that address a subset of NIST SP 800-53 Rev. 5 controls. Each policy addresses one or more NIST SP 800-53 Rev. 5 controls.",
+      "categories": ["Security", "Compliance"],
+      "policyTypes": [
+        "Audit",
+        "Deny",
+        "AuditIfNotExists"
+      ],
+      "complexity": "High",
+      "policiesCount": 190,
+      "effectiveDate": "2022-03-21",
+      "standard": {
+        "name": "NIST SP 800-53",
+        "version": "Rev. 5",
+        "website": "https://csrc.nist.gov/publications/detail/sp/800-53/rev-5/final",
+        "description": "Security and Privacy Controls for Information Systems and Organizations"
+      },
+      "controlFamilies": [
+        "Access Control (AC)",
+        "Audit and Accountability (AU)",
+        "Security Assessment & Authorization (CA)",
+        "Configuration Management (CM)",
+        "Contingency Planning (CP)",
+        "Identification and Authentication (IA)",
+        "Incident Response (IR)",
+        "Maintenance (MA)",
+        "Media Protection (MP)",
+        "Physical & Environmental Protection (PE)",
+        "Planning (PL)",
+        "Program Management (PM)",
+        "Personnel Security (PS)",
+        "Risk Assessment (RA)",
+        "System & Services Acquisition (SA)",
+        "System & Communications Protection (SC)",
+        "System & Information Integrity (SI)"
+      ]
+    },
+    {
+      "name": "ISO 27001:2013",
+      "description": "This initiative includes policies that address a subset of ISO 27001:2013 controls.",
+      "categories": ["Security", "Compliance"],
+      "policyTypes": [
+        "Audit",
+        "Deny",
+        "AuditIfNotExists"
+      ],
+      "complexity": "High",
+      "policiesCount": 120,
+      "effectiveDate": "2022-01-14",
+      "standard": {
+        "name": "ISO/IEC 27001",
+        "version": "2013",
+        "website": "https://www.iso.org/standard/54534.html",
+        "description": "Information technology — Security techniques — Information security management systems — Requirements"
+      },
+      "controlFamilies": [
+        "A.5 Information security policies",
+        "A.6 Organization of information security",
+        "A.7 Human resource security",
+        "A.8 Asset management",
+        "A.9 Access control",
+        "A.10 Cryptography",
+        "A.11 Physical and environmental security",
+        "A.12 Operations security",
+        "A.13 Communications security",
+        "A.14 System acquisition, development and maintenance",
+        "A.15 Supplier relationships",
+        "A.16 Information security incident management",
+        "A.17 Information security aspects of business continuity management",
+        "A.18 Compliance"
+      ]
+    },
+    {
+      "name": "CIS Microsoft Azure Foundations Benchmark v1.3.0",
+      "description": "This initiative includes policies that address a subset of CIS Microsoft Azure Foundations Benchmark v1.3.0 controls.",
+      "categories": ["Security", "Compliance"],
+      "policyTypes": [
+        "Audit",
+        "Deny",
+        "AuditIfNotExists"
+      ],
+      "complexity": "Medium",
+      "policiesCount": 75,
+      "effectiveDate": "2022-02-18",
+      "standard": {
+        "name": "CIS Microsoft Azure Foundations Benchmark",
+        "version": "1.3.0",
+        "website": "https://www.cisecurity.org/benchmark/azure/",
+        "description": "The CIS Microsoft Azure Foundations Benchmark provides prescriptive guidance for establishing a secure baseline configuration for Microsoft Azure."
+      },
+      "controlFamilies": [
+        "1. Identity and Access Management",
+        "2. Security Center",
+        "3. Storage Accounts",
+        "4. SQL Services",
+        "5. Logging and Monitoring",
+        "6. Networking",
+        "7. Virtual Machines",
+        "8. Key Vault",
+        "9. AppService"
+      ]
+    },
+    {
+      "name": "Regulatory Compliance: HIPAA/HITRUST",
+      "description": "This initiative includes policies that address a subset of HIPAA HITRUST controls.",
+      "categories": ["Security", "Compliance", "Healthcare"],
+      "policyTypes": [
+        "Audit",
+        "Deny",
+        "AuditIfNotExists"
+      ],
+      "complexity": "High",
+      "policiesCount": 85,
+      "effectiveDate": "2022-04-10",
+      "standard": {
+        "name": "HIPAA HITRUST",
+        "version": "9.x",
+        "website": "https://hitrustalliance.net/",
+        "description": "Health Insurance Portability and Accountability Act (HIPAA) and HITRUST Common Security Framework (CSF)"
+      }
+    },
+    {
+      "name": "Kubernetes cluster pod security baseline standards for Linux-based workloads",
+      "description": "This initiative includes policies that address Kubernetes cluster pod security baseline standards for Linux-based workloads.",
+      "categories": ["Security", "Kubernetes"],
+      "policyTypes": [
+        "Audit",
+        "Deny"
+      ],
+      "complexity": "Medium",
+      "policiesCount": 15,
+      "effectiveDate": "2022-05-03"
+    },
+    {
+      "name": "Configure Azure Defender for Servers to be enabled",
+      "description": "This initiative deploys and configures Azure Defender for Servers on virtual machines.",
+      "categories": ["Security", "Monitoring"],
+      "policyTypes": [
+        "DeployIfNotExists"
+      ],
+      "complexity": "Low",
+      "policiesCount": 3,
+      "effectiveDate": "2022-01-28"
+    },
+    {
+      "name": "Configure Azure resources with security center recommendations",
+      "description": "This initiative automatically configures security recommendations from Azure Security Center for your Azure resources.",
+      "categories": ["Security", "Monitoring"],
+      "policyTypes": [
+        "DeployIfNotExists"
+      ],
+      "complexity": "Medium",
+      "policiesCount": 12,
+      "effectiveDate": "2022-03-15"
+    },
+    {
+      "name": "Configure Azure Monitor for VMs with Azure Security Center",
+      "description": "This initiative deploys and configures Azure Monitor for VMs with Azure Security Center.",
+      "categories": ["Security", "Monitoring"],
+      "policyTypes": [
+        "DeployIfNotExists"
+      ],
+      "complexity": "Low",
+      "policiesCount": 3,
+      "effectiveDate": "2022-02-20"
+    },
+    {
+      "name": "Enable resource diagnostics settings on Azure services",
+      "description": "This initiative enables diagnostics settings for all Azure services that support them.",
+      "categories": ["Monitoring", "Management"],
+      "policyTypes": [
+        "DeployIfNotExists"
+      ],
+      "complexity": "Medium",
+      "policiesCount": 25,
+      "effectiveDate": "2022-01-15"
+    },
+    {
+      "name": "Configure Azure resources to send diagnostics to Log Analytics workspace",
+      "description": "This initiative configures Azure resources to send diagnostics data to a Log Analytics workspace.",
+      "categories": ["Monitoring", "Management"],
+      "policyTypes": [
+        "DeployIfNotExists"
+      ],
+      "complexity": "Medium",
+      "policiesCount": 15,
+      "effectiveDate": "2022-02-05"
+    },
+    {
+      "name": "Deploy Advanced Threat Protection on SQL Servers",
+      "description": "This initiative configures SQL servers to enable Advanced Threat Protection.",
+      "categories": ["Security", "SQL"],
+      "policyTypes": [
+        "DeployIfNotExists"
+      ],
+      "complexity": "Low",
+      "policiesCount": 2,
+      "effectiveDate": "2022-03-10"
+    },
+    {
+      "name": "Enforce encryption for Azure data",
+      "description": "This initiative enforces encryption settings for various Azure data services like Storage, SQL, Cosmos DB, etc.",
+      "categories": ["Security", "Data Protection"],
+      "policyTypes": [
+        "Audit",
+        "Deny"
+      ],
+      "complexity": "Medium",
+      "policiesCount": 18,
+      "effectiveDate": "2022-04-01"
+    },
+    {
+      "name": "Enforce private link usage across Azure PaaS services",
+      "description": "This initiative enforces private link configuration on Azure PaaS services to limit public network access.",
+      "categories": ["Security", "Networking"],
+      "policyTypes": [
+        "Audit",
+        "Deny"
+      ],
+      "complexity": "Medium",
+      "policiesCount": 12,
+      "effectiveDate": "2022-03-25"
+    },
+    {
+      "name": "PCI DSS v3.2.1",
+      "description": "This initiative includes policies that address a subset of Payment Card Industry Data Security Standard v3.2.1 requirements.",
+      "categories": ["Security", "Compliance", "Financial"],
+      "policyTypes": [
+        "Audit",
+        "Deny",
+        "AuditIfNotExists"
+      ],
+      "complexity": "High",
+      "policiesCount": 65,
+      "effectiveDate": "2022-05-15",
+      "standard": {
+        "name": "PCI DSS",
+        "version": "3.2.1",
+        "website": "https://www.pcisecuritystandards.org/",
+        "description": "Payment Card Industry Data Security Standard - Requirements and Security Assessment Procedures"
+      },
+      "controlFamilies": [
+        "Requirement 1: Install and maintain a firewall configuration",
+        "Requirement 2: Do not use vendor-supplied defaults",
+        "Requirement 3: Protect stored cardholder data",
+        "Requirement 4: Encrypt transmission of cardholder data",
+        "Requirement 5: Use and regularly update anti-virus software",
+        "Requirement 6: Develop and maintain secure systems",
+        "Requirement 7: Restrict access to cardholder data",
+        "Requirement 8: Identify and authenticate access to system components",
+        "Requirement 9: Restrict physical access to cardholder data",
+        "Requirement 10: Track and monitor access",
+        "Requirement 11: Regularly test security systems and processes",
+        "Requirement 12: Maintain an information security policy"
+      ]
+    },
+    {
+      "name": "SOC 2 Type 1",
+      "description": "This initiative includes policies that address a subset of the AICPA's Trust Services Criteria relevant to SOC 2 Type 1 reports.",
+      "categories": ["Security", "Compliance"],
+      "policyTypes": [
+        "Audit",
+        "AuditIfNotExists"
+      ],
+      "complexity": "High",
+      "policiesCount": 50,
+      "effectiveDate": "2022-06-01",
+      "standard": {
+        "name": "SOC 2",
+        "version": "Type 1",
+        "website": "https://www.aicpa.org/interestareas/frc/assuranceadvisoryservices/serviceorganization-smanagement.html",
+        "description": "Service Organization Control report based on the AICPA's Trust Services Criteria"
+      },
+      "controlFamilies": [
+        "Security",
+        "Availability",
+        "Processing Integrity", 
+        "Confidentiality",
+        "Privacy"
+      ]
+    },
+    {
+      "name": "Canada Federal PBMM",
+      "description": "This initiative includes policies that address requirements for the Government of Canada's Protected B / Medium Integrity / Medium Availability (PBMM) profile.",
+      "categories": ["Security", "Compliance", "Government"],
+      "policyTypes": [
+        "Audit",
+        "Deny",
+        "AuditIfNotExists"
+      ],
+      "complexity": "High",
+      "policiesCount": 70,
+      "effectiveDate": "2022-05-20",
+      "standard": {
+        "name": "Canada Federal PBMM",
+        "version": "1.0",
+        "website": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/cloud-services/government-canada-security-control-profile-cloud-based-it-services.html",
+        "description": "Government of Canada Security Control Profile for Cloud-Based IT Services (PBMM)"
+      }
+    },
+    {
+      "name": "FedRAMP Moderate",
+      "description": "This initiative includes policies that address requirements for the Federal Risk and Authorization Management Program (FedRAMP) Moderate baseline.",
+      "categories": ["Security", "Compliance", "Government"],
+      "policyTypes": [
+        "Audit",
+        "Deny",
+        "AuditIfNotExists"
+      ],
+      "complexity": "High",
+      "policiesCount": 115,
+      "effectiveDate": "2022-04-15",
+      "standard": {
+        "name": "FedRAMP",
+        "version": "Moderate",
+        "website": "https://www.fedramp.gov/",
+        "description": "Federal Risk and Authorization Management Program - Security controls based on NIST SP 800-53"
+      }
+    },
+    {
+      "name": "CMMC Level 3",
+      "description": "This initiative includes policies that address requirements for the Cybersecurity Maturity Model Certification (CMMC) Level 3.",
+      "categories": ["Security", "Compliance", "Defense"],
+      "policyTypes": [
+        "Audit",
+        "Deny",
+        "AuditIfNotExists"
+      ],
+      "complexity": "High",
+      "policiesCount": 95,
+      "effectiveDate": "2022-06-10",
+      "standard": {
+        "name": "CMMC",
+        "version": "Level 3",
+        "website": "https://www.acq.osd.mil/cmmc/",
+        "description": "Cybersecurity Maturity Model Certification - Department of Defense standard for cybersecurity practices"
+      },
+      "controlFamilies": [
+        "Access Control",
+        "Asset Management",
+        "Audit and Accountability",
+        "Awareness and Training",
+        "Configuration Management",
+        "Identification and Authentication",
+        "Incident Response",
+        "Maintenance",
+        "Media Protection",
+        "Personnel Security",
+        "Physical Protection",
+        "Recovery",
+        "Risk Management",
+        "Security Assessment",
+        "Situational Awareness",
+        "System and Communications Protection",
+        "System and Information Integrity"
+      ]
+    },
+    {
+      "name": "GDPR Protection",
+      "description": "This initiative includes policies that help implement controls relevant to the European Union's General Data Protection Regulation (GDPR).",
+      "categories": ["Security", "Compliance", "Privacy"],
+      "policyTypes": [
+        "Audit",
+        "Deny",
+        "AuditIfNotExists"
+      ],
+      "complexity": "High",
+      "policiesCount": 45,
+      "effectiveDate": "2022-06-05",
+      "standard": {
+        "name": "GDPR",
+        "version": "2016/679",
+        "website": "https://gdpr.eu/",
+        "description": "General Data Protection Regulation - European Union regulation on data protection and privacy"
+      }
+    },
+    {
+      "name": "Remote Work Security Baseline",
+      "description": "This initiative includes policies to help secure resources commonly used in remote work scenarios.",
+      "categories": ["Security", "Operations"],
+      "policyTypes": [
+        "Audit",
+        "Deny",
+        "DeployIfNotExists"
+      ],
+      "complexity": "Medium",
+      "policiesCount": 25,
+      "effectiveDate": "2022-03-30"
+    },
+    {
+      "name": "Identity Security Posture",
+      "description": "This initiative includes policies to improve the security posture of Azure Active Directory and related identity services.",
+      "categories": ["Security", "Identity"],
+      "policyTypes": [
+        "Audit",
+        "AuditIfNotExists"
+      ],
+      "complexity": "Medium",
+      "policiesCount": 22,
+      "effectiveDate": "2022-05-12"
+    },
+    {
+      "name": "Cost Optimization Governance",
+      "description": "This initiative includes policies to help manage and optimize cloud costs through automated governance.",
+      "categories": ["Management", "Cost"],
+      "policyTypes": [
+        "Audit",
+        "Deny",
+        "Modify"
+      ],
+      "complexity": "Low",
+      "policiesCount": 18,
+      "effectiveDate": "2022-04-28"
+    }
+  ],
+  "initiativeTypes": [
+    {
+      "name": "Regulatory Compliance",
+      "description": "Initiatives that help achieve compliance with specific regulatory frameworks",
+      "examples": ["NIST SP 800-53 Rev. 5", "ISO 27001:2013", "CIS Microsoft Azure Foundations Benchmark", "PCI DSS v3.2.1", "FedRAMP Moderate", "CMMC Level 3", "GDPR Protection"],
+      "features": {
+        "complianceMapping": true,
+        "scorecards": true,
+        "updateFrequency": "Quarterly",
+        "complianceReporting": true
+      }
+    },
+    {
+      "name": "Security Baseline",
+      "description": "Initiatives that implement security best practices and hardening measures",
+      "examples": ["Azure Security Benchmark", "Kubernetes cluster pod security baseline standards", "Identity Security Posture", "Remote Work Security Baseline"],
+      "features": {
+        "securityControls": true,
+        "threatProtection": true,
+        "updateFrequency": "Monthly",
+        "securityReporting": true
+      }
+    },
+    {
+      "name": "Resource Configuration",
+      "description": "Initiatives that deploy and configure resources according to best practices",
+      "examples": ["Configure Azure Defender", "Enable resource diagnostics settings", "Configure Azure Monitor for VMs"],
+      "features": {
+        "automatedProvisioning": true,
+        "remediationTasks": true,
+        "updateFrequency": "Monthly",
+        "deploymentReporting": true
+      }
+    },
+    {
+      "name": "Industry Standard",
+      "description": "Initiatives that implement controls specific to certain industries",
+      "examples": ["Regulatory Compliance: HIPAA/HITRUST", "PCI-DSS v3.2.1", "Canada Federal PBMM", "FedRAMP Moderate"],
+      "features": {
+        "industryBestPractices": true,
+        "complianceMapping": true,
+        "updateFrequency": "Quarterly",
+        "industryReporting": true
+      }
+    },
+    {
+      "name": "Custom",
+      "description": "Custom initiatives created for specific organizational requirements",
+      "examples": ["Organization Security Standards", "Department-specific Controls", "Cost Optimization Governance"],
+      "features": {
+        "customization": true,
+        "tailoredControls": true,
+        "updateFrequency": "As Needed",
+        "customReporting": true
+      }
+    }
+  ]
+}
