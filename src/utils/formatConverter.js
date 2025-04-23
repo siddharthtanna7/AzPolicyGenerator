@@ -1,6 +1,6 @@
 /**
  * Format Converter for Azure Policies
- * Converts policy JSON to various formats
+ * Converts policy JSON to various formats including Bicep, Terraform, and Azure CLI
  */
 const FormatConverter = {
     /**
@@ -98,6 +98,124 @@ const FormatConverter = {
         bicep += 'output policyDefinitionId string = policyDefinition.id\n';
         
         return bicep;
+    },
+    
+    /**
+     * Convert policy JSON to Terraform HCL format
+     * @param {Object} policy - The policy JSON object
+     * @returns {string} - Terraform configuration
+     */
+    toTerraform(policy) {
+        // Validate input
+        if (!policy || !policy.properties) {
+            throw new Error('Invalid policy object');
+        }
+        
+        // Get policy properties
+        const properties = policy.properties;
+        
+        // Generate a safe name for Terraform resources
+        const safeName = properties.displayName
+            .toLowerCase()
+            .replace(/[^a-z0-9]/g, '_')
+            .replace(/_+/g, '_')
+            .replace(/^_|_$/g, '');
+            
+        // Prepare policy_rule and parameters as JSON string
+        const policyRule = JSON.stringify(properties.policyRule, null, 2);
+        const parameters = properties.parameters && Object.keys(properties.parameters).length > 0 
+            ? JSON.stringify(properties.parameters, null, 2) 
+            : null;
+            
+        // Start building Terraform configuration
+        let terraform = '# Terraform Azure Policy Definition\n\n';
+        
+        // Add provider block
+        terraform += 'terraform {\n';
+        terraform += '  required_providers {\n';
+        terraform += '    azurerm = {\n';
+        terraform += '      source  = "hashicorp/azurerm"\n';
+        terraform += '      version = ">=3.0.0"\n';
+        terraform += '    }\n';
+        terraform += '  }\n';
+        terraform += '}\n\n';
+        
+        terraform += 'provider "azurerm" {\n';
+        terraform += '  features {}\n';
+        terraform += '}\n\n';
+        
+        // Add variables
+        terraform += 'variable "management_group_id" {\n';
+        terraform += '  type        = string\n';
+        terraform += '  description = "The management group ID where the policy will be defined (optional)"\n';
+        terraform += '  default     = null\n';
+        terraform += '}\n\n';
+        
+        // Add policy definition resource
+        terraform += `resource "azurerm_policy_definition" "${safeName}" {\n`;
+        terraform += `  name         = "${safeName}"\n`;
+        terraform += `  policy_type  = "Custom"\n`;
+        terraform += `  mode         = "${properties.mode || 'Indexed'}"\n`;
+        terraform += `  display_name = "${this._escapeString(properties.displayName)}"\n`;
+        
+        // Add description if available
+        if (properties.description) {
+            terraform += `  description  = "${this._escapeString(properties.description)}"\n`;
+        }
+        
+        // Add metadata if available
+        if (properties.metadata && properties.metadata.category) {
+            terraform += `  metadata     = <<METADATA\n`;
+            terraform += JSON.stringify(properties.metadata, null, 2);
+            terraform += `\nMETADATA\n`;
+        }
+        
+        // Add policy rule
+        terraform += `  policy_rule  = <<POLICY_RULE\n`;
+        terraform += policyRule;
+        terraform += `\nPOLICY_RULE\n`;
+        
+        // Add parameters if available
+        if (parameters) {
+            terraform += `  parameters   = <<PARAMETERS\n`;
+            terraform += parameters;
+            terraform += `\nPARAMETERS\n`;
+        }
+        
+        // Add optional management group scope
+        terraform += '  management_group_id = var.management_group_id\n';
+        
+        terraform += '}\n\n';
+        
+        // Add output
+        terraform += '# Output the Policy Definition ID\n';
+        terraform += `output "${safeName}_policy_id" {\n`;
+        terraform += `  value = azurerm_policy_definition.${safeName}.id\n`;
+        terraform += '}\n\n';
+        
+        // Example policy assignment (commented out)
+        terraform += '# Example Policy Assignment (uncomment to use)\n';
+        terraform += '# resource "azurerm_management_group_policy_assignment" "example" {\n';
+        terraform += '#   name                 = "${safeName}_assignment"\n';
+        terraform += '#   management_group_id  = var.management_group_id\n';
+        terraform += `#   policy_definition_id = azurerm_policy_definition.${safeName}.id\n`;
+        terraform += '# }\n';
+        
+        return terraform;
+    },
+
+    /**
+     * Escape special characters in a string for Terraform
+     * @param {string} str - The string to escape
+     * @returns {string} - Escaped string
+     */
+    _escapeString(str) {
+        if (!str) return '';
+        
+        return str
+            .replace(/\\/g, '\\\\') // Escape backslashes
+            .replace(/"/g, '\\"')   // Escape double quotes
+            .replace(/\$/g, '\\$'); // Escape dollar signs for Terraform
     },
     
     /**

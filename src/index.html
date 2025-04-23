@@ -217,6 +217,21 @@
                         </svg>
                         Download
                     </button>
+                    <div class="dropdown">
+                        <button id="export-formats" class="button-with-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 11a9 9 0 0 1 9 9"></path>
+                                <path d="M4 4a16 16 0 0 1 16 16"></path>
+                                <circle cx="5" cy="19" r="2"></circle>
+                            </svg>
+                            Export As
+                        </button>
+                        <div class="dropdown-content">
+                            <a href="#" id="export-bicep">Bicep</a>
+                            <a href="#" id="export-terraform">Terraform</a>
+                            <a href="#" id="export-cli">Azure CLI</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="sample-policy">
                     <a href="../public/sample-policy.json" id="load-sample">Load Sample Policy</a>
@@ -238,10 +253,22 @@
                             </svg>
                         </button>
                     </div>
+                    <div class="code-tabs">
+                        <button class="code-tab active" data-format="json">JSON</button>
+                        <button class="code-tab" data-format="bicep">Bicep</button>
+                        <button class="code-tab" data-format="terraform">Terraform</button>
+                        <button class="code-tab" data-format="cli">CLI</button>
+                    </div>
                     <div class="paste-hint">You can paste Azure Policy JSON here to import it</div>
                     <pre id="policy-json" class="code-preview active">{
     // Policy JSON will appear here
 }</pre>
+                    <pre id="policy-bicep" class="code-preview">// Azure Policy Definition in Bicep format
+// Generate a policy to see Bicep code</pre>
+                    <pre id="policy-terraform" class="code-preview"># Terraform Azure Policy Definition
+# Generate a policy to see Terraform code</pre>
+                    <pre id="policy-cli" class="code-preview">#!/bin/bash
+# Azure CLI commands will appear here after generating a policy</pre>
                 </div>
             </div>
         </div>

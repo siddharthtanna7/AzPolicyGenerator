@@ -1003,6 +1003,46 @@ button:active::after, .button-like:active::after {
     overflow-x: hidden;
 }
 
+.code-tabs {
+    display: flex;
+    margin-bottom: var(--space-sm);
+    border-bottom: 1px solid var(--border-color);
+    background-color: var(--background-color);
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+    overflow-x: auto;
+    gap: 1px;
+}
+
+.code-tab {
+    background-color: var(--background-color);
+    color: var(--text-muted);
+    padding: 0.5rem 1rem;
+    border: none;
+    margin-right: 0.25rem;
+    margin-top: 0;
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+    cursor: pointer;
+    font-weight: var(--font-weight-medium);
+    transition: all var(--transition-speed) ease;
+    position: relative;
+    white-space: nowrap;
+    box-shadow: none;
+    font-size: 0.85rem;
+}
+
+.code-tab:hover {
+    background-color: var(--primary-color-lighter);
+    color: var(--primary-color);
+    transform: none;
+}
+
+.code-tab.active {
+    color: var(--primary-color);
+    background-color: var(--component-bg-color);
+    font-weight: var(--font-weight-semibold);
+    border-top: 2px solid var(--primary-color);
+}
+
 .code-preview {
     background-color: var(--light-gray);
     padding: var(--space-lg);
@@ -1042,7 +1082,7 @@ button:active::after, .button-like:active::after {
 }
 
 .code-preview::after {
-    content: "JSON (paste here to import)";
+    content: "JSON";
     position: absolute;
     top: 0;
     right: 0;
@@ -1704,6 +1744,67 @@ button:active::after, .button-like:active::after {
     align-items: center;
     justify-content: center;
     white-space: nowrap;
+}
+
+/* Dropdown menu */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: var(--component-bg-color);
+    min-width: 160px;
+    box-shadow: var(--box-shadow-popover);
+    border-radius: var(--border-radius);
+    z-index: var(--z-index-dropdown);
+    border: 1px solid var(--border-color);
+    margin-top: 5px;
+}
+
+.dropdown-content a {
+    color: var(--text-color);
+    padding: 0.75rem 1rem;
+    text-decoration: none;
+    display: block;
+    font-size: 0.9rem;
+    transition: all var(--transition-speed) ease;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.dropdown-content a:last-child {
+    border-bottom: none;
+}
+
+.dropdown-content a:hover {
+    background-color: var(--primary-color-light);
+    color: var(--primary-color);
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Export format preview */
+.format-preview {
+    display: none;
+    background-color: var(--light-gray);
+    padding: var(--space-lg);
+    border-radius: var(--border-radius);
+    overflow: auto;
+    max-height: 600px;
+    font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+    font-size: 0.9rem;
+    border: 1px solid var(--border-color);
+    line-height: 1.5;
+    color: var(--text-color);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-top: var(--space-md);
+    position: relative;
 }
 
 .add-nested-condition:hover {

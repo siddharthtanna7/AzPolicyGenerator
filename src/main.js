@@ -25,10 +25,32 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('copy-policy').addEventListener('click', copyToClipboard);
     document.getElementById('download-policy').addEventListener('click', downloadPolicy);
     document.getElementById('load-sample').addEventListener('click', loadSamplePolicy);
+    document.getElementById('load-complex-sample')?.addEventListener('click', loadSamplePolicy);
     
     // Add format and fullscreen buttons for JSON display
     document.getElementById('format-json')?.addEventListener('click', formatJsonDisplay);
     document.getElementById('fullscreen-preview')?.addEventListener('click', toggleFullscreenPreview);
+    
+    // Add export format buttons
+    document.getElementById('export-bicep')?.addEventListener('click', exportAsBicep);
+    document.getElementById('export-terraform')?.addEventListener('click', exportAsTerraform);
+    document.getElementById('export-cli')?.addEventListener('click', exportAsAzureCLI);
+    
+    // Setup code tabs
+    document.querySelectorAll('.code-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            const format = tab.dataset.format;
+            switchCodeTab(format);
+        });
+    });
+    
+    // Add paste event listener to the policy JSON preview
+    const policyJsonElement = document.getElementById('policy-json');
+    if (policyJsonElement) {
+        policyJsonElement.addEventListener('paste', handlePolicyPaste);
+        policyJsonElement.setAttribute('contentEditable', 'true');
+        policyJsonElement.setAttribute('spellcheck', 'false');
+    }
     
     // Add Enter key event to policy name field
     document.getElementById('policy-name').addEventListener('keypress', (e) => {
@@ -421,8 +443,64 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Function to display policy in the preview area
     function displayPolicy(policy) {
+        // Update JSON preview
         const policyJson = document.getElementById('policy-json');
         policyJson.textContent = JSON.stringify(policy, null, 4);
+        
+        // Update Bicep preview
+        try {
+            const bicepPreview = document.getElementById('policy-bicep');
+            if (bicepPreview) {
+                bicepPreview.textContent = FormatConverter.toBicep(policy);
+            }
+        } catch (e) {
+            console.error('Error generating Bicep preview:', e);
+        }
+        
+        // Update Terraform preview
+        try {
+            const terraformPreview = document.getElementById('policy-terraform');
+            if (terraformPreview) {
+                terraformPreview.textContent = FormatConverter.toTerraform(policy);
+            }
+        } catch (e) {
+            console.error('Error generating Terraform preview:', e);
+        }
+        
+        // Update CLI preview
+        try {
+            const cliPreview = document.getElementById('policy-cli');
+            if (cliPreview) {
+                cliPreview.textContent = FormatConverter.toAzureCLI(policy);
+            }
+        } catch (e) {
+            console.error('Error generating CLI preview:', e);
+        }
+    }
+    
+    // Function to switch between code preview tabs
+    function switchCodeTab(format) {
+        // Deactivate all tabs and previews
+        document.querySelectorAll('.code-tab').forEach(tab => {
+            tab.classList.remove('active');
+        });
+        document.querySelectorAll('.code-preview').forEach(preview => {
+            preview.classList.remove('active');
+        });
+        
+        // Activate the selected tab and preview
+        document.querySelector(`.code-tab[data-format="${format}"]`)?.classList.add('active');
+        document.getElementById(`policy-${format}`)?.classList.add('active');
+        
+        // If we're showing JSON, make it editable
+        const policyJsonEl = document.getElementById('policy-json');
+        if (policyJsonEl) {
+            if (format === 'json') {
+                policyJsonEl.setAttribute('contentEditable', 'true');
+            } else {
+                policyJsonEl.setAttribute('contentEditable', 'false');
+            }
+        }
     }
     
     // Function to handle policy import
@@ -461,6 +539,455 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
         reader.readAsText(file);
+    }
+    
+    /**
+     * Check if an object has common policy fields at any level
+     * @param {Object} obj - The object to check
+     * @returns {boolean} - True if policy fields are found
+     */
+    function checkForPolicyFields(obj) {
+        // Common policy fields to look for
+        const policyFields = [
+            'policyType', 'displayName', 'policyRule', 
+            'parameters', 'metadata', 'mode', 'description'
+        ];
+        
+        // Check if the object directly has several policy fields
+        let matchCount = 0;
+        for (const field of policyFields) {
+            if (obj[field] !== undefined) {
+                matchCount++;
+            }
+        }
+        
+        // If we have multiple policy fields, it's likely a policy
+        if (matchCount >= 2) {
+            return true;
+        }
+        
+        // Check for if/then structure which is the core of policy rules
+        if (obj.if && obj.then) {
+            return true;
+        }
+        
+        // Recursively check nested objects
+        for (const key in obj) {
+            if (obj[key] && typeof obj[key] === 'object' && !Array.isArray(obj[key])) {
+                if (checkForPolicyFields(obj[key])) {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+    }
+    
+    /**
+     * Export the current policy as Bicep
+     * @param {Event} event - The click event
+     */
+    function exportAsBicep(event) {
+        event.preventDefault();
+        
+        try {
+            // Get the current policy
+            const policyJson = document.getElementById('policy-json').textContent;
+            if (!policyJson || policyJson.trim() === '') {
+                showToast('No Policy', 'Generate a policy first', 'warning');
+                return;
+            }
+            
+            // Parse the policy JSON
+            let policy;
+            try {
+                policy = JSON.parse(policyJson);
+            } catch (e) {
+                showToast('Invalid JSON', 'Cannot export invalid JSON', 'error');
+                return;
+            }
+            
+            // Convert to Bicep
+            const bicep = FormatConverter.toBicep(policy);
+            
+            // Create and download the file
+            const blob = new Blob([bicep], { type: 'text/plain' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `${policy.properties.displayName.replace(/[^a-zA-Z0-9]/g, '_')}.bicep`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            showToast('Export Successful', 'Policy exported as Bicep', 'success');
+        } catch (error) {
+            console.error('Error exporting to Bicep:', error);
+            showToast('Export Failed', error.message, 'error');
+        }
+    }
+    
+    /**
+     * Export the current policy as Terraform
+     * @param {Event} event - The click event
+     */
+    function exportAsTerraform(event) {
+        event.preventDefault();
+        
+        try {
+            // Get the current policy
+            const policyJson = document.getElementById('policy-json').textContent;
+            if (!policyJson || policyJson.trim() === '') {
+                showToast('No Policy', 'Generate a policy first', 'warning');
+                return;
+            }
+            
+            // Parse the policy JSON
+            let policy;
+            try {
+                policy = JSON.parse(policyJson);
+            } catch (e) {
+                showToast('Invalid JSON', 'Cannot export invalid JSON', 'error');
+                return;
+            }
+            
+            // Convert to Terraform
+            const terraform = FormatConverter.toTerraform(policy);
+            
+            // Create and download the file
+            const blob = new Blob([terraform], { type: 'text/plain' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `${policy.properties.displayName.replace(/[^a-zA-Z0-9]/g, '_')}.tf`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            showToast('Export Successful', 'Policy exported as Terraform', 'success');
+        } catch (error) {
+            console.error('Error exporting to Terraform:', error);
+            showToast('Export Failed', error.message, 'error');
+        }
+    }
+    
+    /**
+     * Export the current policy as Azure CLI script
+     * @param {Event} event - The click event
+     */
+    function exportAsAzureCLI(event) {
+        event.preventDefault();
+        
+        try {
+            // Get the current policy
+            const policyJson = document.getElementById('policy-json').textContent;
+            if (!policyJson || policyJson.trim() === '') {
+                showToast('No Policy', 'Generate a policy first', 'warning');
+                return;
+            }
+            
+            // Parse the policy JSON
+            let policy;
+            try {
+                policy = JSON.parse(policyJson);
+            } catch (e) {
+                showToast('Invalid JSON', 'Cannot export invalid JSON', 'error');
+                return;
+            }
+            
+            // Convert to Azure CLI
+            const cli = FormatConverter.toAzureCLI(policy);
+            
+            // Create and download the file
+            const blob = new Blob([cli], { type: 'text/plain' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `${policy.properties.displayName.replace(/[^a-zA-Z0-9]/g, '_')}.sh`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            showToast('Export Successful', 'Policy exported as Azure CLI script', 'success');
+        } catch (error) {
+            console.error('Error exporting to Azure CLI:', error);
+            showToast('Export Failed', error.message, 'error');
+        }
+    }
+    
+    /**
+     * Extract fields from policy JSON and populate UI fields directly
+     * Used as a fallback when the standard import fails
+     * @param {Object} policyObject - The policy object
+     */
+    function extractAndPopulateFields(policyObject) {
+        // Try to populate basic info first
+        try {
+            // Handle different policy structures
+            let properties = policyObject.properties || policyObject;
+            
+            // Set policy name if available
+            if (properties.displayName) {
+                const nameInput = document.getElementById('policy-name');
+                if (nameInput) {
+                    nameInput.value = properties.displayName;
+                }
+            }
+            
+            // Set policy description if available
+            if (properties.description) {
+                const descInput = document.getElementById('policy-description');
+                if (descInput) {
+                    descInput.value = properties.description;
+                }
+            }
+            
+            // Set policy mode if available
+            if (properties.mode) {
+                const modeSelect = document.getElementById('policy-mode');
+                if (modeSelect) {
+                    // Try to find the option
+                    const option = Array.from(modeSelect.options).find(opt => 
+                        opt.value.toLowerCase() === properties.mode.toLowerCase());
+                    if (option) {
+                        option.selected = true;
+                    }
+                }
+            }
+            
+            // Set effect if available
+            let effect = null;
+            
+            // Try to find the effect from various possible locations
+            if (properties.policyRule && properties.policyRule.then && properties.policyRule.then.effect) {
+                effect = properties.policyRule.then.effect;
+            } else if (policyObject.then && policyObject.then.effect) {
+                effect = policyObject.then.effect;
+            }
+            
+            if (effect) {
+                const effectSelect = document.getElementById('policy-effect');
+                if (effectSelect) {
+                    // Handle parameter references in effect
+                    if (typeof effect === 'string' && effect.includes('parameters(')) {
+                        const effectParamCheckbox = document.getElementById('effect-is-parameter');
+                        if (effectParamCheckbox) {
+                            effectParamCheckbox.checked = true;
+                        }
+                        
+                        // Try to extract the parameter name
+                        const paramMatch = effect.match(/parameters\(['"](.*?)['"]\)/);
+                        if (paramMatch && paramMatch[1]) {
+                            const effectParamNameInput = document.getElementById('effect-parameter-name');
+                            if (effectParamNameInput) {
+                                effectParamNameInput.value = paramMatch[1];
+                            }
+                        }
+                    } else {
+                        // Try to find the matching effect
+                        const option = Array.from(effectSelect.options).find(opt => 
+                            opt.value === effect);
+                        if (option) {
+                            option.selected = true;
+                        }
+                    }
+                }
+            }
+        } catch (e) {
+            console.error('Error extracting basic policy info:', e);
+        }
+    }
+    
+    /**
+     * Handle paste events in the policy JSON preview area
+     * Automatically imports the pasted policy JSON into the UI
+     * @param {Event} event - The paste event
+     */
+    function handlePolicyPaste(event) {
+        // Get pasted content
+        let pastedContent;
+        
+        // Modern browsers
+        if (event.clipboardData && event.clipboardData.getData) {
+            pastedContent = event.clipboardData.getData('text/plain');
+            event.preventDefault(); // Prevent default paste behavior
+        } 
+        // IE
+        else if (window.clipboardData && window.clipboardData.getData) {
+            pastedContent = window.clipboardData.getData('Text');
+            event.preventDefault();
+        }
+        
+        if (!pastedContent) {
+            return;
+        }
+        
+        try {
+            // Clean the pasted content to handle common issues
+            let cleanedContent = pastedContent.trim();
+            
+            // Check if the content starts/ends with quotes (common when copying from some sources)
+            if ((cleanedContent.startsWith('"') && cleanedContent.endsWith('"')) || 
+                (cleanedContent.startsWith("'") && cleanedContent.endsWith("'"))) {
+                try {
+                    // Try to parse as a JSON string that's been quoted
+                    cleanedContent = JSON.parse(cleanedContent);
+                } catch (e) {
+                    // If that fails, just remove the outer quotes manually
+                    cleanedContent = cleanedContent.substring(1, cleanedContent.length - 1);
+                }
+            }
+            
+            // Handle potential escaped JSON
+            if (typeof cleanedContent === 'string' && cleanedContent.includes('\\\"')) {
+                cleanedContent = cleanedContent.replace(/\\"/g, '"');
+            }
+            
+            // Try to parse as JSON
+            let policyObject;
+            try {
+                policyObject = JSON.parse(cleanedContent);
+            } catch (parseError) {
+                console.log('First JSON parse attempt failed, trying with more preprocessing');
+                
+                // Last-ditch effort - try to handle common issues with manual fixes
+                // Replace single quotes with double quotes for JSON compliance
+                cleanedContent = cleanedContent.replace(/'/g, '"');
+                // Try again
+                policyObject = JSON.parse(cleanedContent);
+            }
+            
+            // Try to handle both wrapped and unwrapped policy formats
+            let isPolicyLike = false;
+            
+            // Direct policy check - if/then structure
+            if (policyObject.if && policyObject.then) {
+                isPolicyLike = true;
+                // Wrap it in a standard structure for the importer
+                policyObject = {
+                    properties: {
+                        policyRule: policyObject,
+                        displayName: 'Imported Policy',
+                        description: 'Imported from JSON'
+                    }
+                };
+            }
+            // Standard policy check - properties structure
+            else if (policyObject.properties) {
+                isPolicyLike = true;
+            }
+            // Basic policy with name and rule
+            else if (policyObject.policyRule && policyObject.name) {
+                isPolicyLike = true;
+            }
+            // Check for nested policy inside a wrapper object (common from Azure exports)
+            else if (policyObject.policy && typeof policyObject.policy === 'object') {
+                policyObject = policyObject.policy;
+                isPolicyLike = true;
+            }
+            // Check if it's a policy array and take the first one
+            else if (Array.isArray(policyObject) && policyObject.length > 0 && 
+                    (policyObject[0].properties || policyObject[0].policyRule)) {
+                policyObject = policyObject[0];
+                isPolicyLike = true;
+                showToast('Note', 'Imported first policy from an array of policies', 'info');
+            }
+            
+            // Final check - look for common policy fields at any level
+            if (!isPolicyLike) {
+                const hasCommonPolicyFields = checkForPolicyFields(policyObject);
+                if (hasCommonPolicyFields) {
+                    isPolicyLike = true;
+                }
+            }
+            
+            if (isPolicyLike) {
+                // Show loading indicator
+                const loadingOverlay = document.createElement('div');
+                loadingOverlay.className = 'loading-overlay';
+                loadingOverlay.innerHTML = `
+                    <div class="loading-spinner"></div>
+                    <div class="loading-text">Importing policy...</div>
+                `;
+                
+                const policyPreview = document.querySelector('.policy-preview');
+                if (policyPreview) {
+                    policyPreview.style.position = 'relative';
+                    policyPreview.appendChild(loadingOverlay);
+                }
+                
+                // Let the paste complete and then import the policy
+                setTimeout(() => {
+                    try {
+                        // Import the policy
+                        const importResult = PolicyImporter.importPolicy(policyObject);
+                        
+                        // Update the preview with properly formatted JSON
+                        const formattedJson = JSON.stringify(policyObject, null, 4);
+                        const policyJsonEl = document.getElementById('policy-json');
+                        if (policyJsonEl) {
+                            policyJsonEl.textContent = formattedJson;
+                        }
+                        
+                        // Remove loading overlay
+                        if (loadingOverlay.parentNode) {
+                            loadingOverlay.parentNode.removeChild(loadingOverlay);
+                        }
+                        
+                        // Show success message
+                        showToast('Policy Imported', 'Policy has been successfully imported to the UI', 'success');
+                    } catch (importError) {
+                        console.error('Error importing policy:', importError);
+                        
+                        // Try a less strict approach - extract what we can
+                        try {
+                            extractAndPopulateFields(policyObject);
+                            
+                            // Update the preview with formatted JSON anyway
+                            const formattedJson = JSON.stringify(policyObject, null, 4);
+                            const policyJsonEl = document.getElementById('policy-json');
+                            if (policyJsonEl) {
+                                policyJsonEl.textContent = formattedJson;
+                            }
+                            
+                            // Remove loading overlay
+                            if (loadingOverlay.parentNode) {
+                                loadingOverlay.parentNode.removeChild(loadingOverlay);
+                            }
+                            
+                            // Show partial success message
+                            showToast('Policy Partially Imported', 'Some fields were imported but there were issues with the policy format', 'warning');
+                        } catch (fallbackError) {
+                            // Remove loading overlay
+                            if (loadingOverlay.parentNode) {
+                                loadingOverlay.parentNode.removeChild(loadingOverlay);
+                            }
+                            
+                            // Show error message
+                            showToast('Import Error', 'Could not import policy: ' + importError.message, 'error');
+                        }
+                    }
+                }, 100);
+            } else {
+                // If it's valid JSON but not a policy
+                // Still update the JSON preview but don't try to import
+                const policyJsonEl = document.getElementById('policy-json');
+                if (policyJsonEl) {
+                    const formattedJson = JSON.stringify(policyObject, null, 4);
+                    policyJsonEl.textContent = formattedJson;
+                }
+                
+                showToast('Warning', 'The JSON appears valid but doesn\'t match Azure Policy format', 'warning');
+            }
+        } catch (error) {
+            // Try to display the raw content anyway for manual editing
+            console.log('JSON parsing error:', error);
+            
+            // Just update the text area with the raw pasted content
+            const policyJsonEl = document.getElementById('policy-json');
+            if (policyJsonEl) {
+                policyJsonEl.textContent = pastedContent;
+            }
+            
+            showToast('Invalid JSON', 'The pasted content is not valid JSON. Please check the format.', 'error');
+        }
     }
     
     // Function to load sample policy
@@ -602,12 +1129,53 @@ document.addEventListener('DOMContentLoaded', () => {
         const scrollShadow = document.querySelector('.scroll-shadow');
         if (!scrollShadow) return;
         
-        window.addEventListener('scroll', () => {
+        // Function to handle scroll events
+        const handleScroll = () => {
             if (window.scrollY > 10) {
                 document.body.classList.add('scrolled');
             } else {
                 document.body.classList.remove('scrolled');
             }
+        };
+        
+        // Add scroll event listener
+        window.addEventListener('scroll', handleScroll);
+        
+        // Call immediately to set initial state
+        handleScroll();
+        
+        // Handle mobile tab overflow scrolling
+        const tabContainers = document.querySelectorAll('.tabs');
+        tabContainers.forEach(container => {
+            // Function to handle tab scrolling
+            const handleTabScroll = () => {
+                // Show visual indicator when tabs can be scrolled
+                const hasHorizontalScroll = container.scrollWidth > container.clientWidth;
+                if (hasHorizontalScroll) {
+                    const reachedEnd = container.scrollLeft + container.clientWidth >= container.scrollWidth - 10;
+                    const atStart = container.scrollLeft <= 10;
+                    
+                    if (reachedEnd) {
+                        container.classList.add('scroll-end');
+                        container.classList.remove('scroll-start', 'scroll-middle');
+                    } else if (atStart) {
+                        container.classList.add('scroll-start');
+                        container.classList.remove('scroll-end', 'scroll-middle');
+                    } else {
+                        container.classList.add('scroll-middle');
+                        container.classList.remove('scroll-start', 'scroll-end');
+                    }
+                }
+            };
+            
+            // Add scroll event listener to tab container
+            container.addEventListener('scroll', handleTabScroll);
+            
+            // Also check on window resize
+            window.addEventListener('resize', handleTabScroll);
+            
+            // Trigger scroll event on load to set initial state
+            handleTabScroll();
         });
     }
     
