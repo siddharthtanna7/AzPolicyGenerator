@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Azure Policy Generator</title>
     <meta name="description" content="Generate Azure Policies with an intuitive UI. Create, validate, and export Azure Policies for governance and compliance.">
     <link rel="stylesheet" href="styles.css">
@@ -220,6 +220,7 @@
                 </div>
                 <div class="sample-policy">
                     <a href="../public/sample-policy.json" id="load-sample">Load Sample Policy</a>
+                    <a href="../public/complex-policy-sample.json" id="load-complex-sample">Load Complex Sample</a>
                 </div>
                 <div class="code-container">
                     <div class="code-actions">
@@ -237,6 +238,7 @@
                             </svg>
                         </button>
                     </div>
+                    <div class="paste-hint">You can paste Azure Policy JSON here to import it</div>
                     <pre id="policy-json" class="code-preview active">{
     // Policy JSON will appear here
 }</pre>
