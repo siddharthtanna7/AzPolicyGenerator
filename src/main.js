@@ -25,16 +25,10 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('copy-policy').addEventListener('click', copyToClipboard);
     document.getElementById('download-policy').addEventListener('click', downloadPolicy);
     document.getElementById('load-sample').addEventListener('click', loadSamplePolicy);
-    document.getElementById('load-complex-sample')?.addEventListener('click', loadSamplePolicy);
     
     // Add format and fullscreen buttons for JSON display
     document.getElementById('format-json')?.addEventListener('click', formatJsonDisplay);
     document.getElementById('fullscreen-preview')?.addEventListener('click', toggleFullscreenPreview);
-    
-    // Add export format buttons
-    document.getElementById('export-bicep')?.addEventListener('click', exportAsBicep);
-    document.getElementById('export-terraform')?.addEventListener('click', exportAsTerraform);
-    document.getElementById('export-cli')?.addEventListener('click', exportAsAzureCLI);
     
     // Setup code tabs
     document.querySelectorAll('.code-tab').forEach(tab => {
@@ -44,12 +38,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
     
-    // Add paste event listener to the policy JSON preview
+    // Make the policy JSON element read-only for now
     const policyJsonElement = document.getElementById('policy-json');
     if (policyJsonElement) {
-        policyJsonElement.addEventListener('paste', handlePolicyPaste);
-        policyJsonElement.setAttribute('contentEditable', 'true');
-        policyJsonElement.setAttribute('spellcheck', 'false');
+        policyJsonElement.setAttribute('contentEditable', 'false');
     }
     
     // Add Enter key event to policy name field
@@ -451,30 +443,81 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const bicepPreview = document.getElementById('policy-bicep');
             if (bicepPreview) {
-                bicepPreview.textContent = FormatConverter.toBicep(policy);
+                const bicepCode = FormatConverter.toBicep(policy);
+                bicepPreview.textContent = bicepCode || '// Unable to generate Bicep code';
             }
         } catch (e) {
             console.error('Error generating Bicep preview:', e);
+            const bicepPreview = document.getElementById('policy-bicep');
+            if (bicepPreview) {
+                bicepPreview.textContent = `// Error generating Bicep format: ${e.message}`;
+            }
         }
         
-        // Update Terraform preview
+        // Update Terraform preview 
         try {
             const terraformPreview = document.getElementById('policy-terraform');
             if (terraformPreview) {
-                terraformPreview.textContent = FormatConverter.toTerraform(policy);
+                let tfCode = '';
+                try {
+                    tfCode = FormatConverter.toTerraform(policy);
+                } catch (innerError) {
+                    console.warn('Using fallback Terraform generation:', innerError);
+                    
+                    // Fallback method - manually generate basic Terraform
+                    const properties = policy.properties;
+                    const safeName = properties.displayName
+                        .toLowerCase()
+                        .replace(/[^a-z0-9]/g, '_')
+                        .replace(/_+/g, '_');
+                    
+                    tfCode = '# Terraform Azure Policy Definition\n\n';
+                    tfCode += 'resource "azurerm_policy_definition" "policy" {\n';
+                    tfCode += `  name         = "${safeName}"\n`;
+                    tfCode += '  policy_type  = "Custom"\n';
+                    tfCode += `  mode         = "${properties.mode || 'Indexed'}"\n`;
+                    tfCode += `  display_name = "${properties.displayName}"\n\n`;
+                    
+                    if (properties.description) {
+                        tfCode += `  description  = "${properties.description}"\n\n`;
+                    }
+                    
+                    tfCode += '  policy_rule = <<POLICY_RULE\n';
+                    tfCode += JSON.stringify(properties.policyRule, null, 2);
+                    tfCode += '\nPOLICY_RULE\n\n';
+                    
+                    if (properties.parameters && Object.keys(properties.parameters).length > 0) {
+                        tfCode += '  parameters = <<PARAMETERS\n';
+                        tfCode += JSON.stringify(properties.parameters, null, 2);
+                        tfCode += '\nPARAMETERS\n';
+                    }
+                    
+                    tfCode += '}\n';
+                }
+                
+                terraformPreview.textContent = tfCode || '# Unable to generate Terraform code';
             }
         } catch (e) {
             console.error('Error generating Terraform preview:', e);
+            const terraformPreview = document.getElementById('policy-terraform');
+            if (terraformPreview) {
+                terraformPreview.textContent = `# Error generating Terraform format: ${e.message}`;
+            }
         }
         
         // Update CLI preview
         try {
             const cliPreview = document.getElementById('policy-cli');
             if (cliPreview) {
-                cliPreview.textContent = FormatConverter.toAzureCLI(policy);
+                const cliCode = FormatConverter.toAzureCLI(policy);
+                cliPreview.textContent = cliCode || '# Unable to generate CLI code';
             }
         } catch (e) {
             console.error('Error generating CLI preview:', e);
+            const cliPreview = document.getElementById('policy-cli');
+            if (cliPreview) {
+                cliPreview.textContent = `# Error generating CLI format: ${e.message}`;
+            }
         }
     }
     
@@ -491,16 +534,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Activate the selected tab and preview
         document.querySelector(`.code-tab[data-format="${format}"]`)?.classList.add('active');
         document.getElementById(`policy-${format}`)?.classList.add('active');
-        
-        // If we're showing JSON, make it editable
-        const policyJsonEl = document.getElementById('policy-json');
-        if (policyJsonEl) {
-            if (format === 'json') {
-                policyJsonEl.setAttribute('contentEditable', 'true');
-            } else {
-                policyJsonEl.setAttribute('contentEditable', 'false');
-            }
-        }
     }
     
     // Function to handle policy import
